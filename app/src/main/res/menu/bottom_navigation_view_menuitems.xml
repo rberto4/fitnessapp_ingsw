@@ -5,6 +5,6 @@
         android:id="@+id/id_menu_bottomnavigationview_esercizi"
         android:title="Esercizi"
         app:showAsAction="always"
-        android:icon="@drawable/ic_esercizipesi"
+        android:icon="@drawable/icona_esercizipesi"
         />
 </menu>

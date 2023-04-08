@@ -1,9 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.NuovoEseicizioActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/id_nuovoesercizio_appbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIconTint="@android:color/white"
+        app:title="Nuovo Esercizio"
+        app:titleTextColor="@android:color/white" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/id_layoutinput_nomeesercizio"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:startIconDrawable="@drawable/icona_editnome"
+        app:layout_constraintTop_toBottomOf="@id/id_nuovoesercizio_appbar"
+        app:startIconTint="@color/purple_500">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/id_edit_nomeesercizio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Inerisci nome" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/id_nuovoesercizio_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+        app:layout_constraintTop_toBottomOf="@+id/id_layoutinput_nomeesercizio"
+        android:entries="@array/TipologiaEsercizi"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/id_nuovoesercizio_spinner"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icona_esercizipesi"
+                app:tint="@color/purple_500"
+                android:padding="8dp"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peso"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_aggiungi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
