@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.ingsw.fitnessapp.R;
 
-public class NuovoEseicizioActivity extends AppCompatActivity {
+public class NuovoEseicizioActivity extends AppCompatActivity { //Classe figlia AutocompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
