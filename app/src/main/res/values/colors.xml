@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="azzurro_500">#0097ff</color>
-    <color name="azzurro_700">#1a74ff</color>
-    <color name="arancio_500">#ff9318</color>
-    <color name="arancio_700">#ffa31a</color>
+    <color name="azzurro_500">#024eee</color>
+    <color name="azzurro_700">#003ad6</color>
+    <color name="arancio_500">#ee024d</color>
+    <color name="arancio_700">#c90048</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#AAA9A9</color>

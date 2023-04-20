@@ -124,7 +124,6 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         gruppo_chips.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                chipId = checkedIds.get(0);
             }
         });
 
