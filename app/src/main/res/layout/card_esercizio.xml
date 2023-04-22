@@ -7,7 +7,8 @@
     android:elevation="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-
+    android:layout_marginBottom="4dp"
+    android:layout_marginTop="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -43,7 +44,7 @@
                 android:src="@drawable/arm_muscle"
                 android:background="@drawable/cerchio_rosso"
                 android:padding="12dp"
-                android:elevation="8dp"
+                android:elevation="4dp"
                 android:id="@+id/id_card_esercizio_icona_tipo"
                 android:layout_margin="16dp" />
 
@@ -75,7 +76,7 @@
                 android:orientation="horizontal"
                 android:columnCount="4"
                 android:layout_gravity="center"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 >
