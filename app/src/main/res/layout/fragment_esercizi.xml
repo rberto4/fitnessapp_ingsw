@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.FragmentEsercizi">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,24 +13,119 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="I miei Esercizi"
-        android:textStyle="bold"
-        android:textSize="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
 
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="8dp"
+            android:background="@color/azzurro_500"
+            >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Lista esercizi"
+            app:titleTextColor="@android:color/white"
+            android:id="@+id/id_esercizi_toolbar"
+            android:background="@color/azzurro_500"
+            app:menu="@menu/menu_filtri_esercizi"
+            >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_rv_esercizi"
-        android:layout_marginTop="4dp"
-        >
+        </com.google.android.material.appbar.MaterialToolbar>
+        <androidx.appcompat.widget.SearchView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                app:queryHint="Cerca per nome"
+                app:showDividers="none"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+            android:keepScreenOn="false"
+                android:elevation="2dp"
+                app:submitBackground="@color/white"
+                android:background="@drawable/background_searchbar"
+            style="@style/Widget.AppCompat.SearchView"
+                app:iconifiedByDefault="false"
+                android:id="@+id/id_searchview_esercizi"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            >
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/id_esercizi_chipgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                >
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/id_esercizi_chip_petto"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Petto"
+
+                    app:chipIcon="@drawable/muscle"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/id_esercizi_chip_braccia"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Braccia"
+                    app:chipIcon="@drawable/arm_muscle"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/id_esercizi_chip_schiena"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Schiena"
+                    app:chipIcon="@drawable/back"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/id_esercizi_chip_spalle"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Spalle"
+                    app:chipIcon="@drawable/muscle"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/id_esercizi_chip_gambe"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Gambe"
+                    app:chipIcon="@drawable/leg"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="8dp" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_rv_esercizi"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
+
+
     </LinearLayout>
 </FrameLayout>

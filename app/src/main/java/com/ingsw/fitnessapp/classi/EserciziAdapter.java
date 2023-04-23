@@ -28,13 +28,22 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
 
     private ArrayList<EsercizioPesistica> list_pesistica;
     private ArrayList<EsercizioCardio> list_cardio;
+    private ArrayList<Esercizio> list_merged;
 
     public EserciziAdapter(Context context, ArrayList<EsercizioPesistica> list_pesistica, ArrayList<EsercizioCardio> list_cardio) {
+
         this.context = context;
         this.list_pesistica = list_pesistica;
         this.list_cardio = list_cardio;
+        list_merged = new ArrayList<>();
+        list_merged.addAll(list_pesistica);
+        list_merged.addAll(list_cardio);
 
+    }
 
+    public void impostaListaFiltrata(ArrayList<EsercizioPesistica> list){
+        this.list_pesistica = list;
+        notifyDataSetChanged();
     }
 
     @NonNull

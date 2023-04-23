@@ -83,7 +83,7 @@
         android:layout_marginLeft="16dp"
         app:layout_constraintHorizontal_weight="0.95"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/id_nuovoesercizio_layout_udm"
+        app:layout_constraintRight_toLeftOf="@+id/id_udm_spinner"
         app:layout_constraintTop_toBottomOf="@id/id_nuovoesercizio_layoutinput_nome"
         app:startIconDrawable="@drawable/icona_esercizipesi"
         app:startIconTint="@color/arancio_500">
@@ -98,27 +98,21 @@
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/id_nuovoesercizio_layout_udm"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
+
+    <Spinner
+        android:id="@+id/id_udm_spinner"
+        style="@style/Widget.AppCompat.DropDownItem.Spinner"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:entries="@array/udm"
+        android:hapticFeedbackEnabled="true"
         android:layout_height="62dp"
-        android:layout_marginRight="16dp"
-        android:paddingLeft="8dp"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
         app:layout_constraintHorizontal_weight="0.3"
         app:layout_constraintTop_toBottomOf="@+id/id_nuovoesercizio_layoutinput_nome">
 
-        <AutoCompleteTextView
-            android:id="@+id/id_nuovoesercizio_udm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="none"
-            android:text="Kg" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    </Spinner>
 
     <RelativeLayout
         android:id="@+id/id_nuovoesercizio_layoutrelative"
@@ -153,13 +147,17 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_searchbar"
             android:layout_alignParentEnd="true">
 
             <Button
                 android:id="@+id/id_nuovoesercizio_piu"
                 android:layout_width="50dp"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_height="wrap_content"
+                android:textColor="@color/azzurro_500"
                 android:clickable="true"
+                android:textStyle="bold"
                 android:text="+" />
 
             <TextView
@@ -176,8 +174,11 @@
             <Button
                 android:id="@+id/id_nuovoesercizio_meno"
                 android:layout_width="50dp"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:textColor="@color/azzurro_500"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:textStyle="bold"
                 android:text="-" />
         </LinearLayout>
     </RelativeLayout>

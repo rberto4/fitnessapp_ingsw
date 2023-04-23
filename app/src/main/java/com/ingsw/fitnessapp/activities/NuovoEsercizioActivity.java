@@ -33,12 +33,12 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
 
     Spinner spinner_tipologia;
     TextInputEditText nome,peso;
-    AutoCompleteTextView unita_di_misura;
+    Spinner unita_di_misura;
     TextView ripetizioni;
     Button btn_piu, btn_meno;
     ChipGroup gruppo_chips;
 
-    TextInputLayout layout_peso,layout_udm;
+    TextInputLayout layout_peso;
     RelativeLayout relativeLayout_ripetizioni;
     LinearLayout linearLayout_gruppi;
     ExtendedFloatingActionButton fab;
@@ -59,12 +59,11 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         spinner_tipologia = findViewById(R.id.id_nuovoesercizio_spinner);
         nome = findViewById(R.id.id_nuovoesercizio_nome);
         peso = findViewById(R.id.id_nuovoesercizio_peso);
-        unita_di_misura = findViewById(R.id.id_nuovoesercizio_udm);
+        unita_di_misura = findViewById(R.id.id_udm_spinner);
         ripetizioni = findViewById(R.id.id_nuovoesercizio_ripetizioni);
         btn_piu = findViewById(R.id.id_nuovoesercizio_piu);
         btn_meno = findViewById(R.id.id_nuovoesercizio_meno);
         layout_peso = findViewById(R.id.id_nuovoesercizio_layoutinput_peso);
-        layout_udm = findViewById(R.id.id_nuovoesercizio_layout_udm);
         relativeLayout_ripetizioni = findViewById(R.id.id_nuovoesercizio_layoutrelative);
         linearLayout_gruppi = findViewById(R.id.id_nuovoesercizio_layout_gruppi);
         gruppo_chips = findViewById(R.id.id_nuovoesercizio_chipgroup);
@@ -78,7 +77,7 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 switch (i){
                     case (0):{
                         layout_peso.setVisibility(View.VISIBLE);
-                        layout_udm.setVisibility(View.VISIBLE);
+                        unita_di_misura.setVisibility(View.VISIBLE);
                         relativeLayout_ripetizioni.setVisibility(View.VISIBLE);
                         linearLayout_gruppi.setVisibility(View.VISIBLE);
                         gruppo_chips.setVisibility(View.VISIBLE);
@@ -86,7 +85,7 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                     }break;
                     case (1):{
                         layout_peso.setVisibility(View.GONE);
-                        layout_udm.setVisibility(View.GONE);
+                        unita_di_misura.setVisibility(View.GONE);
                         relativeLayout_ripetizioni.setVisibility(View.GONE);
                         linearLayout_gruppi.setVisibility(View.GONE);
                         gruppo_chips.setVisibility(View.GONE);

@@ -15,7 +15,5 @@
     </style>
 
 
-    <style name="CustomNumberPickerTheme" >
-        <item name="colorControlNormal">@android:color/transparent</item>
-    </style>
+
 </resources>

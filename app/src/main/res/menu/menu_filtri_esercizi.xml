@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.MainActivity">
+
+
+    <item
+        android:id="@+id/id_menu_filtri_esercizi"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icona_filtra"
+        android:title="">
+
+        <menu>
+            <item
+                android:icon="@drawable/muscle"
+                android:title="Petto"
+                android:id="@+id/id_menu_filtri_petto" />
+            <item
+                android:icon="@drawable/muscle"
+                android:title="Petto"
+                android:id="@+id/id_menu_filtri_addome" />
+            <item
+                android:icon="@drawable/muscle"
+                android:title="Petto"
+                android:id="@+id/id_menu_filtri_braccia" />
+            <item
+                android:icon="@drawable/muscle"
+                android:title="Petto"
+                android:id="@+id/id_menu_filtri_spalle" />
+            <item
+                android:icon="@drawable/muscle"
+                android:title="Petto"
+                android:id="@+id/id_menu_filtri_gambe" />
+            <item
+                android:icon="@drawable/muscle"
+                android:title="Petto"
+                android:id="@+id/id_menu_filtri_schiena" />
+        </menu>
+    </item>
+</menu>

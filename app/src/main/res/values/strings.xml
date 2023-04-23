@@ -8,5 +8,10 @@
         <item>Cardio</item>
     </string-array>
 
+    <string-array name="udm">
+        <item>Kg</item>
+        <item>Lbs</item>
+    </string-array>
+
 
 </resources>
