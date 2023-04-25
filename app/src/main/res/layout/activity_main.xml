@@ -10,23 +10,31 @@
 
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:isScrollContainer="true"
-        app:layout_constraintBottom_toTopOf="@+id/id_main_bottomnavigation"
         android:id="@+id/id_main_framelayout"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:isScrollContainer="true"
+        app:layout_constraintBottom_toTopOf="@id/id_main_bottomnavigation"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
     </FrameLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/id_main_bottomnavigation"
-        android:layout_width="0dp"
+        android:layout_width="1278dp"
         android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="8dp"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_view_menuitems" />
+        app:menu="@menu/bottom_navigation_view_menuitems"
+        tools:ignore="MissingConstraints" />
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -35,11 +43,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Aggiungi"
-        app:iconTint="@color/white"
         android:textColor="@color/white"
         app:icon="@drawable/ic_aggiungi"
+        app:iconTint="@color/white"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+
         app:layout_constraintBottom_toTopOf="@+id/id_main_bottomnavigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>

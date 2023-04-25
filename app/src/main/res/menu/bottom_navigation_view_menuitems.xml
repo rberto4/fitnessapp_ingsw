@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/id_menu_bottomnavigationview_schede"
+        android:title="Schede"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icona_schede"
+        />
+
+    <item
+        android:id="@+id/id_menu_bottomnavigationview_workouts"
+        android:title="Workouts"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icona_workouts"
+        />
+
     <item
         android:id="@+id/id_menu_bottomnavigationview_esercizi"
         android:title="Esercizi"
         app:showAsAction="always"
         android:icon="@drawable/icona_esercizipesi"
         />
+
 </menu>

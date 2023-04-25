@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ingsw.fitnessapp.R;
+import com.ingsw.fitnessapp.activities.MainActivity;
 import com.ingsw.fitnessapp.classi.EserciziAdapter;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
@@ -89,6 +91,21 @@ public class FragmentEsercizi extends Fragment {
 
         adapter = new EserciziAdapter(v.getContext(),list_pesistica,list_cardio);
         recyclerView.setAdapter(adapter);
+
+        // NASCONDI FAB QUANDO SI FA UNO SCROLL IN BASSO
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if(dy > 0){
+                    ExtendedFloatingActionButton floatingActionButton = getActivity().findViewById(R.id.id_mainactivity_fab);
+                    floatingActionButton.hide();
+                } else{
+                    ExtendedFloatingActionButton floatingActionButton = getActivity().findViewById(R.id.id_mainactivity_fab);
+                    floatingActionButton.show();                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
 
 
         return v;
