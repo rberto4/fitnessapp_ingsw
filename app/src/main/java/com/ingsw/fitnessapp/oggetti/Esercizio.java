@@ -1,8 +1,20 @@
 package com.ingsw.fitnessapp.oggetti;
 
+import com.ingsw.fitnessapp.classi.TipoEsercizio;
+
 public abstract class Esercizio {
 
     String nome;
+    TipoEsercizio tipo; // attributo necessario per le recyclerview - controllare UML
+
+    public TipoEsercizio getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoEsercizio tipo) {
+        this.tipo = tipo;
+    }
+
     boolean isFavorite = false;
 
     public String getNome() {

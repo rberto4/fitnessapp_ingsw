@@ -1,22 +1,23 @@
 package com.ingsw.fitnessapp.oggetti;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class EsercizioCardio extends Esercizio{
 
-    Date durata;
+    Calendar durata;
     int difficoltà;
 
-    public EsercizioCardio(Date durata, int difficoltà) {
+    public EsercizioCardio(Calendar durata, int difficoltà) {
         this.durata = durata;
         this.difficoltà = difficoltà;
     }
 
-    public Date getDurata() {
+    public Calendar getDurata() {
         return durata;
     }
 
-    public void setDurata(Date durata) {
+    public void setDurata(Calendar durata) {
         this.durata = durata;
     }
 

@@ -21,6 +21,8 @@ import com.ingsw.fitnessapp.R;
 import com.ingsw.fitnessapp.activities.MainActivity;
 import com.ingsw.fitnessapp.classi.EserciziAdapter;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
+import com.ingsw.fitnessapp.classi.TipoEsercizio;
+import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
@@ -36,23 +38,27 @@ public class FragmentEsercizi extends Fragment {
     RecyclerView recyclerView;
     SearchView searchView;
     MaterialToolbar toolbar;
-    ArrayList<EsercizioPesistica> list_pesistica;
+    ArrayList<Esercizio> list;
     EserciziAdapter adapter;
     ChipGroup gruppo_chips;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Richiamo della visibilità del fab quando viene nascosto dopo lo scroll di elenchi lunghi
+
+        ExtendedFloatingActionButton floatingActionButton = getActivity().findViewById(R.id.id_mainactivity_fab);
+        floatingActionButton.show();
+
+        // view inflater
         View v = inflater.inflate(R.layout.fragment_esercizi, container, false);
 
 
         toolbar = v.findViewById(R.id.id_esercizi_toolbar);
         gruppo_chips = v.findViewById(R.id.id_esercizi_chipgroup);
-
-
         recyclerView = v.findViewById(R.id.id_rv_esercizi);
         searchView = v.findViewById(R.id.id_searchview_esercizi);
-
         searchView.clearFocus();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -67,29 +73,46 @@ public class FragmentEsercizi extends Fragment {
                 return false;
             }
         });
+
+        // CODICE PER LISTA ESERCIZI
+
+        list = new ArrayList<>();
+
+        // DB , PRENDERE DATI E METTERE IN LIST
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
-
-        list_pesistica = new ArrayList<>();
-        ArrayList<EsercizioCardio> list_cardio = new ArrayList<>();
-
         Calendar rec = Calendar.getInstance();
         rec.set(0,0,0,0,1,30);
 
-        EsercizioPesistica es1 = new EsercizioPesistica(10,15,rec,GruppiMuscolari.Gambe,225);
-        es1.setNome("Squat");
-        es1.setFavorite(false);
-        list_pesistica.add(es1);
+        // oggetto di tipo cardio
+        EsercizioCardio es_cardio_test = new EsercizioCardio(rec, 12);
+        es_cardio_test.setNome("Cyclette");
+        es_cardio_test.setFavorite(true);
+        es_cardio_test.setTipo(TipoEsercizio.esercizo_cardio);
 
-        rec = Calendar.getInstance();
+        // oggetto di tipo pesistica
 
-        rec.set(0,0,0,0,3,30);
+        EsercizioPesistica es_pesi_test = new EsercizioPesistica(3,6,rec,GruppiMuscolari.Braccia,50);
+        es_pesi_test.setNome("Curl bilanciere");
+        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
 
-        es1 = new EsercizioPesistica(3,3,rec,GruppiMuscolari.Petto,130);
-        es1.setNome("Panca piana pesante");
-        es1.setFavorite(true);
-        list_pesistica.add(es1);
+        list.add(es_pesi_test);
 
-        adapter = new EserciziAdapter(v.getContext(),list_pesistica,list_cardio);
+        es_pesi_test = new EsercizioPesistica(10,5,rec,GruppiMuscolari.Gambe,120);
+        es_pesi_test.setNome("Squat");
+        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
+
+        list.add(es_pesi_test);
+
+        es_pesi_test = new EsercizioPesistica(8,3,rec,GruppiMuscolari.Petto,30);
+        es_pesi_test.setNome("Panca 45° manubri");
+        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
+        // aggiungo alla lista di tipo abstract esercizio
+        list.add(es_cardio_test);
+        list.add(es_pesi_test);
+
+        adapter = new EserciziAdapter(v.getContext(),list);
         recyclerView.setAdapter(adapter);
 
         // NASCONDI FAB QUANDO SI FA UNO SCROLL IN BASSO
@@ -111,11 +134,13 @@ public class FragmentEsercizi extends Fragment {
         return v;
     }
 
+    // filtro per ricerca testuale
+
     private void filtraListaPerNome(String newText) {
-        ArrayList<EsercizioPesistica> lista_filtrata = new ArrayList<>();
-        for (EsercizioPesistica esercizioPesistica : list_pesistica){
-            if (esercizioPesistica.getNome().toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT))){
-                lista_filtrata.add(esercizioPesistica);
+        ArrayList<Esercizio> lista_filtrata = new ArrayList<>();
+        for ( Esercizio esercizio : list){
+            if (esercizio.getNome().toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT))){
+                lista_filtrata.add(esercizio);
             }
         }
         if(!lista_filtrata.isEmpty()){

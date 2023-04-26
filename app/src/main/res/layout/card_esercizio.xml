@@ -26,6 +26,14 @@
             android:id="@+id/id_card_esercizio_favorite"
             />
 
+        <TextView
+            android:id="@+id/id_card_esercizio_popupmenu"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="&#8942;"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceLarge" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,9 +49,7 @@
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@drawable/arm_muscle"
-                android:background="@drawable/cerchio_rosso"
-                android:padding="12dp"
+                android:src="@drawable/muscle"
                 android:elevation="4dp"
                 android:id="@+id/id_card_esercizio_icona_tipo"
                 android:layout_margin="16dp" />
@@ -80,6 +86,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="visible"
+                android:id="@+id/id_card_esercizio_gridlayout_pesi"
                 >
 
                 <LinearLayout
@@ -194,6 +202,78 @@
                         android:id="@+id/id_card_esercizio_serie"
                         ></TextView>
                 </LinearLayout>
+            </GridLayout>
+
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:columnCount="2"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="visible"
+                android:id="@+id/id_card_esercizio_gridlayout_cardio"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="0.3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Durata"
+                        android:textAllCaps="true"
+                        android:textSize="14dp"
+                        android:textColor="@color/azzurro_500"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        ></TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10 minuti"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/id_card_esercizio_durata"
+                        ></TextView>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="0.3"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Difficoltà"
+                        android:textAllCaps="true"
+                        android:textSize="14dp"
+                        android:textColor="@color/azzurro_500"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        ></TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/id_card_esercizio_difficolta"
+                        ></TextView>
+                </LinearLayout>
+
             </GridLayout>
 
 

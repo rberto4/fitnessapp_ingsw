@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ingsw.fitnessapp.R;
 import com.ingsw.fitnessapp.classi.GiorniSettimana;
@@ -78,15 +79,15 @@ public class FragmentWorkouts extends Fragment {
 
 
         // NASCONDI FAB QUANDO SI FA UNO SCROLL IN BASSO
+        ExtendedFloatingActionButton floatingActionButton = getActivity().findViewById(R.id.id_mainactivity_fab);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 if(dy > 0){
-                    ExtendedFloatingActionButton floatingActionButton = getActivity().findViewById(R.id.id_mainactivity_fab);
                     floatingActionButton.hide();
                 } else{
-                    ExtendedFloatingActionButton floatingActionButton = getActivity().findViewById(R.id.id_mainactivity_fab);
-                    floatingActionButton.show();                }
+                    floatingActionButton.show();
+                }
                 super.onScrolled(recyclerView, dx, dy);
             }
         });

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/id_menu_popup_modifica"
+        android:title="Modifica"
+        ></item>
+    <item
+        android:id="@+id/id_menu_popup_elimina"
+        android:title="Elimina"
+        ></item>
+</menu>
