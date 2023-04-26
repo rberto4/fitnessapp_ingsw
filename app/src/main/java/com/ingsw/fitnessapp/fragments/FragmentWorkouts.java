@@ -28,6 +28,7 @@ public class FragmentWorkouts extends Fragment {
 
     RecyclerView recyclerView;
     WorkoutsAdapter adapter;
+
     ArrayList<Workout> list;
     ArrayList<Esercizio> list_esercizi;
 

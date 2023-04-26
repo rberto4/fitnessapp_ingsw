@@ -5,7 +5,10 @@ import com.ingsw.fitnessapp.classi.TipoEsercizio;
 public abstract class Esercizio {
 
     String nome;
-    TipoEsercizio tipo; // attributo necessario per le recyclerview - controllare UML
+    TipoEsercizio tipo;
+    boolean isFavorite;
+
+    // attributo necessario per le recyclerview - controllare UML
 
     public TipoEsercizio getTipo() {
         return tipo;
@@ -14,8 +17,6 @@ public abstract class Esercizio {
     public void setTipo(TipoEsercizio tipo) {
         this.tipo = tipo;
     }
-
-    boolean isFavorite = false;
 
     public String getNome() {
         return nome;

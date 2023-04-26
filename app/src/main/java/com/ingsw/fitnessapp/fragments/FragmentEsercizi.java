@@ -89,7 +89,7 @@ public class FragmentEsercizi extends Fragment {
         EsercizioCardio es_cardio_test = new EsercizioCardio(rec, 12);
         es_cardio_test.setNome("Cyclette");
         es_cardio_test.setFavorite(true);
-        es_cardio_test.setTipo(TipoEsercizio.esercizo_cardio);
+        es_cardio_test.setTipo(TipoEsercizio.esercizio_cardio);
 
         // oggetto di tipo pesistica
 

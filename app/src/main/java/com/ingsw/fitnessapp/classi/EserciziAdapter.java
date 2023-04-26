@@ -103,7 +103,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
 
             }break;
 
-            case("esercizo_cardio"):{
+            case("esercizio_cardio"):{
                 // mostrare views relative a gli esercizi cardio
 
                 holder.gridLayout_pesi.setVisibility(View.GONE);
@@ -122,6 +122,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
             }break;
         }
 
+        //
         holder.popup_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,7 +135,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.id_menu_popup_modifica:
-
+                                //
                                 return true;
                             case R.id.id_menu_popup_elimina:
                                 eliminaEsercizio(position);
