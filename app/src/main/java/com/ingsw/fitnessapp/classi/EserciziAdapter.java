@@ -64,7 +64,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
         if (list.get(position).isFavorite()){
             holder.favorite.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_favorite_true,context.getTheme()));
         }else{
-            holder.favorite.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_favorite_false,context.getTheme()));
+            holder.favorite.setVisibility(View.GONE);
         }
 
         // CASTING
@@ -117,7 +117,6 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
 
                 holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficoltà()));
                 holder.tipo.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.heart_rate,context.getTheme()));
-                holder.tipo.setBackground(null);
 
             }break;
         }

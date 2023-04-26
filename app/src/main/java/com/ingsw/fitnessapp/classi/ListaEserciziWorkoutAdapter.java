@@ -2,13 +2,16 @@ package com.ingsw.fitnessapp.classi;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ingsw.fitnessapp.R;
@@ -39,21 +42,95 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
 
     @Override
     public void onBindViewHolder(@NonNull ListaEserciziWorkoutViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.index_esercizio.setText(String.valueOf(position+1));
-        holder.nome_esercizio.setText(list.get(position).getNome());
-        holder.nome_esercizio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dettagliEsercizio(list.get(position));
-            }
-        });
 
+        // views senza casting
+
+        holder.index_esercizio.setText(String.valueOf(position+1)+"°");
+        holder.nome_esercizio.setText(list.get(position).getNome());
+
+        // casting
+
+        switch (list.get(position).getTipo().name()){
+            case("esercizio_pesistica"):{
+                // NASCONDO griglia di views di cardio e mostro gli attributi per gli esercizi pesi
+                holder.grid_pesi.setVisibility(View.VISIBLE);
+                holder.grid_cardio.setVisibility(View.GONE);
+
+                holder.ripetizioni.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getRipetizioni()));
+                holder.peso.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getPeso()) + "Kg");
+                holder.serie.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getSerie() + " serie"));
+                holder.recupero.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getRecupero().get(Calendar.MINUTE) +
+                        ":" + ((EsercizioPesistica) list.get(position)).getRecupero().get(Calendar.SECOND)));
+            }break;
+
+            case("esercizio_cardio"):{
+                // faccio il contrario ...
+                holder.grid_pesi.setVisibility(View.GONE);
+                holder.grid_cardio.setVisibility(View.VISIBLE);
+                holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficoltà()));
+                if (((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE) > 1){
+                    holder.durata.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE)+" minuti"));
+                }else {
+                    holder.durata.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE)+" minuto"));
+                }
+
+            }break;
+
+        }
         // nascondo la freccia dell'ultimo esercizio in lista
         if (getItemCount() == position+1){
-            holder.freccia.setVisibility(View.GONE);
+            holder.modifica.setVisibility(View.VISIBLE);
         }
 
+        holder.popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                PopupMenu popup = new PopupMenu(context, holder.popup);
+                popup.inflate(R.menu.menu_popup);
+                popup.setForceShowIcon(true);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.id_menu_popup_modifica:
+                                //
+                                return true;
+                            case R.id.id_menu_popup_elimina:
+                                eliminaEsercizio(position);
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popup.show();
+
+            }
+        });
+    }
+
+    private void eliminaEsercizio(int position){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Vuoi davvero rimuovere l'esercizio "+list.get(position).getNome()+" dalla lista di esercizi dell'allenamento?");
+        builder.setTitle("Rimuovi esercizio da workout");
+        builder.setCancelable(false);
+
+        builder.setNegativeButton("No", (dialog, id) -> dialog.cancel());
+
+        builder.setPositiveButton("Si, rimuovilo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                // DB QUERY PER ELIMINARE
+
+                list.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void dettagliEsercizio(Esercizio esercizio) {

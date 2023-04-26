@@ -18,17 +18,16 @@
         <TextView
             android:id="@+id/id_cardworkout_nome"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/id_cardworkout_note"
             android:gravity="center|start"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:text="Nome workout"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textStyle="bold"
-
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/id_cardworkout_note"
@@ -46,12 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_chip_giornosettimana"
-            android:elevation="2dp"
             android:padding="8dp"
             android:text="Lunedi"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -69,7 +67,7 @@
         />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/grey"
         android:layout_marginTop="16dp"
 
