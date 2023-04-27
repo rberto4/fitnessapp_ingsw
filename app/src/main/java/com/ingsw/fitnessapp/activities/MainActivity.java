@@ -1,27 +1,20 @@
 package com.ingsw.fitnessapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.ingsw.fitnessapp.R;
+
 import com.ingsw.fitnessapp.fragments.FragmentEsercizi;
 import com.ingsw.fitnessapp.fragments.FragmentSchede;
 import com.ingsw.fitnessapp.fragments.FragmentWorkouts;

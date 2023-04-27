@@ -1,6 +1,6 @@
 package com.ingsw.fitnessapp.oggetti;
-
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
+
 
 public abstract class Esercizio {
 
