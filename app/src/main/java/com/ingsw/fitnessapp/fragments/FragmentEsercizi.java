@@ -112,6 +112,13 @@ public class FragmentEsercizi extends Fragment {
         list.add(es_cardio_test);
         list.add(es_pesi_test);
 
+        es_cardio_test = new EsercizioCardio(rec, 10);
+        es_cardio_test.setNome("Cyclette 2");
+        es_cardio_test.setFavorite(true);
+        es_cardio_test.setTipo(TipoEsercizio.esercizio_cardio);
+        list.add(es_cardio_test);
+
+
         adapter = new EserciziAdapter(v.getContext(),list);
         recyclerView.setAdapter(adapter);
 
@@ -132,7 +139,14 @@ public class FragmentEsercizi extends Fragment {
         gruppo_chips.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
-                filtraListaPerTipo(checkedIds);
+
+                adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds));
+
+                // nessun chip selezionato
+
+                if (checkedIds.isEmpty()){
+                    adapter.impostaListaFiltrata(list);
+                }
             }
         });
 
@@ -155,37 +169,62 @@ public class FragmentEsercizi extends Fragment {
         }
     }
 
-    private void filtraListaPerTipo(List<Integer> checkedIds) {
+    private ArrayList<Esercizio> filtraListaPerTipo(List<Integer> checkedIds) {
         ArrayList<Esercizio> lista_filtrata = new ArrayList<>();
+
         for (int i = 0; i<checkedIds.size(); i++) {
             switch (checkedIds.get(i)) {
                 case (2131296490):{
-
+                    for ( Esercizio esercizio : list){
+                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Petto.name())){
+                            lista_filtrata.add(esercizio);
+                        }
+                    }
                 }
                 break;
                 case (2131296488): {
-
+                    for ( Esercizio esercizio : list){
+                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Braccia.name())){
+                            lista_filtrata.add(esercizio);
+                        }
+                    }
                 }
                 break;
                 case (2131296491): {
-
+                    for ( Esercizio esercizio : list){
+                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Schiena.name())){
+                            lista_filtrata.add(esercizio);
+                        }
+                    }
                 }
                 break;
                 case (2131296492): {
-
+                    for ( Esercizio esercizio : list){
+                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Spalle.name())){
+                            lista_filtrata.add(esercizio);
+                        }
+                    }
                 }
                 break;
                 case (2131296489): {
-
+                    for ( Esercizio esercizio : list){
+                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Gambe.name())){
+                            lista_filtrata.add(esercizio);
+                        }
+                    }
                 }
                 break;
                 case (2131296797): {
-
+                    for ( Esercizio esercizio : list){
+                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_cardio.name())){
+                            lista_filtrata.add(esercizio);
+                        }
+                    }
                 }
                 break;
             }
-
         }
+        return lista_filtrata;
     }
 
 }
