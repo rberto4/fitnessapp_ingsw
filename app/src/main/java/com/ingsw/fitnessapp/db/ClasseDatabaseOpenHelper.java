@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.ingsw.fitnessapp.classi.GiorniSettimana;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
 
@@ -16,9 +17,11 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private final Context context;
     private static final String DATABASE_NAME = "Test.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "esercizi";
-    private static final String COLUMN_ID = "_id";
-    private static final String COLUMN_NOME = "nome_esercizio";
+
+    //lista degli attributi della tabella esercizi
+    private static final String TABLE_NAME_ESERCIZI = "esercizi";
+    private static final String COLUMN_ID_ESERCIZIO= "_id";
+    private static final String COLUMN_NOME_ESERCIZIO = "nome_esercizio";
     private static final String COLUMN_PESO = "zavorra";
     private static final String COLUMN_SERIE = "serie";
     private static final String COLUMN_RIPETIZIONI = "ripetizioni";
@@ -29,6 +32,12 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DIFFICOLTA = "difficolta";
     private static final String COLUMN_DURATA = "durata";
 
+    //Lista degli attributi della tabella workout
+    private static final String TABLE_NAME_WORKOUT = "workout";
+    private static final String COLUMN_ID_WORKOUT = "_id";
+    private static final String COLUMN_NOME_WORKOUT = "nome_workout";
+    private static final String COLUMN_GIORNI = "giorni";
+    private static final String COLUMN_NOTE = "note";
 
 
     public ClasseDatabaseOpenHelper(@Nullable Context context) {
@@ -43,9 +52,9 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         // per la colonna preferito sicccome il tipo boolean non esiste definiamo un check contenente 0 e 1
         // dove 1 sta per true e 0 sta per false
 
-        String query = "CREATE TABLE " + TABLE_NAME + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NOME + " TEXT, " +
+        String tabellaEsercizio = "CREATE TABLE " + TABLE_NAME_ESERCIZI + " (" +
+                COLUMN_ID_ESERCIZIO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOME_ESERCIZIO + " TEXT, " +
                 COLUMN_PREFERITO + " INTEGER CHECK( " + COLUMN_PREFERITO + " IN(0, 1)) NOT NULL DEFAULT 0, " +
                 COLUMN_TIPOESERCIZIO + " TEXT CHECK( " + COLUMN_TIPOESERCIZIO + " IN('" + TipoEsercizio.esercizio_cardio.name()
                                                                                 +"','" + TipoEsercizio.esercizio_pesistica.name()
@@ -64,12 +73,26 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                                                                 + "','" + GruppiMuscolari.Gambe.name()
                                                                 + "')));";
 
-        db.execSQL(query);
+        String tabellaWorkout = "CREATE TABLE " + TABLE_NAME_WORKOUT + " (" +
+                COLUMN_ID_WORKOUT + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOME_WORKOUT + " TEXT, " +
+                COLUMN_NOTE + " TEXT, " +
+                COLUMN_GIORNI + " TEXT CHECK( " + COLUMN_GIORNI + " IN ('" + GiorniSettimana.Lunedi.name()
+                                                                + "','" + GiorniSettimana.Martedi.name()
+                                                                + "','" + GiorniSettimana.Mercoledi.name()
+                                                                + "','" + GiorniSettimana.Giovedi.name()
+                                                                + "','" + GiorniSettimana.Venerdi.name()
+                                                                + "','" + GiorniSettimana.Sabato.name()
+                                                                + "','" + GiorniSettimana.Domenica.name()
+                                                                + "')));";
+
+        db.execSQL(tabellaEsercizio);
+        db.execSQL(tabellaWorkout);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ESERCIZI);
         onCreate(db);
     }
 
@@ -81,14 +104,14 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         int t = 1;
         int t2 = 10;
         String t3 = "petto";
-        cv.put(COLUMN_NOME, nome);
+        cv.put(COLUMN_NOME_ESERCIZIO, nome);
         cv.put(COLUMN_PREFERITO, t);
         cv.put(COLUMN_PESO, zavorra);
         cv.put(COLUMN_SERIE, t2);
         cv.put(COLUMN_RIPETIZIONI, ripetizioni);
         cv.put(COLUMN_GRUPPO, t3);
 
-        long result = db.insert(TABLE_NAME, null, cv);
+        long result = db.insert(TABLE_NAME_ESERCIZI, null, cv);
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
@@ -99,7 +122,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
 
     Cursor readAllData(){
-        String query = "SELECT * FROM " + TABLE_NAME + ";";
+        String query = "SELECT * FROM " + TABLE_NAME_ESERCIZI + ";";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
