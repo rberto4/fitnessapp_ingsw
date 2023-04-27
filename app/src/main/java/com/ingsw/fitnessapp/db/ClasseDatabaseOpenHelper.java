@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -15,6 +16,9 @@ import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private final Context context;
@@ -39,7 +43,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME_WORKOUT = "workout";
     private static final String COLUMN_ID_WORKOUT = "_id";
     private static final String COLUMN_NOME_WORKOUT = "nome_workout";
-    private static final String COLUMN_GIORNI = "giorni";<
+    private static final String COLUMN_GIORNI = "giorni";
     private static final String COLUMN_NOTE = "note";
 
 
@@ -100,7 +104,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addEsercizio(Esercizio esercizio){
+    public void addEsercizio(Esercizio esercizio){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -117,7 +121,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                cv.put(COLUMN_PESO, ((EsercizioPesistica) esercizio).getPeso());
                cv.put(COLUMN_SERIE, ((EsercizioPesistica) esercizio).getSerie());
                cv.put(COLUMN_RIPETIZIONI, ((EsercizioPesistica) esercizio).getRipetizioni());
-               cv.put(COLUMN_RECUPERO, ((EsercizioPesistica) esercizio).getRecupero().toString());
+               cv.put(COLUMN_RECUPERO, ((EsercizioPesistica) esercizio).getRecupero().get(Calendar.MINUTE)+":"+((EsercizioPesistica) esercizio).getRecupero().get(Calendar.SECOND));
                cv.put(COLUMN_GRUPPO, ((EsercizioPesistica) esercizio).getGruppiMuscolari().name());
 
             }break;
@@ -125,7 +129,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             case("esercizio_cardio"):
             {
                 cv.put(COLUMN_DIFFICOLTA, ((EsercizioCardio) esercizio).getDifficolta());
-                cv.put(COLUMN_DURATA, ((EsercizioCardio) esercizio).getDurata().toString());
+                cv.put(COLUMN_DURATA, ((EsercizioCardio) esercizio).getDurata().get(Calendar.HOUR)+":"+((EsercizioCardio) esercizio).getDurata().get(Calendar.MINUTE)+":"+((EsercizioCardio) esercizio).getDurata().get(Calendar.SECOND));
 
             }break;
         }
@@ -141,7 +145,11 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
     // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
 
-    Cursor readAllData(){
+
+    public void readAllData(){
+        ArrayList<Esercizio> list = new ArrayList<>();
+
+
         String query = "SELECT * FROM " + TABLE_NAME_ESERCIZI + ";";
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -149,6 +157,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         if(db != null){
             cursor = db.rawQuery(query, null);
         }
-        return cursor;
+
+        Log.d("logdb",cursor.getString(0));
     }
 }

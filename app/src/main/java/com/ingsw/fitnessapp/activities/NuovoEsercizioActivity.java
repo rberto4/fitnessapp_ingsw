@@ -24,7 +24,13 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ingsw.fitnessapp.R;
+import com.ingsw.fitnessapp.classi.GruppiMuscolari;
+import com.ingsw.fitnessapp.classi.TipoEsercizio;
+import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
+import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
+import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class NuovoEsercizioActivity extends AppCompatActivity {
@@ -46,7 +52,7 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
     int reps = 0;
     int chipId = 0;
 
-
+    ClasseDatabaseOpenHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +138,24 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 controllaCampi(spinner_tipologia.getSelectedItemPosition());
             }
         });
+
+        Calendar rec = Calendar.getInstance();
+        rec.set(0,0,0,0,1,30);
+
+        // oggetto di tipo cardio
+        EsercizioCardio es_cardio_test = new EsercizioCardio(rec, 12);
+        es_cardio_test.setNome("Cyclette");
+        es_cardio_test.setFavorite(true);
+        es_cardio_test.setTipo(TipoEsercizio.esercizio_cardio);
+
+        EsercizioPesistica es_pesi_test = new EsercizioPesistica(3,6,rec, GruppiMuscolari.Braccia,50);
+        es_pesi_test.setNome("Curl bilanciere");
+        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
+
+        db = new ClasseDatabaseOpenHelper(this);
+        db.addEsercizio(es_cardio_test);
+        db.addEsercizio(es_pesi_test);
+
     }
 
     private void controllaCampi(int selectedItemPosition) {
