@@ -6,11 +6,11 @@ import java.util.Date;
 public class EsercizioCardio extends Esercizio{
 
     Calendar durata;
-    int difficoltà;
+    int difficolta;
 
-    public EsercizioCardio(Calendar durata, int difficoltà) {
+    public EsercizioCardio(Calendar durata, int difficolta) {
         this.durata = durata;
-        this.difficoltà = difficoltà;
+        this.difficolta = difficolta;
     }
 
     public Calendar getDurata() {
@@ -21,12 +21,12 @@ public class EsercizioCardio extends Esercizio{
         this.durata = durata;
     }
 
-    public int getDifficoltà() {
-        return difficoltà;
+    public int getDifficolta() {
+        return difficolta;
     }
 
-    public void setDifficoltà(int difficoltà) {
-        this.difficoltà = difficoltà;
+    public void setDifficolta(int difficolta) {
+        this.difficolta = difficolta;
     }
 
 }

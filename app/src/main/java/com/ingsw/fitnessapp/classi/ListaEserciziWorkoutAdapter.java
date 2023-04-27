@@ -67,7 +67,7 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
                 // faccio il contrario ...
                 holder.grid_pesi.setVisibility(View.GONE);
                 holder.grid_cardio.setVisibility(View.VISIBLE);
-                holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficoltà()));
+                holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficolta()));
                 if (((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE) > 1){
                     holder.durata.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE)+" minuti"));
                 }else {

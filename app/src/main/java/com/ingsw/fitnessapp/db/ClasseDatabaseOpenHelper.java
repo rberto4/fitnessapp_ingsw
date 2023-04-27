@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import com.ingsw.fitnessapp.classi.GiorniSettimana;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
+import com.ingsw.fitnessapp.oggetti.Esercizio;
+import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
+import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
 public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private final Context context;
@@ -36,7 +39,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME_WORKOUT = "workout";
     private static final String COLUMN_ID_WORKOUT = "_id";
     private static final String COLUMN_NOME_WORKOUT = "nome_workout";
-    private static final String COLUMN_GIORNI = "giorni";
+    private static final String COLUMN_GIORNI = "giorni";<
     private static final String COLUMN_NOTE = "note";
 
 
@@ -73,6 +76,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                                                                 + "','" + GruppiMuscolari.Gambe.name()
                                                                 + "')));";
 
+
         String tabellaWorkout = "CREATE TABLE " + TABLE_NAME_WORKOUT + " (" +
                 COLUMN_ID_WORKOUT + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOME_WORKOUT + " TEXT, " +
@@ -96,21 +100,37 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addEsercizio(String nome, int zavorra, int ripetizioni){
+    void addEsercizio(Esercizio esercizio){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        // inserisco alcuni valori di test, poi bisogna recuperare tutti i dati dall'applicazione
-        int t = 1;
-        int t2 = 10;
-        String t3 = "petto";
-        cv.put(COLUMN_NOME_ESERCIZIO, nome);
-        cv.put(COLUMN_PREFERITO, t);
-        cv.put(COLUMN_PESO, zavorra);
-        cv.put(COLUMN_SERIE, t2);
-        cv.put(COLUMN_RIPETIZIONI, ripetizioni);
-        cv.put(COLUMN_GRUPPO, t3);
+        //Lista di attributi da inserire nel db standard per entrambi i tipi di esercizio
+        cv.put(COLUMN_NOME_ESERCIZIO, esercizio.getNome());
+        cv.put(COLUMN_PREFERITO, esercizio.isFavorite());
+        cv.put(COLUMN_TIPOESERCIZIO, esercizio.getTipo().name());
 
+        //In base al tipo di esercizio carico i dati adeguati
+        switch (esercizio.getTipo().name()){
+
+            case("esercizio_pesistica"):
+            {
+               cv.put(COLUMN_PESO, ((EsercizioPesistica) esercizio).getPeso());
+               cv.put(COLUMN_SERIE, ((EsercizioPesistica) esercizio).getSerie());
+               cv.put(COLUMN_RIPETIZIONI, ((EsercizioPesistica) esercizio).getRipetizioni());
+               cv.put(COLUMN_RECUPERO, ((EsercizioPesistica) esercizio).getRecupero().toString());
+               cv.put(COLUMN_GRUPPO, ((EsercizioPesistica) esercizio).getGruppiMuscolari().name());
+
+            }break;
+
+            case("esercizio_cardio"):
+            {
+                cv.put(COLUMN_DIFFICOLTA, ((EsercizioCardio) esercizio).getDifficolta());
+                cv.put(COLUMN_DURATA, ((EsercizioCardio) esercizio).getDurata().toString());
+
+            }break;
+        }
+
+        //Test che controlla il corretto inserimento dei dati
         long result = db.insert(TABLE_NAME_ESERCIZI, null, cv);
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();

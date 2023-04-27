@@ -115,7 +115,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
                     holder.durata.setText(((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE)+ "minuti");
                 }
 
-                holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficoltà()));
+                holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficolta()));
                 holder.tipo.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.heart_rate,context.getTheme()));
 
             }break;
