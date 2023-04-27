@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
+import com.ingsw.fitnessapp.classi.TipoEsercizio;
 
 public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private final Context context;
@@ -18,12 +19,17 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "esercizi";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NOME = "nome_esercizio";
-    private static final String COLUMN_PESO = "peso";
+    private static final String COLUMN_PESO = "zavorra";
     private static final String COLUMN_SERIE = "serie";
     private static final String COLUMN_RIPETIZIONI = "ripetizioni";
     private static final String COLUMN_RECUPERO = "recupero";
     private static final String COLUMN_GRUPPO = "gruppo_muscolare";
     private static final String COLUMN_PREFERITO = "isFavourite";
+    private static final String COLUMN_TIPOESERCIZIO = "tipo_esercizio";
+    private static final String COLUMN_DIFFICOLTA = "difficolta";
+    private static final String COLUMN_DURATA = "durata";
+
+
 
     public ClasseDatabaseOpenHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,7 +47,12 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOME + " TEXT, " +
                 COLUMN_PREFERITO + " INTEGER CHECK( " + COLUMN_PREFERITO + " IN(0, 1)) NOT NULL DEFAULT 0, " +
+                COLUMN_TIPOESERCIZIO + " TEXT CHECK( " + COLUMN_TIPOESERCIZIO + " IN('" + TipoEsercizio.esercizio_cardio.name()
+                                                                                +"','" + TipoEsercizio.esercizio_pesistica.name()
+                                                                                +"')) NOT NULL DEFAULT " + TipoEsercizio.esercizio_pesistica.name() + ", " +
                 COLUMN_PESO + " INTEGER, " +
+                COLUMN_DIFFICOLTA + " INTEGER, " +
+                COLUMN_DURATA + " TEXT, " +
                 COLUMN_SERIE + " INTEGER, " +
                 COLUMN_RIPETIZIONI + " INTEGER, " +
                 COLUMN_RECUPERO + " TEXT, " +
@@ -62,7 +73,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addEsercizio(String nome, int peso, int ripetizioni){
+    void addEsercizio(String nome, int zavorra, int ripetizioni){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -72,7 +83,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         String t3 = "petto";
         cv.put(COLUMN_NOME, nome);
         cv.put(COLUMN_PREFERITO, t);
-        cv.put(COLUMN_PESO, peso);
+        cv.put(COLUMN_PESO, zavorra);
         cv.put(COLUMN_SERIE, t2);
         cv.put(COLUMN_RIPETIZIONI, ripetizioni);
         cv.put(COLUMN_GRUPPO, t3);
