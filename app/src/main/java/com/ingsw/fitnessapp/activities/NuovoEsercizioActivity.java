@@ -27,6 +27,7 @@ import com.ingsw.fitnessapp.R;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
+import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
@@ -76,6 +77,15 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.id_nuovoesercizio_fab);
 
+        db = new ClasseDatabaseOpenHelper(this);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.AggiungiEsercizioAllDb(CreaNuovoEsercizio());
+            }
+        });
 
         spinner_tipologia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -129,33 +139,38 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         gruppo_chips.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                controllaCampi(spinner_tipologia.getSelectedItemPosition());
+
+
+    }
+
+    private Esercizio CreaNuovoEsercizio() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(0,0,0,0,10,50);
+
+        switch (spinner_tipologia.getSelectedItem().toString()){
+            case "Sala pesi":{
+                EsercizioPesistica es = new EsercizioPesistica(
+                        Integer.parseInt(ripetizioni.getText().toString()),
+                        6,
+                        calendar,
+                        GruppiMuscolari.Gambe,
+                        Float.parseFloat(peso.getText().toString())
+
+                );
+                es.setNome(nome.getText().toString());
+                es.setTipo(TipoEsercizio.esercizio_pesistica);
+                es.setFavorite(false);
+                return es;
             }
-        });
-
-        Calendar rec = Calendar.getInstance();
-        rec.set(0,0,0,0,1,30);
-
-        // oggetto di tipo cardio
-        EsercizioCardio es_cardio_test = new EsercizioCardio(rec, 12);
-        es_cardio_test.setNome("Cyclette");
-        es_cardio_test.setFavorite(true);
-        es_cardio_test.setTipo(TipoEsercizio.esercizio_cardio);
-
-        EsercizioPesistica es_pesi_test = new EsercizioPesistica(3,6,rec, GruppiMuscolari.Braccia,50);
-        es_pesi_test.setNome("Curl bilanciere");
-        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
-
-        db = new ClasseDatabaseOpenHelper(this);
-        db.addEsercizio(es_cardio_test);
-        db.addEsercizio(es_pesi_test);
-
+            case "Cardio":{
+                return null;
+            }
+            default:return null;
+        }
     }
 
     private void controllaCampi(int selectedItemPosition) {

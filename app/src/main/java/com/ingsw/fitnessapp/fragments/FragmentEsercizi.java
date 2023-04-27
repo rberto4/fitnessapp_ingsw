@@ -22,6 +22,7 @@ import com.ingsw.fitnessapp.activities.MainActivity;
 import com.ingsw.fitnessapp.classi.EserciziAdapter;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
+import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
@@ -41,6 +42,7 @@ public class FragmentEsercizi extends Fragment {
     ArrayList<Esercizio> list;
     EserciziAdapter adapter;
     ChipGroup gruppo_chips;
+    ClasseDatabaseOpenHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,11 +57,13 @@ public class FragmentEsercizi extends Fragment {
         View v = inflater.inflate(R.layout.fragment_esercizi, container, false);
 
 
+        db = new ClasseDatabaseOpenHelper(v.getContext());
         toolbar = v.findViewById(R.id.id_esercizi_toolbar);
         gruppo_chips = v.findViewById(R.id.id_esercizi_chipgroup);
         recyclerView = v.findViewById(R.id.id_rv_esercizi);
         searchView = v.findViewById(R.id.id_searchview_esercizi);
         searchView.clearFocus();
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -75,52 +79,11 @@ public class FragmentEsercizi extends Fragment {
         });
 
         // CODICE PER LISTA ESERCIZI
-
-        list = new ArrayList<>();
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
         // DB , PRENDERE DATI E METTERE IN LIST
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
-        Calendar rec = Calendar.getInstance();
-        rec.set(0,0,0,0,1,30);
 
-        // oggetto di tipo cardio
-        EsercizioCardio es_cardio_test = new EsercizioCardio(rec, 12);
-        es_cardio_test.setNome("Cyclette");
-        es_cardio_test.setFavorite(true);
-        es_cardio_test.setTipo(TipoEsercizio.esercizio_cardio);
-
-        // oggetto di tipo pesistica
-
-        EsercizioPesistica es_pesi_test = new EsercizioPesistica(3,6,rec,GruppiMuscolari.Braccia,50);
-        es_pesi_test.setNome("Curl bilanciere");
-        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
-
-        list.add(es_pesi_test);
-
-        es_pesi_test = new EsercizioPesistica(10,5,rec,GruppiMuscolari.Gambe,120);
-        es_pesi_test.setNome("Squat");
-        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
-
-        list.add(es_pesi_test);
-
-        es_pesi_test = new EsercizioPesistica(8,3,rec,GruppiMuscolari.Petto,30);
-        es_pesi_test.setNome("Panca 45° manubri");
-        es_pesi_test.setTipo(TipoEsercizio.esercizio_pesistica);
-        // aggiungo alla lista di tipo abstract esercizio
-        list.add(es_cardio_test);
-        list.add(es_pesi_test);
-
-        es_cardio_test = new EsercizioCardio(rec, 10);
-        es_cardio_test.setNome("Cyclette 2");
-        es_cardio_test.setFavorite(true);
-        es_cardio_test.setTipo(TipoEsercizio.esercizio_cardio);
-        list.add(es_cardio_test);
-
-
-        adapter = new EserciziAdapter(v.getContext(),list);
-        recyclerView.setAdapter(adapter);
 
         // NASCONDI FAB QUANDO SI FA UNO SCROLL IN BASSO
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -141,8 +104,6 @@ public class FragmentEsercizi extends Fragment {
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
 
                 adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds));
-
-                // nessun chip selezionato
 
                 if (checkedIds.isEmpty()){
                     adapter.impostaListaFiltrata(list);
@@ -227,4 +188,11 @@ public class FragmentEsercizi extends Fragment {
         return lista_filtrata;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        list = db.caricaListaEserciziDaDb();
+        adapter = new EserciziAdapter(getContext(),list);
+        recyclerView.setAdapter(adapter);
+    }
 }

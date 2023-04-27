@@ -104,7 +104,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addEsercizio(Esercizio esercizio){
+    public void AggiungiEsercizioAllDb(Esercizio esercizio){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -146,9 +146,10 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
 
 
-    public void readAllData(){
-        ArrayList<Esercizio> list = new ArrayList<>();
 
+
+    public ArrayList<Esercizio> caricaListaEserciziDaDb(){
+        ArrayList<Esercizio> list = new ArrayList<>();
 
         String query = "SELECT * FROM " + TABLE_NAME_ESERCIZI + ";";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -158,6 +159,84 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
 
-        Log.d("logdb",cursor.getString(0));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(0,0,0,0,1,40);
+
+        while (cursor.moveToNext()){
+            Log.d("logdb1",cursor.getString(0));
+            Log.d("logdb2",cursor.getString(1));
+            Log.d("logdb3",cursor.getString(2));
+            Log.d("logdb4",cursor.getString(3));
+
+            switch (cursor.getString(3)){
+                case("esercizio_pesistica"):{
+                    EsercizioPesistica es = new EsercizioPesistica(
+                            cursor.getInt(8),
+                            cursor.getInt(7),
+                            calendar,
+                            convertiInGruppoMuscolare(cursor.getString(10)),
+                            cursor.getFloat(4)
+                    );
+
+                    es.setNome(cursor.getString(1));
+
+                    if (cursor.getInt(2) == 1){
+                        es.setFavorite(true);
+                    }else{
+                        es.setFavorite(false);
+                    }
+
+                    es.setTipo(TipoEsercizio.esercizio_pesistica);
+
+                    list.add(es);
+                }break;
+
+                case("esercizio_cardio"):{
+                    EsercizioCardio es = new EsercizioCardio(
+                            calendar,
+                            cursor.getInt(5)
+                    );
+
+                    es.setNome(cursor.getString(1));
+
+                    if (cursor.getInt(2) == 1){
+                        es.setFavorite(true);
+                    }else{
+                        es.setFavorite(false);
+                    }
+
+                    es.setTipo(TipoEsercizio.esercizio_cardio);
+
+                    list.add(es);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public GruppiMuscolari convertiInGruppoMuscolare (String valore){
+
+        switch (valore){
+            case "Petto":{
+                return GruppiMuscolari.Petto;
+            }
+            case "Gambe":{
+                return GruppiMuscolari.Gambe;
+            }
+            case "Spalle":{
+                return GruppiMuscolari.Spalle;
+            }
+            case "Schiena":{
+                return GruppiMuscolari.Schiena;
+            }
+            case "Braccia":{
+                return GruppiMuscolari.Braccia;
+            }
+            case "Addome":{
+                return GruppiMuscolari.Addome;
+            }
+            default: return null;
+        }
     }
 }
