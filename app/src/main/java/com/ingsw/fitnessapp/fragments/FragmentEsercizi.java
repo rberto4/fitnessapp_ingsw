@@ -129,6 +129,13 @@ public class FragmentEsercizi extends Fragment {
             }
         });
 
+        gruppo_chips.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+            @Override
+            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                filtraListaPerTipo(checkedIds);
+            }
+        });
+
 
 
         return v;
@@ -149,31 +156,35 @@ public class FragmentEsercizi extends Fragment {
     }
 
     private void filtraListaPerTipo(List<Integer> checkedIds) {
-        ArrayList<EsercizioPesistica> lista_filtrata = new ArrayList<>();
-        for (Integer integer: checkedIds){
-            /*
-            switch (integer){
-                case(){
+        ArrayList<Esercizio> lista_filtrata = new ArrayList<>();
+        for (int i = 0; i<checkedIds.size(); i++) {
+            switch (checkedIds.get(i)) {
+                case (2131296490):{
 
-                }break;
-                case(){
+                }
+                break;
+                case (2131296488): {
 
-                }break;
-                case(){
+                }
+                break;
+                case (2131296491): {
 
-                }break;
-                case(){
+                }
+                break;
+                case (2131296492): {
 
-                }break;
-                case(){
+                }
+                break;
+                case (2131296489): {
 
-                }break;
-                case(){
+                }
+                break;
+                case (2131296797): {
 
-                }break;
+                }
+                break;
             }
-            *
-             */
+
         }
     }
 
