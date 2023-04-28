@@ -10,15 +10,19 @@ public class Workout {
     String nome;
     String note;
     GiorniSettimana giorniSettimana;
+    int idSchedaCorrispondente;
+    int id;
 
     public Workout(){
 
     }
-    public Workout(ArrayList<Esercizio> list_esercizi, String nome, String note, GiorniSettimana giorniSettimana) {
+    public Workout(ArrayList<Esercizio> list_esercizi, String nome, String note, GiorniSettimana giorniSettimana, int idSchedaCorrispondente, int id) {
         this.list_esercizi = list_esercizi;
         this.nome = nome;
         this.note = note;
         this.giorniSettimana = giorniSettimana;
+        this.idSchedaCorrispondente = idSchedaCorrispondente;
+        this.id = id;
     }
 
     public ArrayList<Esercizio> getList_esercizi() {
@@ -51,5 +55,21 @@ public class Workout {
 
     public void setGiorniSettimana(GiorniSettimana giorniSettimana) {
         this.giorniSettimana = giorniSettimana;
+    }
+
+    public int getIdSchedaCorrispondente() {
+        return idSchedaCorrispondente;
+    }
+
+    public void setIdSchedaCorrispondente(int idSchedaCorrispondente) {
+        this.idSchedaCorrispondente = idSchedaCorrispondente;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

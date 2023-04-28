@@ -16,10 +16,11 @@ import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
+import com.ingsw.fitnessapp.oggetti.Schede;
 import com.ingsw.fitnessapp.oggetti.Workout;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
 
 public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private final Context context;
@@ -56,6 +57,8 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     //Lista degli attributi della tabella schede
     private static final String TABLE_NAME_SCHEDE = "schede";
     private static final String COLUMN_ID_SCHEDE = "_id";
+    private static final String COLUMN_NOME_SCHEDE = "nome_schede";
+
     private static final String COLUMN_DATA_INIZIO = "data_inizio";
     private static final String COLUMN_DATA_FINE= "data_fine";
     private static final String COLUMN_OBIETTIVO = "obiettivo";
@@ -121,14 +124,15 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         String tabellaSchede = "CREATE TABLE " + TABLE_NAME_SCHEDE+ " (" +
                 COLUMN_ID_SCHEDE+ " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOME_SCHEDE + " TEXT, " +
                 COLUMN_DATA_INIZIO + " TEXT, " +
                 COLUMN_DATA_FINE + " TEXT, " +
                 COLUMN_OBIETTIVO + " TEXT); ";
 
+        db.execSQL(tabellaSchede);
         db.execSQL(tabellaEsercizio);
         db.execSQL(tabellaWorkout);
         db.execSQL((tabellaSupporto));
-        db.execSQL(tabellaSchede);
     }
 
     @Override
@@ -190,12 +194,31 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NOME_WORKOUT,workout.getNome());
         cv.put(COLUMN_NOTE,workout.getNote());
         cv.put(COLUMN_GIORNI,workout.getGiorniSettimana().name());
+        cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE,workout.getIdSchedaCorrispondente());
 
         long result = db.insert(TABLE_NAME_WORKOUT, null, cv);
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
+        }
+        db.close();
+    }
+
+    public void aggiungiSchedeAlDb(Schede schede){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NOME_SCHEDE, schede.getNome());
+        //cv.put(COLUMN_DATA_INIZIO,schede.getDataInizio());
+        //cv.put(COLUMN_DATA_FINE,schede.getDataFine());
+        cv.put(COLUMN_OBIETTIVO, schede.getObiettivo());
+
+        long result = db.insert(TABLE_NAME_SCHEDE, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Aggiunta correttamente!", Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
