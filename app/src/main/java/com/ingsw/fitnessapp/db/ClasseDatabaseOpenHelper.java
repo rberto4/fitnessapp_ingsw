@@ -132,11 +132,11 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void AggiungiEsercizioAllDb(Esercizio esercizio){
-        SQLiteDatabase db = this.getWritableDatabase();
+
+    private ContentValues caricaCV(Esercizio esercizio){
         ContentValues cv = new ContentValues();
 
-        //Lista di attributi da inserire nel db standard per entrambi i tipi di esercizio
+        //Lista di attributi da caricare nel cv standard per entrambi i tipi di esercizio
         cv.put(COLUMN_NOME_ESERCIZIO, esercizio.getNome());
         cv.put(COLUMN_PREFERITO, esercizio.isFavorite());
         cv.put(COLUMN_TIPOESERCIZIO, esercizio.getTipo().name());
@@ -146,11 +146,11 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
             case("esercizio_pesistica"):
             {
-               cv.put(COLUMN_PESO, ((EsercizioPesistica) esercizio).getPeso());
-               cv.put(COLUMN_SERIE, ((EsercizioPesistica) esercizio).getSerie());
-               cv.put(COLUMN_RIPETIZIONI, ((EsercizioPesistica) esercizio).getRipetizioni());
-               cv.put(COLUMN_RECUPERO, ((EsercizioPesistica) esercizio).getRecupero());
-               cv.put(COLUMN_GRUPPO, ((EsercizioPesistica) esercizio).getGruppiMuscolari().name());
+                cv.put(COLUMN_PESO, ((EsercizioPesistica) esercizio).getPeso());
+                cv.put(COLUMN_SERIE, ((EsercizioPesistica) esercizio).getSerie());
+                cv.put(COLUMN_RIPETIZIONI, ((EsercizioPesistica) esercizio).getRipetizioni());
+                cv.put(COLUMN_RECUPERO, ((EsercizioPesistica) esercizio).getRecupero());
+                cv.put(COLUMN_GRUPPO, ((EsercizioPesistica) esercizio).getGruppiMuscolari().name());
 
             }break;
 
@@ -161,6 +161,12 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
             }break;
         }
+        return cv;
+    }
+
+    public void AggiungiEsercizioAllDb(Esercizio esercizio){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = caricaCV(esercizio);
 
         //Test che controlla il corretto inserimento dei dati
         long result = db.insert(TABLE_NAME_ESERCIZI, null, cv);
@@ -177,9 +183,8 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public ArrayList<Esercizio> caricaListaEserciziDaDb(){
         ArrayList<Esercizio> list = new ArrayList<>();
-
-        String query = "SELECT * FROM " + TABLE_NAME_ESERCIZI + ";";
         SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME_ESERCIZI + ";";
 
         Cursor cursor = null;
         if(db != null){
@@ -288,11 +293,15 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Passo l'oggetto esercizio e modifico la riga corrispondente nel db
     public void updateEsercizio(Esercizio esercizio){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
+        ContentValues cv = caricaCV(esercizio);
+        String whereClause = COLUMN_ID_ESERCIZIO + " =?";
+        String[] whereArgs = new String[]{String.valueOf(esercizio.getId())};
 
-
+        db.update(TABLE_NAME_ESERCIZI, cv, whereClause, whereArgs);
+        db.close();
     }
 
 }
