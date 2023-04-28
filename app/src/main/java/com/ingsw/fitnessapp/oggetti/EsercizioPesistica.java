@@ -9,11 +9,11 @@ public class EsercizioPesistica extends Esercizio{
 
     int ripetizioni;
     int serie;
-    Calendar recupero;
+    int recupero;
     GruppiMuscolari gruppiMuscolari;
     float peso;
 
-    public EsercizioPesistica(int ripetizioni, int serie, Calendar recupero, GruppiMuscolari gruppiMuscolari, float peso) {
+    public EsercizioPesistica(int ripetizioni, int serie, int recupero, GruppiMuscolari gruppiMuscolari, float peso) {
         this.ripetizioni = ripetizioni;
         this.serie = serie;
         this.recupero = recupero;
@@ -37,11 +37,11 @@ public class EsercizioPesistica extends Esercizio{
         this.serie = serie;
     }
 
-    public Calendar getRecupero() {
+    public int getRecupero() {
         return recupero;
     }
 
-    public void setRecupero(Calendar recupero) {
+    public void setRecupero(int recupero) {
         this.recupero = recupero;
     }
 

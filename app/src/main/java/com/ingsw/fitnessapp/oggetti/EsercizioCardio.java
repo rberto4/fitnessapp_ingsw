@@ -5,19 +5,19 @@ import java.util.Date;
 
 public class EsercizioCardio extends Esercizio{
 
-    Calendar durata;
+    int durata;
     int difficolta;
 
-    public EsercizioCardio(Calendar durata, int difficolta) {
+    public EsercizioCardio(int durata, int difficolta) {
         this.durata = durata;
         this.difficolta = difficolta;
     }
 
-    public Calendar getDurata() {
+    public int getDurata() {
         return durata;
     }
 
-    public void setDurata(Calendar durata) {
+    public void setDurata(int durata) {
         this.durata = durata;
     }
 
