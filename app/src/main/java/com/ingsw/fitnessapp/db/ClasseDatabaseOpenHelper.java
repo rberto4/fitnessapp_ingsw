@@ -108,7 +108,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                                                                 + "','" + GiorniSettimana.Venerdi.name()
                                                                 + "','" + GiorniSettimana.Sabato.name()
                                                                 + "','" + GiorniSettimana.Domenica.name()
-                                                                + "'))" +
+                                                                + "')), " +
                 COLUMN_ID_SCHEDA_CORRISPONDENTE + " TEXT, " +
                 "FOREIGN KEY ("+ COLUMN_ID_SCHEDA_CORRISPONDENTE +") REFERENCES " + TABLE_NAME_SCHEDE + " ("+ COLUMN_ID_SCHEDE +"));";
 
