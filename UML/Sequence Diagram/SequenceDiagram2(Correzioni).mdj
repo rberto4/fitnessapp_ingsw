@@ -339,6 +339,7 @@
 											"top": 40,
 											"width": 100.17724609375,
 											"height": 953,
+											"showProperty": false,
 											"nameCompartment": {
 												"$ref": "AAAAAAGHoyISXZkmHUg="
 											},
@@ -1217,9 +1218,9 @@
 																	"font": "Arial;13;0",
 																	"left": 36,
 																	"top": 686,
-																	"width": 135.87158203125,
+																	"width": 229.3408203125,
 																	"height": 13,
-																	"text": "[[scheda non presente]]"
+																	"text": "[scheda non presente||modifica scheda]"
 																}
 															],
 															"font": "Arial;13;0",
@@ -2165,7 +2166,7 @@
 												"$ref": "AAAAAAGHoy7zypq/jUc="
 											},
 											"name": "Operand1",
-											"guard": "[scheda non presente]"
+											"guard": "scheda non presente||modifica scheda"
 										}
 									]
 								}
