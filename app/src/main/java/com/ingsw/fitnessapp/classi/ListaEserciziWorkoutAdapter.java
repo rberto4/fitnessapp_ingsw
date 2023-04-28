@@ -59,8 +59,8 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
                 holder.ripetizioni.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getRipetizioni()));
                 holder.peso.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getPeso()) + "Kg");
                 holder.serie.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getSerie() + " serie"));
-                holder.recupero.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getRecupero().get(Calendar.MINUTE) +
-                        ":" + ((EsercizioPesistica) list.get(position)).getRecupero().get(Calendar.SECOND)));
+                holder.recupero.setText(new Tempo().CreaTestoFormattatoTempo(((EsercizioPesistica) list.get(position)).getRecupero()));
+
             }break;
 
             case("esercizio_cardio"):{
@@ -68,11 +68,8 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
                 holder.grid_pesi.setVisibility(View.GONE);
                 holder.grid_cardio.setVisibility(View.VISIBLE);
                 holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficolta()));
-                if (((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE) > 1){
-                    holder.durata.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE)+" minuti"));
-                }else {
-                    holder.durata.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDurata().get(Calendar.MINUTE)+" minuto"));
-                }
+                holder.durata.setText(new Tempo().CreaTestoFormattatoTempo(((EsercizioCardio) list.get(position)).getDurata()));
+
 
             }break;
 
@@ -133,18 +130,6 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
         alert.show();
     }
 
-    private void dettagliEsercizio(Esercizio esercizio) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Reps: " + ((EsercizioPesistica) esercizio).getRipetizioni() +"\n"+
-                    "Set: " + ((EsercizioPesistica) esercizio).getSerie() +"\n"+
-                    "Peso: " + ((EsercizioPesistica) esercizio).getPeso() +"\n"+
-                    "Recupero: " + ((EsercizioPesistica) esercizio).getRecupero().get(Calendar.MINUTE)+":"+((EsercizioPesistica) esercizio).getRecupero().get(Calendar.SECOND)+"\n");
-            builder.setTitle(esercizio.getNome());
-            builder.setCancelable(true);
-            builder.setPositiveButton("Chiudi", (dialog, id) -> dialog.cancel());
-            AlertDialog alert = builder.create();
-            alert.show();
-    }
 
     @Override
     public int getItemCount() {

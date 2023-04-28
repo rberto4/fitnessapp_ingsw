@@ -148,15 +148,13 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
     }
 
     private Esercizio CreaNuovoEsercizio() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(0,0,0,0,10,50);
 
         switch (spinner_tipologia.getSelectedItem().toString()){
             case "Sala pesi":{
                 EsercizioPesistica es = new EsercizioPesistica(
                         Integer.parseInt(ripetizioni.getText().toString()),
                         6,
-                        calendar,
+                        245,
                         GruppiMuscolari.Gambe,
                         Float.parseFloat(peso.getText().toString())
 

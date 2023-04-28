@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ingsw.fitnessapp.R;
@@ -103,10 +104,10 @@ public class FragmentEsercizi extends Fragment {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
 
-                adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds));
-
                 if (checkedIds.isEmpty()){
                     adapter.impostaListaFiltrata(list);
+                }else{
+                   // adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds.size()));
                 }
             }
         });
@@ -130,12 +131,10 @@ public class FragmentEsercizi extends Fragment {
         }
     }
 
-    private ArrayList<Esercizio> filtraListaPerTipo(List<Integer> checkedIds) {
+    private ArrayList<Esercizio> filtraListaPerTipo(int i) {
         ArrayList<Esercizio> lista_filtrata = new ArrayList<>();
-
-        for (int i = 0; i<checkedIds.size(); i++) {
-            switch (checkedIds.get(i)) {
-                case (2131296490):{
+         switch (((Chip) gruppo_chips.getChildAt(i)).getText().toString()) {
+                case ("Petto"):{
                     for ( Esercizio esercizio : list){
                         if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Petto.name())){
                             lista_filtrata.add(esercizio);
@@ -143,7 +142,7 @@ public class FragmentEsercizi extends Fragment {
                     }
                 }
                 break;
-                case (2131296488): {
+                case ("Braccia"): {
                     for ( Esercizio esercizio : list){
                         if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Braccia.name())){
                             lista_filtrata.add(esercizio);
@@ -151,7 +150,7 @@ public class FragmentEsercizi extends Fragment {
                     }
                 }
                 break;
-                case (2131296491): {
+                case ("Schiena"): {
                     for ( Esercizio esercizio : list){
                         if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Schiena.name())){
                             lista_filtrata.add(esercizio);
@@ -159,7 +158,7 @@ public class FragmentEsercizi extends Fragment {
                     }
                 }
                 break;
-                case (2131296492): {
+                case ("Spalle"): {
                     for ( Esercizio esercizio : list){
                         if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Spalle.name())){
                             lista_filtrata.add(esercizio);
@@ -167,7 +166,7 @@ public class FragmentEsercizi extends Fragment {
                     }
                 }
                 break;
-                case (2131296489): {
+                case ("Gambe"): {
                     for ( Esercizio esercizio : list){
                         if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Gambe.name())){
                             lista_filtrata.add(esercizio);
@@ -175,7 +174,7 @@ public class FragmentEsercizi extends Fragment {
                     }
                 }
                 break;
-                case (2131296797): {
+                case ("Cardio"): {
                     for ( Esercizio esercizio : list){
                         if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_cardio.name())){
                             lista_filtrata.add(esercizio);
@@ -184,7 +183,6 @@ public class FragmentEsercizi extends Fragment {
                 }
                 break;
             }
-        }
         return lista_filtrata;
     }
 

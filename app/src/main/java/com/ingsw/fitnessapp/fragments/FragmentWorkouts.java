@@ -30,66 +30,16 @@ public class FragmentWorkouts extends Fragment {
     WorkoutsAdapter adapter;
 
     ArrayList<Workout> list;
-    ArrayList<Esercizio> list_esercizi, list_ese_2;
+   // ArrayList<Esercizio> list_esercizi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_workout, container, false);
 
-        list_esercizi = new ArrayList<>();
+       // list_esercizi = new ArrayList<>();
         list = new ArrayList<>();
 
-        // esercizi di prova
-        Calendar rec = Calendar.getInstance();
-        rec.set(0,0,0,0,15,30);
-
-        EsercizioCardio es = new EsercizioCardio(rec,7);
-        es.setNome("Tapis roulant");
-        es.setTipo(TipoEsercizio.esercizio_cardio);
-        list_esercizi.add(es);
-
-        rec = Calendar.getInstance();
-        rec.set(0,0,0,0,2,30);
-
-        EsercizioPesistica es1 = new EsercizioPesistica(6, 3, rec, GruppiMuscolari.Petto, 90);
-        es1.setNome("Panca piana");
-        es1.setTipo(TipoEsercizio.esercizio_pesistica);
-        list_esercizi.add(es1);
-
-        rec = Calendar.getInstance();
-        rec.set(0,0,0,0,1,30);
-
-        es1 = new EsercizioPesistica(8, 5, rec, GruppiMuscolari.Petto, 35);
-        es1.setNome("Panca inclinata 30°");
-        es1.setTipo(TipoEsercizio.esercizio_pesistica);
-        list_esercizi.add(es1);
-        es1 = new EsercizioPesistica(12, 3, rec, GruppiMuscolari.Petto, 15);
-        es1.setNome("Croci ai cavi alti");
-        es1.setTipo(TipoEsercizio.esercizio_pesistica);
-        list_esercizi.add(es1);
-
-        list_ese_2 = new ArrayList<>();
-
-        // esercizi di prova
-        Calendar rec2 = Calendar.getInstance();
-        rec.set(0,0,0,0,10,30);
-
-        EsercizioCardio es2 = new EsercizioCardio(rec,7);
-        es2.setNome("Cyclette");
-        es2.setTipo(TipoEsercizio.esercizio_cardio);
-        list_ese_2.add(es2);
-
-        rec = Calendar.getInstance();
-        rec.set(0,0,0,0,3,30);
-
-        EsercizioPesistica es3 = new EsercizioPesistica(9, 32, rec, GruppiMuscolari.Gambe, 130);
-        es3.setNome("Squat");
-        es3.setTipo(TipoEsercizio.esercizio_pesistica);
-        list_ese_2.add(es3);
-
-        list.add(new Workout(list_esercizi,"Petto", "Focus su fermo in panca, bilanciere da 29mm",GiorniSettimana.Lunedi));
-        list.add(new Workout(list_ese_2,"pervrvevevevtb", "Focus su fermo in panca, bilanciere da 29mm",GiorniSettimana.Lunedi));
 
         recyclerView = v.findViewById(R.id.id_rv_workouts);
         adapter = new WorkoutsAdapter(v.getContext(),list);
