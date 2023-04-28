@@ -21,6 +21,7 @@ import androidx.transition.Visibility;
 
 import com.google.android.material.transition.Hold;
 import com.ingsw.fitnessapp.R;
+import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
@@ -34,11 +35,13 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
     private Context context;
 
     private ArrayList<Esercizio> list;
+    private ClasseDatabaseOpenHelper db;
 
-    public EserciziAdapter(Context context, ArrayList<Esercizio> list) {
+    public EserciziAdapter(Context context, ArrayList<Esercizio> list, ClasseDatabaseOpenHelper db) {
 
         this.context = context;
         this.list = list;
+        this.db =db;
 
     }
 
@@ -159,9 +162,8 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-
                 // DB QUERY PER ELIMINARE
-
+                db.deleteEsercizio(list.get(position).getId());
                 list.remove(position);
                 notifyDataSetChanged();
             }

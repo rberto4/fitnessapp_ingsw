@@ -190,7 +190,7 @@ public class FragmentEsercizi extends Fragment {
     public void onStart() {
         super.onStart();
         list = db.caricaListaEserciziDaDb();
-        adapter = new EserciziAdapter(getContext(),list);
+        adapter = new EserciziAdapter(getContext(),list,db);
         recyclerView.setAdapter(adapter);
     }
 }

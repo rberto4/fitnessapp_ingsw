@@ -106,13 +106,14 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                                                                 + "')));";
 
         String tabellaSupporto = "CREATE TABLE " + TABLE_NAME_SUPPORTO + " (" +
-                COLUMN_ID_ESERCIZIO_SUPPORTO + " INTEGER PRIMARY KEY, " +
-                COLUMN_ID_WORKOUT_SUPPORTO + " INTEGER PRIMARY KEY, " +
+                COLUMN_ID_ESERCIZIO_SUPPORTO + " INTEGER , " +
+                COLUMN_ID_WORKOUT_SUPPORTO + " INTEGER , " +
+                "PRIMARY KEY(" + COLUMN_ID_ESERCIZIO_SUPPORTO + " , " + COLUMN_ID_WORKOUT_SUPPORTO + ")," +
                 "FOREIGN KEY ("+ COLUMN_ID_ESERCIZIO_SUPPORTO +") REFERENCES " + TABLE_NAME_ESERCIZI + " ("+ COLUMN_ID_ESERCIZIO +")," +
                 "FOREIGN KEY ("+ COLUMN_ID_WORKOUT_SUPPORTO +") REFERENCES " + TABLE_NAME_WORKOUT + " ("+ COLUMN_ID_WORKOUT +"));";
 
 
-        
+
         String tabellaSchede = "CREATE TABLE " + TABLE_NAME_SCHEDE+ " (" +
                 COLUMN_ID_SCHEDE+ " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_DATA_INIZIO + " TEXT, " +
@@ -168,6 +169,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         }else{
             Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
         }
+        db.close();
     }
 
     // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
@@ -261,4 +263,36 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             default: return null;
         }
     }
+
+    public void deleteEsercizio(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = COLUMN_ID_ESERCIZIO + " =?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        db.delete(TABLE_NAME_ESERCIZI, whereClause, whereArgs );
+        db.close();
+    }
+
+    public void deleteWorkout(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = COLUMN_ID_WORKOUT + " =?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        db.delete(TABLE_NAME_WORKOUT, whereClause, whereArgs );
+        db.close();
+    }
+
+    public void deleteScheda(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = COLUMN_ID_SCHEDE + " =?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        db.delete(TABLE_NAME_SCHEDE, whereClause, whereArgs );
+        db.close();
+    }
+
+    public void updateEsercizio(Esercizio esercizio){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+
+    }
+
 }
