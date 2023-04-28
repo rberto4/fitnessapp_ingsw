@@ -7,8 +7,13 @@ public abstract class Esercizio {
     String nome;
     TipoEsercizio tipo;
     boolean isFavorite;
+    int id;
 
     // attributo necessario per le recyclerview - controllare UML
+
+    public int getId() {
+        return id;
+    }
 
     public TipoEsercizio getTipo() {
         return tipo;
