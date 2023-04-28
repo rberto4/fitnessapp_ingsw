@@ -16,6 +16,7 @@ import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
+import com.ingsw.fitnessapp.oggetti.Workout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +46,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOME_WORKOUT = "nome_workout";
     private static final String COLUMN_GIORNI = "giorni";
     private static final String COLUMN_NOTE = "note";
+    private static final String COLUMN_ID_SCHEDA_CORRISPONDENTE = "scheda_corrispondente";
 
     //Lista degli attributi della tabella di supporto
     private static final String TABLE_NAME_SUPPORTO = "supporto";
@@ -95,7 +97,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         String tabellaWorkout = "CREATE TABLE " + TABLE_NAME_WORKOUT + " (" +
                 COLUMN_ID_WORKOUT + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOME_WORKOUT + " TEXT, " +
-                COLUMN_NOTE + " TEXT, " +
+                COLUMN_NOTE + " INTEGER, " +
                 COLUMN_GIORNI + " TEXT CHECK( " + COLUMN_GIORNI + " IN ('" + GiorniSettimana.Lunedi.name()
                                                                 + "','" + GiorniSettimana.Martedi.name()
                                                                 + "','" + GiorniSettimana.Mercoledi.name()
@@ -103,7 +105,10 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                                                                 + "','" + GiorniSettimana.Venerdi.name()
                                                                 + "','" + GiorniSettimana.Sabato.name()
                                                                 + "','" + GiorniSettimana.Domenica.name()
-                                                                + "')));";
+                                                                + "'))" +
+                COLUMN_ID_SCHEDA_CORRISPONDENTE + " TEXT, " +
+                "FOREIGN KEY ("+ COLUMN_ID_SCHEDA_CORRISPONDENTE +") REFERENCES " + TABLE_NAME_SCHEDE + " ("+ COLUMN_ID_SCHEDE +"));";
+
 
         String tabellaSupporto = "CREATE TABLE " + TABLE_NAME_SUPPORTO + " (" +
                 COLUMN_ID_ESERCIZIO_SUPPORTO + " INTEGER , " +
@@ -133,7 +138,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private ContentValues caricaCV(Esercizio esercizio){
+    private ContentValues caricaCvEsercizio(Esercizio esercizio){
         ContentValues cv = new ContentValues();
 
         //Lista di attributi da caricare nel cv standard per entrambi i tipi di esercizio
@@ -164,9 +169,9 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         return cv;
     }
 
-    public void AggiungiEsercizioAllDb(Esercizio esercizio){
+    public void aggiungiEsercizioAlDb(Esercizio esercizio){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = caricaCV(esercizio);
+        ContentValues cv = caricaCvEsercizio(esercizio);
 
         //Test che controlla il corretto inserimento dei dati
         long result = db.insert(TABLE_NAME_ESERCIZI, null, cv);
@@ -178,8 +183,25 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
+    public void aggiungiWorkoutAlDb(Workout workout){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        cv.put(COLUMN_NOME_WORKOUT,workout.getNome());
+        cv.put(COLUMN_NOTE,workout.getNote());
+        cv.put(COLUMN_GIORNI,workout.getGiorniSettimana().name());
+
+        long result = db.insert(TABLE_NAME_WORKOUT, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
+        }
+        db.close();
+    }
+
+
+    // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
 
     public ArrayList<Esercizio> caricaListaEserciziDaDb(){
         ArrayList<Esercizio> list = new ArrayList<>();
@@ -196,6 +218,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             Log.d("logdb2",cursor.getString(1));
             Log.d("logdb3",cursor.getString(2));
             Log.d("logdb4",cursor.getString(3));
+
 
             switch (cursor.getString(3)){
                 case("esercizio_pesistica"):{
@@ -273,15 +296,30 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_ID_ESERCIZIO + " =?";
         String[] whereArgs = new String[]{String.valueOf(id)};
-        db.delete(TABLE_NAME_ESERCIZI, whereClause, whereArgs );
+
+        long result = db.delete(TABLE_NAME_ESERCIZI, whereClause, whereArgs );
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Eliminato correttamente!", Toast.LENGTH_SHORT).show();
+        }
         db.close();
+        //aggiungere il controllo sull'eliminazione
     }
 
     public void deleteWorkout(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_ID_WORKOUT + " =?";
         String[] whereArgs = new String[]{String.valueOf(id)};
-        db.delete(TABLE_NAME_WORKOUT, whereClause, whereArgs );
+
+        long result = db.delete(TABLE_NAME_WORKOUT, whereClause, whereArgs );
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Eliminato correttamente!", Toast.LENGTH_SHORT).show();
+        }
         db.close();
     }
 
@@ -289,18 +327,31 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_ID_SCHEDE + " =?";
         String[] whereArgs = new String[]{String.valueOf(id)};
-        db.delete(TABLE_NAME_SCHEDE, whereClause, whereArgs );
+
+        long result = db.delete(TABLE_NAME_SCHEDE, whereClause, whereArgs );
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Eliminato correttamente!", Toast.LENGTH_SHORT).show();
+        }
         db.close();
     }
 
     // Passo l'oggetto esercizio e modifico la riga corrispondente nel db
     public void updateEsercizio(Esercizio esercizio){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = caricaCV(esercizio);
+        ContentValues cv = caricaCvEsercizio(esercizio);
         String whereClause = COLUMN_ID_ESERCIZIO + " =?";
         String[] whereArgs = new String[]{String.valueOf(esercizio.getId())};
 
-        db.update(TABLE_NAME_ESERCIZI, cv, whereClause, whereArgs);
+        long result = db.update(TABLE_NAME_ESERCIZI, cv, whereClause, whereArgs);
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Modificato correttamente!", Toast.LENGTH_SHORT).show();
+        }
         db.close();
     }
 
