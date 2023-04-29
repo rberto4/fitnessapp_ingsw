@@ -1,291 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".activities.NuovoEsercizioActivity">
+    tools:context=".activities.NuovoEsercizioActivity"
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/id_nuovoesercizio_appbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/azzurro_500"
-        android:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIconTint="@android:color/white"
-        app:title="Nuovo Esercizio"
-        app:titleTextColor="@android:color/white" />
-
-
-    <RelativeLayout
-        android:id="@+id/id_nuovoesercizio_layoutspinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/id_nuovoesercizio_appbar"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        >
-
-        <TextView
-            android:id="@+id/id_nuovoesercizio_spinner_tittle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Tipologia di esercizi :"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:id="@+id/id_nuovoesercizio_spinner"
-            style="@style/Widget.AppCompat.DropDownItem.Spinner"
-            android:layout_width="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:entries="@array/TipologiaEsercizi"
-            android:hapticFeedbackEnabled="true"
-            android:layout_height="32dp">
-
-        </Spinner>
-    </RelativeLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/id_nuovoesercizio_layoutinput_nome"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:paddingTop="8dp"
-        app:errorContentDescription="Devi inserire il nome dell'esercizio"
-        app:errorEnabled="true"
-        app:layout_constraintTop_toBottomOf="@id/id_nuovoesercizio_layoutspinner"
-        app:startIconDrawable="@drawable/icona_editnome"
-        app:startIconTint="@color/arancio_500">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/id_nuovoesercizio_nome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Inerisci nome"
-            android:singleLine="true"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/id_nuovoesercizio_layoutinput_peso"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintHorizontal_weight="0.95"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/id_udm_spinner"
-        app:layout_constraintTop_toBottomOf="@id/id_nuovoesercizio_layoutinput_nome"
-        app:startIconDrawable="@drawable/icona_esercizipesi"
-        app:startIconTint="@color/arancio_500">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/id_nuovoesercizio_peso"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Inserisci il peso"
-            android:inputType="numberDecimal"
-            android:singleLine="true"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <Spinner
-        android:id="@+id/id_udm_spinner"
-        style="@style/Widget.AppCompat.DropDownItem.Spinner"
-        android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:entries="@array/udm"
-        android:hapticFeedbackEnabled="true"
-        android:layout_height="62dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintHorizontal_weight="0.3"
-        app:layout_constraintTop_toBottomOf="@+id/id_nuovoesercizio_layoutinput_nome">
-
-    </Spinner>
-
-    <RelativeLayout
-        android:id="@+id/id_nuovoesercizio_layoutrelative"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintTop_toBottomOf="@id/id_nuovoesercizio_layoutinput_peso">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:src="@drawable/icona_ripetizioni"
-                app:tint="@color/arancio_500" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="Quante ripetizioni?"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_searchbar"
-            android:layout_alignParentEnd="true">
-
-            <Button
-                android:id="@+id/id_nuovoesercizio_piu"
-                android:layout_width="50dp"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_height="wrap_content"
-                android:textColor="@color/azzurro_500"
-                android:clickable="true"
-                android:textStyle="bold"
-                android:text="+" />
-
-            <TextView
-                android:id="@+id/id_nuovoesercizio_ripetizioni"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/id_nuovoesercizio_meno"
-                android:layout_width="50dp"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:textColor="@color/azzurro_500"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:textStyle="bold"
-                android:text="-" />
-        </LinearLayout>
-    </RelativeLayout>
-
-
+    >
     <LinearLayout
-        android:id="@+id/id_nuovoesercizio_layout_gruppi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_nuovoesercizio_layoutrelative">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:src="@drawable/icona_corpo"
-            app:tint="@color/arancio_500" />
-
-        <TextView
+        android:orientation="vertical"
+        >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/id_nuovoesercizio_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="Seleziona gruppo muscolare"
-            android:textSize="18sp" />
+            android:background="@color/azzurro_500"
+            android:elevation="8dp"
+            app:title="Nuovo Esercizio"
+            app:navigationIconTint="@color/white"
+            app:titleTextColor="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icona_esercizipesi"
+                app:tint="@color/white"
+                android:background="@drawable/cerchio_rosso"
+                android:backgroundTint="@color/azzurro_500"
+                android:layout_gravity="center"
+                android:padding="4dp"
+                android:layout_marginStart="8dp"
+                ></ImageView>
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/TipologiaEsercizi"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Esercizio non in elenco?"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:textColor="@color/arancio_500"
+            android:textAllCaps="false"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="35dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/icona_esercizipesi"
+                app:tint="@color/white"
+                android:background="@drawable/cerchio_rosso"
+                android:backgroundTint="@color/azzurro_500"
+                android:layout_gravity="center"
+                android:padding="4dp"
+                android:layout_marginStart="8dp"
+                ></ImageView>
+        </LinearLayout>
 
 
     </LinearLayout>
-
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/id_nuovoesercizio_chipgroup"
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_nuovoesercizio_layout_gruppi"
-        app:singleSelection="true">
+        android:text="Salva"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/arancio_500"
+        />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/id_nuovoesercizio_chip_petto"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Petto"
-            app:chipIcon="@drawable/muscle"
-            app:chipIconVisible="true"
-            app:iconStartPadding="8dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/id_nuovoesercizio_chip_braccia"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Braccia"
-            app:chipIcon="@drawable/arm_muscle"
-            app:chipIconVisible="true"
-            app:iconStartPadding="8dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/id_nuovoesercizio_chip_schiena"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Schiena"
-            app:chipIcon="@drawable/back"
-            app:chipIconVisible="true"
-            app:iconStartPadding="8dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/id_nuovoesercizio_chip_spalle"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Spalle"
-            app:chipIcon="@drawable/muscle"
-            app:chipIconVisible="true"
-            app:iconStartPadding="8dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/id_nuovoesercizio_chip_gambe"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="Gambe"
-            app:chipIcon="@drawable/leg"
-            app:chipIconVisible="true"
-            app:iconStartPadding="8dp" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/id_nuovoesercizio_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="salva"
-        android:textColor="@color/white"
-        app:icon="@drawable/icona_salva"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

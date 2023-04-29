@@ -14,4 +14,15 @@
     </string-array>
 
 
+    <array name="Esercizi_braccia">
+
+        <item>Curl bicipiti con manubri</item>
+        <item>Curl bicipiti con bilanciere</item>
+        <item>Curl bicipiti al cavo basso</item>
+        <item>Push down al cavo alto</item>
+        <item>French press</item>
+        <item>Dips</item>
+
+    </array>
+
 </resources>
