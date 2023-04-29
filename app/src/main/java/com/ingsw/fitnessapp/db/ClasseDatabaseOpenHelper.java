@@ -237,6 +237,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         }
 
         while (cursor.moveToNext()){
+
             Log.d("logdb1",cursor.getString(0));
             Log.d("logdb2",cursor.getString(1));
             Log.d("logdb3",cursor.getString(2));

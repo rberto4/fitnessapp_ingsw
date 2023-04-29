@@ -19,10 +19,88 @@
         <item>Curl bicipiti con manubri</item>
         <item>Curl bicipiti con bilanciere</item>
         <item>Curl bicipiti al cavo basso</item>
-        <item>Push down al cavo alto</item>
-        <item>French press</item>
+        <item>Hummer curl bicipiti con manubri</item>
+        <item>Spider curl bicipiti con manubri</item>
+        <item>Panca scott</item>
+        <item>Push down con corda</item>
+        <item>Push down con asta</item>
+        <item>French press in piedi</item>
+        <item>French press su panca</item>
         <item>Dips</item>
 
     </array>
+
+    <array name="Esercizi_petto">
+        <item>Panca piana</item>
+        <item>Panca 30° manubri</item>
+        <item>Panca 45° manubri</item>
+        <item>Panca 60° manubri</item>
+        <item>Panca declinata</item>
+        <item>Croci castello</item>
+        <item>Croci su panca</item>
+        <item>Croci singole</item>
+        <item>Chest press</item>
+        <item>Pectoral machine</item>
+    </array>
+
+    <array name="Esercizi_schiena">
+        <item>Lat machine</item>
+        <item>Rematore bilanciere</item>
+        <item>Rematore singolo con manubrio</item>
+        <item>T-bar</item>
+        <item>Pull down cavo con asta</item>
+        <item>Pulley</item>
+        <item>Rowing machine</item>
+        <item>Macchina lombari</item>
+        <item>Scrollate con bilanciere</item>
+    </array>
+
+    <array name="Esercizi_gambe">
+        <item>Squat bilancere</item>
+        <item>Stacco regular</item>
+        <item>Stacco sumo</item>
+        <item>Stacco rumeno</item>
+        <item>Squat multipower</item>
+        <item>Hack squat</item>
+        <item>Box squat</item>
+        <item>Squat monopodalico</item>
+        <item>Affondi bulgari</item>
+        <item>Leg extension</item>
+        <item>Leg curl</item>
+        <item>Leg press a 45°</item>
+        <item>Pendulum squat</item>
+        <item>Hyper extension</item>
+        <item>Revers hyper</item>
+        <item>Adduttori</item>
+        <item>Estensori</item>
+        <item>Calf raise</item>
+    </array>
+
+    <array name="Esercizi_spalle">
+        <item>Lento avanti con manubri</item>
+        <item>Military press con bilanciere</item>
+        <item>Shoulder press</item>
+        <item>Alzate laterali con manubri</item>
+        <item>Alzate frontali con manubri</item>
+        <item>Alzate posteriori con manubri</item>
+    </array>
+
+
+    <array name="Esericizi_cardio">
+        <item>Tapis roulant</item>
+        <item>Cyclette</item>
+        <item>Cyclette per braccia</item>
+        <item>Bici ellittica</item>
+        <item>Stepper</item>
+        <item>Vogatore</item>
+        <item>Air bike</item>
+
+    </array>
+
+    <array name="Esericizi_addome">
+        <item>Crunch machine</item>
+    </array>
+
+
 
 </resources>

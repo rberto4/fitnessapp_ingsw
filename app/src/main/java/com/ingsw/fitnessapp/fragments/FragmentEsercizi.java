@@ -74,7 +74,7 @@ public class FragmentEsercizi extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filtraListaPerNome(newText);
+                //filtraListaPerNome(newText);
                 return false;
             }
         });
