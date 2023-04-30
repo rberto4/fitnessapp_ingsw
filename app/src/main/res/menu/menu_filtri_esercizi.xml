@@ -6,36 +6,28 @@
 
 
     <item
-        android:id="@+id/id_menu_filtri_esercizi"
+        android:id="@+id/id_menu_rimuovifiltri_esercizi"
         app:showAsAction="always"
-        android:icon="@drawable/ic_icona_filtra"
+        android:icon="@drawable/ic_filtri_off"
+        android:iconTint="@color/white"
+        android:title="">
+    </item>
+
+    <item
+        android:id="@+id/id_menu_filtra_favorite"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icona_favorite"
+        android:iconTint="@color/white"
         android:title="">
 
-        <menu>
-            <item
-                android:icon="@drawable/muscle"
-                android:title="Petto"
-                android:id="@+id/id_menu_filtri_petto" />
-            <item
-                android:icon="@drawable/muscle"
-                android:title="Petto"
-                android:id="@+id/id_menu_filtri_addome" />
-            <item
-                android:icon="@drawable/muscle"
-                android:title="Petto"
-                android:id="@+id/id_menu_filtri_braccia" />
-            <item
-                android:icon="@drawable/muscle"
-                android:title="Petto"
-                android:id="@+id/id_menu_filtri_spalle" />
-            <item
-                android:icon="@drawable/muscle"
-                android:title="Petto"
-                android:id="@+id/id_menu_filtri_gambe" />
-            <item
-                android:icon="@drawable/muscle"
-                android:title="Petto"
-                android:id="@+id/id_menu_filtri_schiena" />
-        </menu>
+    </item>
+
+    <item
+        android:id="@+id/id_menu_esercizi_help"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_icona_help"
+        android:iconTint="@color/white"
+        android:title="">
+
     </item>
 </menu>

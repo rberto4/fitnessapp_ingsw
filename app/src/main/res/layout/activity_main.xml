@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Aggiungi"
+        android:text="Nuova scheda"
         android:textColor="@color/white"
         app:icon="@drawable/ic_aggiungi"
         app:iconTint="@color/white"

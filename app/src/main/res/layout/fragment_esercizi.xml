@@ -29,6 +29,7 @@
             android:id="@+id/id_esercizi_toolbar"
             android:background="@color/azzurro_500"
             app:menu="@menu/menu_filtri_esercizi"
+            app:subtitleTextColor="@color/white"
             >
 
         </com.google.android.material.appbar.MaterialToolbar>

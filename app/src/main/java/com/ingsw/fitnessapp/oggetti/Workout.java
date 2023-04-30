@@ -12,7 +12,6 @@ public class Workout {
     GiorniSettimana giorniSettimana;
     int idSchedaCorrispondente;
     int id;
-
     public Workout(){
 
     }

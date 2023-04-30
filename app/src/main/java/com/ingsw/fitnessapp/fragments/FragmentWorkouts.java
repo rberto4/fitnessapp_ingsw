@@ -16,6 +16,7 @@ import com.ingsw.fitnessapp.classi.GiorniSettimana;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.classi.WorkoutsAdapter;
+import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
@@ -30,6 +31,8 @@ public class FragmentWorkouts extends Fragment {
     WorkoutsAdapter adapter;
 
     ArrayList<Workout> list;
+
+    ClasseDatabaseOpenHelper db;
    // ArrayList<Esercizio> list_esercizi;
 
     @Override
@@ -37,8 +40,12 @@ public class FragmentWorkouts extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_workout, container, false);
 
+        db = new ClasseDatabaseOpenHelper(v.getContext());
+
        // list_esercizi = new ArrayList<>();
         list = new ArrayList<>();
+
+
 
 
         recyclerView = v.findViewById(R.id.id_rv_workouts);

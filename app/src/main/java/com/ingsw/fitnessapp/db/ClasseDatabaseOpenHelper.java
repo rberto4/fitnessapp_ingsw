@@ -180,7 +180,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         //Test che controlla il corretto inserimento dei dati
         long result = db.insert(TABLE_NAME_ESERCIZI, null, cv);
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Failed: "+cv.get("_id"), Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
         }
@@ -362,6 +362,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         String whereClause = COLUMN_ID_ESERCIZIO + " =?";
         String[] whereArgs = new String[]{String.valueOf(esercizio.getId())};
 
+        Log.d("where_log",whereClause);
         long result = db.update(TABLE_NAME_ESERCIZI, cv, whereClause, whereArgs);
 
         if(result == -1){
@@ -369,6 +370,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         }else{
             Toast.makeText(context, "Modificato correttamente!", Toast.LENGTH_SHORT).show();
         }
+
         db.close();
     }
 

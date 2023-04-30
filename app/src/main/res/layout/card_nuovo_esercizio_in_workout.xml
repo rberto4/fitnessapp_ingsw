@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_icona_delete"
+        android:layout_alignParentEnd="true"
+        app:tint="@color/azzurro_500"
+        android:id="@+id/id_workouteslist_delete"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+
+            >
+
+            <TextView
+                android:id="@+id/id_workouteslist_index"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/cerchio_rosso"
+                android:backgroundTint="@color/arancio_500"
+                android:layout_gravity="center|top"
+                android:text="1°"
+                android:textSize="24dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/id_workouteslist_esercizio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="12dp"
+                android:textSize="18sp"
+                android:text="Aggiungi esercizio"
+                android:layout_marginEnd="35dp"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_icona_down"
+            app:tint="@color/azzurro_500"
+
+            />
+    </LinearLayout>
+</RelativeLayout>

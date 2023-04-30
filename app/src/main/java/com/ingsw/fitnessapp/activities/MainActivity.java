@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     BottomNavigationView bottomNavigationView;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,24 +34,41 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.id_mainactivity_fab);
         frameLayout = findViewById(R.id.id_main_framelayout);
         bottomNavigationView = findViewById(R.id.id_main_bottomnavigation);
-        cambiaFragment(new FragmentEsercizi());
+        cambiaFragment(new FragmentSchede());
 
         fab.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(MainActivity.this, NuovoEsercizioActivity.class));
+                switch (bottomNavigationView.getSelectedItemId()){
+                    case R.id.id_menu_bottomnavigationview_esercizi: {
+
+                        startActivity(new Intent(MainActivity.this, NuovoEsercizioActivity.class));
+                    }break;
+                    case R.id.id_menu_bottomnavigationview_workouts: {
+                        startActivity(new Intent(MainActivity.this, NuovoWorkoutActivity.class));
+
+                    }break;
+                    case R.id.id_menu_bottomnavigationview_schede: {
+                        //startActivity(new Intent(MainActivity.this, NuovoEsercizioActivity.class));
+                    }break;
+                }
             }
         });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.id_menu_bottomnavigationview_esercizi: {
+                    fab.setText("Nuovo esercizio");
                     cambiaFragment(new FragmentEsercizi());
                 }break;
                 case R.id.id_menu_bottomnavigationview_workouts: {
+
+                    fab.setText("Nuovo allenamento");
                     cambiaFragment(new FragmentWorkouts());
                 }break;
                 case R.id.id_menu_bottomnavigationview_schede: {
+                    fab.setText("Nuova scheda");
                     cambiaFragment(new FragmentSchede());
                 }break;
             }

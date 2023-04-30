@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/id_dialog_nomiesercizi_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/azzurro_500"
+        android:elevation="8dp"
+        app:title="Esercizi"
+        app:navigationIconTint="@color/white"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_icona_chiudi"
+        app:titleTextColor="@android:color/white" />
+
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="Cerca per nome"
+        android:clickable="true"
+        android:background="@android:drawable/editbox_background"
+        android:keepScreenOn="false"
+        app:queryBackground="@android:color/transparent"
+        app:submitBackground="@color/white"
+        app:iconifiedByDefault="false"
+        android:layout_margin="8dp"
+        android:id="@+id/id_dialog_nomiesercizi_search"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_dialog_nomiesercizi_list"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CREA NUOVO"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/arancio_500"
+        />
+</LinearLayout>

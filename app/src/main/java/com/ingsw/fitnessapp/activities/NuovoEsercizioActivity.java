@@ -47,8 +47,10 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
 
     Tempo tempo;
     LinearLayout layout_pesi,layout_cardio;
-    int index_tipo = 0; // PETTO CORRISPONDE ALLO 0, IL PRIMO CHE VIENE MOSTRATO;
+    int index_tipo = 0,id; // PETTO CORRISPONDE ALLO 0, IL PRIMO CHE VIENE MOSTRATO;
 
+    // BUNDLE PER PRENDERE I DATI E FARE IL MODIFICA
+    Bundle b;
     // variabili per instanziare l'oggetto
 
     TipoEsercizio tipoEsercizio = TipoEsercizio.esercizio_pesistica;
@@ -86,13 +88,15 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         layout_pesi = findViewById(R.id.id_nuovoesercizio_layout_pesistica);
         layout_cardio = findViewById(R.id.id_nuovoesercizio_layout_cardio);
 
-
+        db = new ClasseDatabaseOpenHelper(this);
+        tempo = new Tempo();
         lista_nomi_esercizi = new ArrayList<>();
         lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_petto)));
 
-        db = new ClasseDatabaseOpenHelper(this);
+        b = getIntent().getExtras();
+        controlloModifica();
 
-        tempo = new Tempo();
+
         // SELETTORE DEL TIPO
         previous_tipo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,18 +202,21 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recuperaDati(
-                        nome.getText().toString(),
-                        favorite.isChecked(),
-                        tipoEsercizio,
-                        gruppoMuscolare,
-                        Integer.parseInt(ripetizioni.getText().toString()),
-                        Integer.parseInt(serie.getText().toString()),
-                        peso.getText().toString(),
-                        recupero.getText().toString(),
-                        durata.getText().toString(),
-                        Integer.parseInt(difficolta.getText().toString())
-                );
+
+                    recuperaDati(
+                            nome.getText().toString(),
+                            favorite.isChecked(),
+                            tipoEsercizio,
+                            gruppoMuscolare,
+                            Integer.parseInt(ripetizioni.getText().toString()),
+                            Integer.parseInt(serie.getText().toString()),
+                            peso.getText().toString(),
+                            recupero.getText().toString(),
+                            durata.getText().toString(),
+                            Integer.parseInt(difficolta.getText().toString())
+                    );
+
+
             }
         });
     }
@@ -226,10 +233,16 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                         gruppoMuscolare,
                         Float.parseFloat(p)
                 );
-                esercizio.setNome(nome);
-                esercizio.setFavorite(checked);
-                esercizio.setTipo(tipoEsercizio);
-                db.aggiungiEsercizioAlDb(esercizio);
+                    esercizio.setNome(nome);
+                    esercizio.setFavorite(checked);
+                    esercizio.setTipo(tipoEsercizio);
+                    if (b == null){
+                        db.aggiungiEsercizioAlDb(esercizio);
+                    }else{
+                        Toast.makeText(this, id+" : id", Toast.LENGTH_SHORT).show();
+                        esercizio.setId(id);
+                        db.updateEsercizio(esercizio);
+                    }
             }break;
 
             case("esercizio_cardio"):{
@@ -240,7 +253,13 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                     esercizio.setNome(nome);
                     esercizio.setFavorite(checked);
                     esercizio.setTipo(tipoEsercizio);
-                    db.aggiungiEsercizioAlDb(esercizio);
+                    if (b == null){
+                        db.aggiungiEsercizioAlDb(esercizio);
+                    }else{
+                        Toast.makeText(this, id+" : id", Toast.LENGTH_SHORT).show();
+                        esercizio.setId(id);
+                        db.updateEsercizio(esercizio);
+                    }
             }break;
         }
         onBackPressed();
@@ -334,7 +353,7 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                index_tipo--;
            }
 
-        }else {
+        }else if (string.equals("Next")){
             if (index_tipo == 6){
                 index_tipo = 0;
             }else{
@@ -496,6 +515,65 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+
+    // ONSTART PER CARICARE I DATI QUANDO SI FA MODIFICA
+
+
+
+
+    private void controlloModifica() {
+        if(b != null){
+            toolbar.setTitle("Modifica esercizio");
+            id = b.getInt("id");
+            nome.setText(b.getString("nome"));
+            tipoEsercizio = ((TipoEsercizio) b.get("tipo"));
+            favorite.setChecked(b.getBoolean("favorite"));
+            if (tipoEsercizio.equals(TipoEsercizio.esercizio_pesistica)){
+                gruppoMuscolare = ((GruppiMuscolari) b.get("gruppo_muscolare"));
+                switch (gruppoMuscolare.name()){
+                    case ("Petto"):{
+                        index_tipo = 0;
+                        CambiaTipoEsercizio("");
+                    }break;
+                    case ("Spalle"):{
+                        index_tipo = 1;
+                        CambiaTipoEsercizio("");
+
+                    }break;
+                    case ("Braccia"):{
+                        index_tipo = 2;
+                        CambiaTipoEsercizio("");
+                    }break;
+                    case ("Schiena"):{
+                        index_tipo = 3;
+                        CambiaTipoEsercizio("");
+                    }break;
+                    case ("Gambe"):{
+                        index_tipo = 5;
+                        CambiaTipoEsercizio("");
+                    }break;
+                    case ("Addome"):{
+                        index_tipo = 4;
+                        CambiaTipoEsercizio("");
+                    }break;
+                }
+
+                ripetizioni.setText(String.valueOf(b.getInt("ripetizioni")));
+                serie.setText(String.valueOf(b.getInt("serie")));
+                recupero.setText(tempo.CreaTestoFormattatoRecupero(b.getInt("recupero")));
+                peso.setText(String.valueOf(b.getFloat("peso")));
+
+            }else{
+                index_tipo = 6;
+                CambiaTipoEsercizio("");
+                durata.setText(tempo.CreaTestoFormattatoDurata(b.getInt("durata")));
+                difficolta.setText(String.valueOf(b.getInt("difficoltà")));
+            }
+
+
+        }
     }
 }
 
