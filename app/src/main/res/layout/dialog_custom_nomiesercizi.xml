@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/id_dialog_nomiesercizi_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/azzurro_500"
+        android:elevation="8dp"
+        app:title="Esercizio nuovo"
+        app:navigationIconTint="@color/white"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_icona_chiudi"
+        app:titleTextColor="@android:color/white" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textSize="14dp"
+        android:layout_gravity="center"
+        android:singleLine="true"
+        android:layout_margin="16dp"
+        android:hint="Nome esercizio personalizzato..."
+        android:id="@+id/dialog_customname_editext"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Puoi scegliere il tipo di esercizio e il gruppo muscolare dal menù sopra il nome personalizzato"
+        android:textColor="@color/arancio_500"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textAllCaps="false"
+        android:textSize="12dp"
+        />
+</LinearLayout>

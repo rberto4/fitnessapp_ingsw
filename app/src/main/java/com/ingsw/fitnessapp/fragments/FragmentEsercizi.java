@@ -74,7 +74,7 @@ public class FragmentEsercizi extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //filtraListaPerNome(newText);
+                filtraListaPerNome(newText);
                 return false;
             }
         });
@@ -192,5 +192,6 @@ public class FragmentEsercizi extends Fragment {
         list = db.caricaListaEserciziDaDb();
         adapter = new EserciziAdapter(getContext(),list,db);
         recyclerView.setAdapter(adapter);
+
     }
 }

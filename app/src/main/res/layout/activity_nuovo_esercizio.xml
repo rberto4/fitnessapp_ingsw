@@ -64,6 +64,7 @@
                     android:src="@drawable/muscle"
                     android:elevation="8dp"
                     android:padding="16dp"
+                    android:layout_margin="2dp"
                     android:id="@+id/id_nuovoesercizio_tipo_current"
                     />
 
@@ -148,6 +149,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/id_nuovoesercizio_layout_pesistica"
+            android:visibility="visible"
             >
 
             <LinearLayout
@@ -199,7 +201,7 @@
                         />
                     <TextView
                         android:id="@+id/id_nuovoesercizio_ripetizioni"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:padding="12dp"
@@ -313,7 +315,7 @@
                         />
                     <TextView
                         android:id="@+id/id_nuovoesercizio_serie"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:padding="12dp"
@@ -374,6 +376,131 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/id_nuovoesercizio_layout_cardio"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_icona_recupero"
+                    app:tint="@color/white"
+                    android:background="@drawable/cerchio_rosso"
+                    android:backgroundTint="@color/azzurro_500"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    ></ImageView>
+
+                <TextView
+                    android:id="@+id/id_nuovoesercizio_cardio_durata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:background="@android:color/transparent"
+                    android:text="Imposta tempo"
+                    android:drawableEnd="@drawable/ic_icona_dropdownarrow"
+                    android:textSize="18sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_icona_difficolta"
+                    app:tint="@color/white"
+                    android:background="@drawable/cerchio_rosso"
+                    android:backgroundTint="@color/azzurro_500"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    ></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:background="@android:color/transparent"
+                    android:text="Livello difficoltà"
+                    android:textSize="18sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/id_nuovoesercizio_difficolta_meno"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_icona_freccia_indietro"
+                        app:tint="@color/arancio_500"
+                        android:background="@drawable/cerchio_rosso"
+                        android:backgroundTint="@color/white"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:elevation="2dp"
+                        android:clickable="true"
+                        android:layout_marginEnd="8dp"
+                        />
+                    <TextView
+                        android:id="@+id/id_nuovoesercizio_difficolta"
+                        android:layout_width="60dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:padding="12dp"
+                        android:text="0"
+                        android:inputType="number"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        />
+                    <ImageView
+                        android:id="@+id/id_nuovoesercizio_difficolta_piu"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_icona_freccia"
+                        app:tint="@color/arancio_500"
+                        android:background="@drawable/cerchio_rosso"
+                        android:backgroundTint="@color/white"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:elevation="2dp"
+                        android:clickable="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/id_nuovoesercizio_isfavorite"
             android:layout_width="match_parent"
@@ -384,7 +511,6 @@
             android:textColor="@color/azzurro_500"
             android:textSize="12dp"
             android:layout_marginStart="58dp"
-            android:textAppearance="@android:style/Widget.TextView"
             />
 
     </LinearLayout>

@@ -237,13 +237,6 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         }
 
         while (cursor.moveToNext()){
-
-            Log.d("logdb1",cursor.getString(0));
-            Log.d("logdb2",cursor.getString(1));
-            Log.d("logdb3",cursor.getString(2));
-            Log.d("logdb4",cursor.getString(3));
-
-
             switch (cursor.getString(3)){
                 case("esercizio_pesistica"):{
                     EsercizioPesistica es = new EsercizioPesistica(
@@ -263,13 +256,13 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                     }
 
                     es.setTipo(TipoEsercizio.esercizio_pesistica);
-
+                    es.setId(cursor.getInt(0));
                     list.add(es);
                 }break;
 
                 case("esercizio_cardio"):{
                     EsercizioCardio es = new EsercizioCardio(
-                            cursor.getInt(9),
+                            cursor.getInt(6),
                             cursor.getInt(5)
                     );
 
@@ -282,7 +275,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                     }
 
                     es.setTipo(TipoEsercizio.esercizio_cardio);
-
+                    es.setId(cursor.getInt(0));
                     list.add(es);
                 }
             }

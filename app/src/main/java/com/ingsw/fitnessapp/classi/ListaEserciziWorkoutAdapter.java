@@ -57,9 +57,9 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
                 holder.grid_cardio.setVisibility(View.GONE);
 
                 holder.ripetizioni.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getRipetizioni()));
-                holder.peso.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getPeso()) + "Kg");
+                holder.peso.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getPeso()));
                 holder.serie.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getSerie() + " serie"));
-                holder.recupero.setText(new Tempo().CreaTestoFormattatoTempo(((EsercizioPesistica) list.get(position)).getRecupero()));
+                holder.recupero.setText(new Tempo().CreaTestoFormattatoRecupero(((EsercizioPesistica) list.get(position)).getRecupero()));
 
             }break;
 
@@ -68,7 +68,7 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
                 holder.grid_pesi.setVisibility(View.GONE);
                 holder.grid_cardio.setVisibility(View.VISIBLE);
                 holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficolta()));
-                holder.durata.setText(new Tempo().CreaTestoFormattatoTempo(((EsercizioCardio) list.get(position)).getDurata()));
+                holder.durata.setText(new Tempo().CreaTestoFormattatoDurata(((EsercizioCardio) list.get(position)).getDurata()));
 
 
             }break;

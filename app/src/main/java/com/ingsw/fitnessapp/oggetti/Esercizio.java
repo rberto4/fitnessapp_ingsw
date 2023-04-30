@@ -14,6 +14,9 @@ public abstract class Esercizio {
     public int getId() {
         return id;
     }
+    public void setId(int id){
+        this.id = id;
+    }
 
     public TipoEsercizio getTipo() {
         return tipo;

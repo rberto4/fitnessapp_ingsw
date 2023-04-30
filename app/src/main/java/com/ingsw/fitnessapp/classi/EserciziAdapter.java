@@ -79,7 +79,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
                 holder.gridLayout_cardio.setVisibility(View.GONE);
 
                 // caricamento dati da list
-                holder.recupero.setText(new Tempo().CreaTestoFormattatoTempo(((EsercizioPesistica) list.get(position)).getRecupero()));
+                holder.recupero.setText(new Tempo().CreaTestoFormattatoRecupero(((EsercizioPesistica) list.get(position)).getRecupero()));
                 holder.ripetizioni.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getRipetizioni()));
                 holder.serie.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getSerie()));
                 holder.peso.setText(String.valueOf(((EsercizioPesistica) list.get(position)).getPeso()));
@@ -101,6 +101,10 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
                         holder.tipo.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.back,context.getTheme()));
 
                     }break;
+                    case ("Spalle"):{
+                        holder.tipo.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.arm_muscle,context.getTheme()));
+
+                    }break;
                 }
 
             }break;
@@ -113,7 +117,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
 
                 // caricamento dati da list
 
-                holder.difficolta.setText(new Tempo().CreaTestoFormattatoTempo(((EsercizioCardio) list.get(position)).getDifficolta()));
+                holder.durata.setText(new Tempo().CreaTestoFormattatoDurata(((EsercizioCardio) list.get(position)).getDurata()));
                 holder.difficolta.setText(String.valueOf(((EsercizioCardio) list.get(position)).getDifficolta()));
                 holder.tipo.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.heart_rate,context.getTheme()));
 

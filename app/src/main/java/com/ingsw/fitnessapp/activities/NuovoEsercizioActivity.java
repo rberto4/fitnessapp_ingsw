@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +23,12 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.ingsw.fitnessapp.R;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
+import com.ingsw.fitnessapp.classi.Tempo;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
+import com.ingsw.fitnessapp.oggetti.Esercizio;
+import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
+import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,12 +39,14 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
     ClasseDatabaseOpenHelper db;
     ArrayList<String> lista_nomi_esercizi;
 
-    TextView nome,tipo,ripetizioni,serie,recupero;
+    TextView nome,tipo,ripetizioni,serie,recupero,difficolta,durata;
     EditText peso;
-    ImageView next_tipo, previous_tipo, current_tipo, piu_ripetione, meno_ripetione, piu_serie, meno_serie;
+    ImageView next_tipo, previous_tipo, current_tipo, piu_ripetione, meno_ripetione, piu_serie, meno_serie, piu_difficolta, meno_difficolta;
     SwitchCompat favorite;
-    Button save;
+    Button save,nome_personalizzato;
 
+    Tempo tempo;
+    LinearLayout layout_pesi,layout_cardio;
     int index_tipo = 0; // PETTO CORRISPONDE ALLO 0, IL PRIMO CHE VIENE MOSTRATO;
 
     // variabili per instanziare l'oggetto
@@ -48,6 +56,7 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuovo_esercizio);
         toolbar = findViewById(R.id.id_nuovoesercizio_appbar);
@@ -68,13 +77,22 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         piu_serie = findViewById(R.id.id_nuovoesercizio_serie_piu);
         meno_serie = findViewById(R.id.id_nuovoesercizio_serie_meno);
         favorite = findViewById(R.id.id_nuovoesercizio_isfavorite);
+        nome_personalizzato = findViewById(R.id.id_nuovoesercizio_nome_personalizzato);
+        piu_difficolta = findViewById(R.id.id_nuovoesercizio_difficolta_piu);
+        meno_difficolta = findViewById(R.id.id_nuovoesercizio_difficolta_meno);
+        difficolta = findViewById(R.id.id_nuovoesercizio_difficolta);
+        durata = findViewById(R.id.id_nuovoesercizio_cardio_durata);
         save = findViewById(R.id.id_nuovoesercizio_salva);
+        layout_pesi = findViewById(R.id.id_nuovoesercizio_layout_pesistica);
+        layout_cardio = findViewById(R.id.id_nuovoesercizio_layout_cardio);
 
 
         lista_nomi_esercizi = new ArrayList<>();
         lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_petto)));
 
+        db = new ClasseDatabaseOpenHelper(this);
 
+        tempo = new Tempo();
         // SELETTORE DEL TIPO
         previous_tipo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +148,181 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // RECUPERO
+
+        recupero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogRecupero("Tempo recupero");
+            }
+        });
+
+        // BTN NOME PERSONALIZZATO
+        nome_personalizzato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogCustomNomeEsercizio();
+            }
+        });
+
+        // DIFFICOLTA'
+
+        piu_difficolta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                difficolta.setText(String.valueOf(Integer.parseInt(difficolta.getText().toString())+1));
+            }
+        });
+        meno_difficolta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Integer.parseInt(difficolta.getText().toString())>0){
+                    difficolta.setText(String.valueOf(Integer.parseInt(difficolta.getText().toString())-1));
+
+                }
+            }
+        });
+
+        // DURATA
+
+        durata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogRecupero("Durata sessione");
+            }
+        });
+
+        // SALVATAGGIO DATI
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recuperaDati(
+                        nome.getText().toString(),
+                        favorite.isChecked(),
+                        tipoEsercizio,
+                        gruppoMuscolare,
+                        Integer.parseInt(ripetizioni.getText().toString()),
+                        Integer.parseInt(serie.getText().toString()),
+                        peso.getText().toString(),
+                        recupero.getText().toString(),
+                        durata.getText().toString(),
+                        Integer.parseInt(difficolta.getText().toString())
+                );
+            }
+        });
+    }
+
+    private void recuperaDati(String nome, boolean checked, TipoEsercizio tipoEsercizio, GruppiMuscolari gruppoMuscolare, int r, int s, String p, String tr, String td, int d) {
+        switch (tipoEsercizio.name())
+        {
+            case("esercizio_pesistica"):{
+
+                Esercizio esercizio = new EsercizioPesistica(
+                        r,
+                        s,
+                        tempo.calcolaInteroDaTempo(tr),
+                        gruppoMuscolare,
+                        Float.parseFloat(p)
+                );
+                esercizio.setNome(nome);
+                esercizio.setFavorite(checked);
+                esercizio.setTipo(tipoEsercizio);
+                db.aggiungiEsercizioAlDb(esercizio);
+            }break;
+
+            case("esercizio_cardio"):{
+                    Esercizio esercizio = new EsercizioCardio(
+                            tempo.calcolaInteroDaTempo(td),
+                            d
+                    );
+                    esercizio.setNome(nome);
+                    esercizio.setFavorite(checked);
+                    esercizio.setTipo(tipoEsercizio);
+                    db.aggiungiEsercizioAlDb(esercizio);
+            }break;
+        }
+        onBackPressed();
+    }
+
+    private void dialogRecupero(String type) {
+        Dialog dialog = new Dialog(NuovoEsercizioActivity.this);
+        dialog.setContentView(R.layout.dialog_recupero_nomiesercizi);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        MaterialToolbar toolbar1 = dialog.findViewById(R.id.id_dialog_nomiesercizi_toolbar);
+        ImageView piu_secondi = dialog.findViewById(R.id.id_dialog_recupero_secondi_piu);
+        ImageView meno_secondi = dialog.findViewById(R.id.id_dialog_recupero_secondi_meno);
+        ImageView piu_minuti = dialog.findViewById(R.id.id_dialog_recupero_minuti_piu);
+        ImageView meno_minuti = dialog.findViewById(R.id.id_dialog_recupero_minuti_meno);
+        TextView secondi = dialog.findViewById(R.id.id_dialog_recupero_secondi);
+        TextView minuti = dialog.findViewById(R.id.id_dialog_recupero_minuti);
+
+        toolbar1.setTitle(type);
+        toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        piu_secondi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Integer.parseInt(secondi.getText().toString())<50){
+                    secondi.setText(String.valueOf(Integer.parseInt(secondi.getText().toString())+10));
+                }else{
+                    minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())+1));
+                    secondi.setText("00");
+                }
+
+            }
+        });
+
+        meno_secondi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Integer.parseInt(secondi.getText().toString())>10){
+                    secondi.setText(String.valueOf(Integer.parseInt(secondi.getText().toString())-10));
+                }else{
+                    if(Integer.parseInt(minuti.getText().toString())>0){
+                        minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())-1));
+                        secondi.setText("50");
+                    }else{
+                        secondi.setText("00");
+                    }
+                }
+
+            }
+        });
+        piu_minuti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if (Integer.parseInt(minuti.getText().toString())<59){
+                        minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())+1));
+                    }
+            }
+        });
+        meno_minuti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Integer.parseInt(minuti.getText().toString())>0){
+                    minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())-1));
+                }
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (type.equals("Durata sessione")){
+                    durata.setText(minuti.getText() + ":" + secondi.getText());
+                }else {
+                    recupero.setText(minuti.getText() + ":" + secondi.getText());
+                }
+            }
+        });
     }
 
     private void CambiaTipoEsercizio(String string) {
@@ -157,6 +350,8 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 gruppoMuscolare = GruppiMuscolari.Petto;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_petto)));
+                layout_cardio.setVisibility(View.GONE);
+                layout_pesi.setVisibility(View.VISIBLE);
 
             }break;
             case(1):{
@@ -166,6 +361,8 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 gruppoMuscolare = GruppiMuscolari.Spalle;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_spalle)));
+                layout_cardio.setVisibility(View.GONE);
+                layout_pesi.setVisibility(View.VISIBLE);
             }break;
             case(2):{
                 tipo.setText(GruppiMuscolari.Braccia.name());
@@ -174,6 +371,8 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 gruppoMuscolare = GruppiMuscolari.Braccia;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_braccia)));
+                layout_cardio.setVisibility(View.GONE);
+                layout_pesi.setVisibility(View.VISIBLE);
 
             }break;
             case(3):{
@@ -183,6 +382,8 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 gruppoMuscolare = GruppiMuscolari.Schiena;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_schiena)));
+                layout_cardio.setVisibility(View.GONE);
+                layout_pesi.setVisibility(View.VISIBLE);
 
             }break;
             case(4):{
@@ -192,6 +393,8 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 gruppoMuscolare = GruppiMuscolari.Addome;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esericizi_addome)));
+                layout_cardio.setVisibility(View.GONE);
+                layout_pesi.setVisibility(View.VISIBLE);
 
             }break;
             case(5):{
@@ -201,21 +404,50 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                 gruppoMuscolare = GruppiMuscolari.Gambe;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esercizi_gambe)));
+                layout_cardio.setVisibility(View.GONE);
+                layout_pesi.setVisibility(View.VISIBLE);
 
             }break;
             case(6):{
                 tipo.setText("Cardio");
                 current_tipo.setImageDrawable(getResources().getDrawable(R.drawable.heart_rate));
-                tipoEsercizio = TipoEsercizio.esercizio_pesistica;
+                tipoEsercizio = TipoEsercizio.esercizio_cardio;
                 lista_nomi_esercizi = new ArrayList<>();
                 lista_nomi_esercizi.addAll(Arrays.asList(getResources().getStringArray(R.array.Esericizi_cardio)));
+                layout_cardio.setVisibility(View.VISIBLE);
+                layout_pesi.setVisibility(View.GONE);
 
             }break;
         }
 
-        Toast.makeText(this, index_tipo+"", Toast.LENGTH_SHORT).show();
     }
 
+    private void dialogCustomNomeEsercizio(){
+        Dialog dialog = new Dialog(NuovoEsercizioActivity.this);
+        dialog.setContentView(R.layout.dialog_custom_nomiesercizi);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        MaterialToolbar toolbar1 = dialog.findViewById(R.id.id_dialog_nomiesercizi_toolbar);
+        EditText nome_custom_editext = dialog.findViewById(R.id.dialog_customname_editext);
+        toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (!nome_custom_editext.getText().toString().equals("")){
+                    nome.setText(nome_custom_editext.getText().toString());
+                }
+            }
+        });
+
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -224,6 +456,8 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private void dialogNomiEsercizi(Context context){
         Dialog dialog = new Dialog(NuovoEsercizioActivity.this);
@@ -258,7 +492,6 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                 nome.setText(parent.getItemAtPosition(position).toString());
                 dialog.dismiss();
             }
