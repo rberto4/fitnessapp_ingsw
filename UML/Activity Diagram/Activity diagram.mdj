@@ -670,6 +670,7 @@
 							"lineStyle": 1,
 							"points": "530:124;839:123",
 							"showVisibility": true,
+							"showProperty": false,
 							"nameLabel": {
 								"$ref": "AAAAAAGHpExWy20NX54="
 							},
@@ -2377,7 +2378,7 @@
 											"top": 215,
 											"width": 159,
 											"height": 13,
-											"text": "Invia  messaggio errore"
+											"text": "Invia messaggio errore"
 										},
 										{
 											"_type": "LabelView",
@@ -3641,7 +3642,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGHpEXqxWx403U="
 							},
-							"name": "Invia  messaggio errore",
+							"name": "Invia messaggio errore",
 							"kind": "sendSignal"
 						}
 					]
