@@ -142,7 +142,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private ContentValues caricaCvEsercizio(Esercizio esercizio){
+    public ContentValues caricaCvEsercizio(Esercizio esercizio){
         ContentValues cv = new ContentValues();
 
         //Lista di attributi da caricare nel cv standard per entrambi i tipi di esercizio
@@ -227,6 +227,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
 
     public ArrayList<Esercizio> caricaListaEserciziDaDb(){
+
         ArrayList<Esercizio> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME_ESERCIZI + ";";
