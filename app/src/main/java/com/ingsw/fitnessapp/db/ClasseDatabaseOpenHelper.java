@@ -223,6 +223,42 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void aggiungiEsercizioInWorkout(Workout workout, Esercizio esercizio){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO, esercizio.getId());
+        cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
+
+        long result = db.insert(TABLE_NAME_SUPPORTO, null, cv);
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
+        }
+        db.close();
+    }
+
+    public void aggiungiWorkoutInScheda(Workout workout, Schede schede){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        String whereClause = COLUMN_ID_WORKOUT + " =?";
+        String[] whereArgs = new String[]{String.valueOf(workout.getId())};
+
+        cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE, schede.getId());
+        long result = db.update(TABLE_NAME_WORKOUT, cv, whereClause, whereArgs);
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
+        }
+
+        db.close();
+    }
+
 
     // creare due metodi read data uno per gli esercizi di tipo pesistica e uno per gli altri
 
@@ -374,5 +410,6 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+
 
 }
