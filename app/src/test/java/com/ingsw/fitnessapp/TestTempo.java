@@ -15,7 +15,6 @@ public class TestTempo {
 
         // test di conversione da intero a stringa
         // da 250 secondi mi aspetto 4 minuti e 10 secondi
-
         int n = 250;
         assertEquals("4:11",tempo.CreaTestoFormattatoRecupero(n));
     }
