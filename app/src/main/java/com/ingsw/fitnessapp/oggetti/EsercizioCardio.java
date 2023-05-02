@@ -8,6 +8,7 @@ public class EsercizioCardio extends Esercizio{
     int durata;
     int difficolta;
 
+    public EsercizioCardio(){};
     public EsercizioCardio(int durata, int difficolta) {
         this.durata = durata;
         this.difficolta = difficolta;

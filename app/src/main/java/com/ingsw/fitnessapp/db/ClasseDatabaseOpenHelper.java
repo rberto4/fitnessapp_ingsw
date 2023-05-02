@@ -223,19 +223,23 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void aggiungiEsercizioInWorkout(Workout workout, Esercizio esercizio){
+    public void aggiungiEsercizioInWorkout(Workout workout, ArrayList<Esercizio> esercizi){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        ArrayList<Long> result = new ArrayList<>();
 
-        cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO, esercizio.getId());
-        cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
+        for(int i = 0; i < esercizi.size(); i++){
+            cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO,esercizi.get(i).getId());
+            cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
 
-        long result = db.insert(TABLE_NAME_SUPPORTO, null, cv);
-        if(result == -1){
+            result.add(db.insert(TABLE_NAME_SUPPORTO, null, cv));
+        }
+
+        if(result.contains(-1)){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Aggiunti correttamente!", Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
