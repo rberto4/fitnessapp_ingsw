@@ -109,7 +109,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                                                                 + "','" + GiorniSettimana.Sabato.name()
                                                                 + "','" + GiorniSettimana.Domenica.name()
                                                                 + "')), " +
-                COLUMN_ID_SCHEDA_CORRISPONDENTE + " TEXT, " +
+                COLUMN_ID_SCHEDA_CORRISPONDENTE + " INTEGER, " +
                 "FOREIGN KEY ("+ COLUMN_ID_SCHEDA_CORRISPONDENTE +") REFERENCES " + TABLE_NAME_SCHEDE + " ("+ COLUMN_ID_SCHEDE +"));";
 
 
@@ -202,6 +202,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         }else{
             Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
         }
+        aggiungiEserciziInWorkout(workout);
         db.close();
     }
 
@@ -223,14 +224,14 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void aggiungiEsercizioInWorkout(Workout workout, ArrayList<Esercizio> esercizi){
+    public void aggiungiEserciziInWorkout(Workout workout){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         ArrayList<Long> result = new ArrayList<>();
 
-        for(int i = 0; i < esercizi.size(); i++){
-            cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO,esercizi.get(i).getId());
+        for(int i = 0; i < workout.getList_esercizi().size(); i++){
+            cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO,workout.getList_esercizi().get(i).getId());
             cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
 
             result.add(db.insert(TABLE_NAME_SUPPORTO, null, cv));
@@ -325,7 +326,123 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public GruppiMuscolari convertiInGruppoMuscolare (String valore){
+    public ArrayList<Esercizio> eserciziNelWorkout(int id){
+
+        ArrayList<Esercizio> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT *" +
+                        " FROM " + TABLE_NAME_ESERCIZI +
+                        " JOIN " + TABLE_NAME_SUPPORTO +
+                        " ON " + TABLE_NAME_SUPPORTO + "." + COLUMN_ID_ESERCIZIO_SUPPORTO + " = " + COLUMN_ID_ESERCIZIO +
+                        " WHERE " + TABLE_NAME_SUPPORTO + "." + COLUMN_ID_WORKOUT_SUPPORTO + " = " + id + ";";
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        while (cursor.moveToNext()){
+            switch (cursor.getString(3)){
+                case("esercizio_pesistica"):{
+                    EsercizioPesistica es = new EsercizioPesistica(
+                            cursor.getInt(8),
+                            cursor.getInt(7),
+                            cursor.getInt(9),
+                            convertiInGruppoMuscolare(cursor.getString(10)),
+                            cursor.getFloat(4)
+                    );
+
+                    es.setNome(cursor.getString(1));
+
+                    if (cursor.getInt(2) == 1){
+                        es.setFavorite(true);
+                    }else{
+                        es.setFavorite(false);
+                    }
+
+                    es.setTipo(TipoEsercizio.esercizio_pesistica);
+                    es.setId(cursor.getInt(0));
+                    list.add(es);
+                }break;
+
+                case("esercizio_cardio"):{
+                    EsercizioCardio es = new EsercizioCardio(
+                            cursor.getInt(6),
+                            cursor.getInt(5)
+                    );
+
+                    es.setNome(cursor.getString(1));
+
+                    if (cursor.getInt(2) == 1){
+                        es.setFavorite(true);
+                    }else{
+                        es.setFavorite(false);
+                    }
+
+                    es.setTipo(TipoEsercizio.esercizio_cardio);
+                    es.setId(cursor.getInt(0));
+                    list.add(es);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public ArrayList<Workout> caricaListaWorkoutDaDb(){
+
+        ArrayList<Workout> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME_WORKOUT + ";";
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        while (cursor.moveToNext()) {
+            Workout workout = new Workout(
+                    eserciziNelWorkout(cursor.getInt(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    convertiInGiornoSettimana(cursor.getString(3)),
+                    cursor.getInt(4),
+                    cursor.getInt(0)
+            );
+            list.add(workout);
+        }
+        return list;
+    }
+
+    private GiorniSettimana convertiInGiornoSettimana (String valore){
+
+        switch (valore){
+            case "Lunedi":{
+                return GiorniSettimana.Lunedi;
+            }
+            case "Martedi":{
+                return GiorniSettimana.Martedi;
+            }
+            case "Mercoledi":{
+                return GiorniSettimana.Mercoledi;
+            }
+            case "Giovedi":{
+                return GiorniSettimana.Giovedi;
+            }
+            case "Venerdi":{
+                return GiorniSettimana.Venerdi;
+            }
+            case "Sabato":{
+                return GiorniSettimana.Sabato;
+            }
+            case "Domenica":{
+                return GiorniSettimana.Domenica;
+            }
+            default: return null;
+        }
+    }
+
+    private GruppiMuscolari convertiInGruppoMuscolare (String valore){
 
         switch (valore){
             case "Petto":{
@@ -352,12 +469,14 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public void deleteEsercizio(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        String whereClause = COLUMN_ID_ESERCIZIO + " =?";
+        String whereClauseEsercizio = COLUMN_ID_ESERCIZIO + " =?";
+        String whereClauseSupporto = COLUMN_ID_ESERCIZIO_SUPPORTO + " =?";
         String[] whereArgs = new String[]{String.valueOf(id)};
 
-        long result = db.delete(TABLE_NAME_ESERCIZI, whereClause, whereArgs );
+        long resultEsercizio = db.delete(TABLE_NAME_ESERCIZI, whereClauseEsercizio, whereArgs );
+        long resultSupporto = db.delete(TABLE_NAME_SUPPORTO, whereClauseSupporto, whereArgs );
 
-        if(result == -1){
+        if(resultEsercizio == -1 || resultSupporto == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Eliminato correttamente!", Toast.LENGTH_SHORT).show();
@@ -369,11 +488,14 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     public void deleteWorkout(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_ID_WORKOUT + " =?";
+        String whereClauseSupporto = COLUMN_ID_WORKOUT_SUPPORTO + " =?";
         String[] whereArgs = new String[]{String.valueOf(id)};
 
-        long result = db.delete(TABLE_NAME_WORKOUT, whereClause, whereArgs );
+        long resultWorkout = db.delete(TABLE_NAME_WORKOUT, whereClause, whereArgs );
+        long resultSupporto = db.delete(TABLE_NAME_SUPPORTO, whereClauseSupporto, whereArgs );
 
-        if(result == -1){
+
+        if(resultWorkout == -1 || resultSupporto == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Eliminato correttamente!", Toast.LENGTH_SHORT).show();
