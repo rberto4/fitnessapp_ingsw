@@ -1,32 +1,27 @@
 package com.ingsw.fitnessapp;
 
 import org.junit.Test;
-import org.junit.runner.manipulation.Ordering;
 
 import static org.junit.Assert.*;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.widget.Toast;
 
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
-import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
-import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
+ * *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+
+public class TestEsercizio
+{
     //long result=db.insert(TABLE_NAME_ESERCIZI,null,cv);
     Context context;
     EsercizioPesistica esercizio_pesistica = new EsercizioPesistica(1,1,60,GruppiMuscolari.Addome,100);
     // parametri di test
     String string_nome = "test";
-    boolean favorite = true;
     TipoEsercizio tipoEsercizio = TipoEsercizio.esercizio_pesistica;
     int reps = 1;
     int serie = 1;
@@ -34,6 +29,7 @@ public class ExampleUnitTest {
     GruppiMuscolari gruppiMuscolari = GruppiMuscolari.Addome;
     float peso = 100;
 
+    // prova test con junit
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
@@ -48,7 +44,7 @@ public class ExampleUnitTest {
     @Test
     public void testFavoriteEsercizio() throws Exception{
         esercizio_pesistica.setFavorite(true);
-        assertEquals(favorite,esercizio_pesistica.isFavorite());
+        assertTrue("L'esercizio non è tra i preferiti",esercizio_pesistica.isFavorite());
     }
     @Test
     public void testTipoEsercizio() throws Exception {
