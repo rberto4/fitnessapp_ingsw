@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ingsw.fitnessapp.R;
@@ -30,6 +31,8 @@ public class FragmentWorkouts extends Fragment {
     RecyclerView recyclerView;
     WorkoutsAdapter adapter;
 
+    RelativeLayout layout_no_esercizi;
+
     ArrayList<Workout> list;
 
     ClasseDatabaseOpenHelper db;
@@ -44,7 +47,7 @@ public class FragmentWorkouts extends Fragment {
 
        // list_esercizi = new ArrayList<>();
         recyclerView = v.findViewById(R.id.id_rv_workouts);
-
+        layout_no_esercizi = v.findViewById(R.id.id_layout_nessunworkout);
 
 
         // NASCONDI FAB QUANDO SI FA UNO SCROLL IN BASSO
@@ -61,6 +64,8 @@ public class FragmentWorkouts extends Fragment {
             }
         });
 
+
+
         return v;
     }
 
@@ -69,6 +74,16 @@ public class FragmentWorkouts extends Fragment {
         super.onStart();
         list = db.caricaListaWorkoutDaDb();
         adapter = new WorkoutsAdapter(getContext(),list,db);
+
         recyclerView.setAdapter(adapter);
+
+        if (adapter.getItemCount() == 0){
+            recyclerView.setVisibility(View.GONE);
+            layout_no_esercizi.setVisibility(View.VISIBLE);
+        }else{
+            layout_no_esercizi.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+
     }
 }

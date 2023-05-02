@@ -32,6 +32,11 @@ import java.util.ArrayList;
 public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHolder> {
 
     ArrayList<Esercizio> list_esercizi_selezionati;
+    ArrayList<Esercizio> lista_esercizi;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> lista_esercizi_nomi;
+    Dialog dialog;
+    ListView list;
     Context context;
     ClasseDatabaseOpenHelper db;
     int index = 1;
@@ -101,7 +106,7 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
 
     private void apriDialogEsercizi(int i, ImageView delete, ImageView freccia, TextView esercizio_text) {
         es_selezionato = false;
-        Dialog dialog = new Dialog(context);
+        dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_listaesercizi_nuovoworkout);
         dialog.setCancelable(true);
         dialog.show();
@@ -115,35 +120,8 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
             }
         });
         SearchView searchView = dialog.findViewById(R.id.id_dialog_nomiesercizi_search);
-        ListView list = dialog.findViewById(R.id.id_dialog_nomiesercizi_list);
-        ArrayList<Esercizio> lista_esercizi;
-        ArrayList<String> lista_esercizi_nomi = new ArrayList<>();
-        lista_esercizi = db.caricaListaEserciziDaDb();
-
-        for (Esercizio esercizio : lista_esercizi){
-            switch (esercizio.getTipo().name()){
-                case("esercizio_pesistica"):{
-                    lista_esercizi_nomi.add(esercizio.getNome()+"\n"+
-                            " • Ripetizioni: "+((EsercizioPesistica)esercizio).getRipetizioni()+"\n"+
-                            " • Serie: "+((EsercizioPesistica)esercizio).getSerie()+"\n"+
-                            " • Peso: "+((EsercizioPesistica)esercizio).getPeso()
-                    );
-
-                }break;
-                case("esercizio_cardio"):{
-                    Tempo tempo = new Tempo();
-                    lista_esercizi_nomi.add(esercizio.getNome()+"\n"+
-                            " • Difficoltà: "+((EsercizioCardio)esercizio).getDifficolta()+"\n"+
-                            " • Durata: "+tempo.CreaTestoFormattatoDurata(((EsercizioCardio) esercizio).getDurata())+"\n"
-                    );
-                }break;
-
-            }
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, androidx.appcompat.R.layout.select_dialog_item_material,lista_esercizi_nomi);
-        list.setAdapter(adapter);
-
+        list = dialog.findViewById(R.id.id_dialog_nomiesercizi_list);
+        caricaListaNomi(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -178,9 +156,43 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
             public void onClick(View v) {
                 Intent i = new Intent(context, NuovoEsercizioActivity.class);
                 context.startActivity(i);
-                adapter.notifyDataSetChanged();
             }
         });
+
+    }
+
+    public void caricaListaNomi(boolean appenaCreato){
+        lista_esercizi_nomi = new ArrayList<>();
+        lista_esercizi = db.caricaListaEserciziDaDb();
+
+        for (Esercizio esercizio : lista_esercizi){
+            switch (esercizio.getTipo().name()){
+                case("esercizio_pesistica"):{
+                    lista_esercizi_nomi.add(esercizio.getNome()+"\n"+
+                            " • Ripetizioni: "+((EsercizioPesistica)esercizio).getRipetizioni()+"\n"+
+                            " • Serie: "+((EsercizioPesistica)esercizio).getSerie()+"\n"+
+                            " • Peso: "+((EsercizioPesistica)esercizio).getPeso()+"\n"
+                    );
+
+                }break;
+                case("esercizio_cardio"):{
+                    Tempo tempo = new Tempo();
+                    lista_esercizi_nomi.add(esercizio.getNome()+"\n"+
+                            " • Difficoltà: "+((EsercizioCardio)esercizio).getDifficolta()+"\n"+
+                            " • Durata: "+tempo.CreaTestoFormattatoDurata(((EsercizioCardio) esercizio).getDurata())+"\n"
+                    );
+                }break;
+
+            }
+        }
+        adapter = new ArrayAdapter<>(context, androidx.appcompat.R.layout.select_dialog_item_material,lista_esercizi_nomi);
+        list.setAdapter(adapter);
+
+        if (appenaCreato){
+            lista_esercizi = db.caricaListaEserciziDaDb();
+            list_esercizi_selezionati.add(lista_esercizi.get(lista_esercizi.size()-1));
+            dialog.dismiss();
+        }
     }
 
     public ArrayList<Esercizio> ottieniListaDiEserciziSelezionati(){

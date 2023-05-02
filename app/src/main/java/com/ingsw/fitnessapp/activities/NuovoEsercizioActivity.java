@@ -262,13 +262,14 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
                     }
             }break;
         }
+
         onBackPressed();
     }
 
     private void dialogRecupero(String type) {
         Dialog dialog = new Dialog(NuovoEsercizioActivity.this);
         dialog.setContentView(R.layout.dialog_recupero_nomiesercizi);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         dialog.show();
 
         MaterialToolbar toolbar1 = dialog.findViewById(R.id.id_dialog_nomiesercizi_toolbar);
@@ -278,6 +279,7 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         ImageView meno_minuti = dialog.findViewById(R.id.id_dialog_recupero_minuti_meno);
         TextView secondi = dialog.findViewById(R.id.id_dialog_recupero_secondi);
         TextView minuti = dialog.findViewById(R.id.id_dialog_recupero_minuti);
+        Button btn_save = dialog.findViewById(R.id.id_dialog_recupero_btn_save);
 
         toolbar1.setTitle(type);
         toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
@@ -289,9 +291,13 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         piu_secondi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Integer.parseInt(secondi.getText().toString())<50){
-                    secondi.setText(String.valueOf(Integer.parseInt(secondi.getText().toString())+10));
-                }else{
+                if (Integer.parseInt(secondi.getText().toString())<55){
+                    if(Integer.parseInt(secondi.getText().toString()) == 0){
+                        secondi.setText("0"+(Integer.parseInt(secondi.getText().toString())+5));
+                    }else{
+                        secondi.setText(String.valueOf(Integer.parseInt(secondi.getText().toString())+5));
+                    }
+                } else{
                     minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())+1));
                     secondi.setText("00");
                 }
@@ -302,12 +308,19 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
         meno_secondi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Integer.parseInt(secondi.getText().toString())>10){
-                    secondi.setText(String.valueOf(Integer.parseInt(secondi.getText().toString())-10));
-                }else{
+                if (Integer.parseInt(secondi.getText().toString())>=5){
+                    if(Integer.parseInt(secondi.getText().toString()) == 5){
+                        secondi.setText("00");
+                    }else if(Integer.parseInt(secondi.getText().toString()) == 10){
+                        secondi.setText("05");
+                    } else{
+                        secondi.setText(String.valueOf(Integer.parseInt(secondi.getText().toString())-5));
+                    }
+                }
+                else{
                     if(Integer.parseInt(minuti.getText().toString())>0){
                         minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())-1));
-                        secondi.setText("50");
+                        secondi.setText("55");
                     }else{
                         secondi.setText("00");
                     }
@@ -327,19 +340,24 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Integer.parseInt(minuti.getText().toString())>0){
-                    minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())-1));
+                    if(Integer.parseInt(minuti.getText().toString()) == 0){
+                        minuti.setText("0"+Integer.parseInt(minuti.getText().toString()));
+                    }else{
+                        minuti.setText(String.valueOf(Integer.parseInt(minuti.getText().toString())-1));
+                    }
                 }
             }
         });
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDismiss(DialogInterface dialog) {
+            public void onClick(View v) {
                 if (type.equals("Durata sessione")){
                     durata.setText(minuti.getText() + ":" + secondi.getText());
                 }else {
                     recupero.setText(minuti.getText() + ":" + secondi.getText());
                 }
+                dialog.dismiss();
             }
         });
     }
@@ -519,9 +537,6 @@ public class NuovoEsercizioActivity extends AppCompatActivity {
 
 
     // ONSTART PER CARICARE I DATI QUANDO SI FA MODIFICA
-
-
-
 
     private void controlloModifica() {
         if(b != null){

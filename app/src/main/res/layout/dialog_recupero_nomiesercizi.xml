@@ -131,6 +131,18 @@
                 />
         </LinearLayout>
 
+
     </LinearLayout>
 
+    <Button
+        android:id="@+id/id_dialog_recupero_btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="salva tempo"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/arancio_500"
+        android:layout_alignParentBottom="true"
+        />
 </LinearLayout>

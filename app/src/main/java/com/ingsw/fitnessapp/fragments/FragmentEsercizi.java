@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -44,6 +45,7 @@ public class FragmentEsercizi extends Fragment {
     EserciziAdapter adapter;
     ChipGroup gruppo_chips;
     ClasseDatabaseOpenHelper db;
+    RelativeLayout layout_no_esercizi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +65,7 @@ public class FragmentEsercizi extends Fragment {
         gruppo_chips = v.findViewById(R.id.id_esercizi_chipgroup);
         recyclerView = v.findViewById(R.id.id_rv_esercizi);
         searchView = v.findViewById(R.id.id_searchview_esercizi);
+        layout_no_esercizi = v.findViewById(R.id.id_layout_nessunesercizio);
         searchView.clearFocus();
 
 
@@ -80,7 +83,11 @@ public class FragmentEsercizi extends Fragment {
         });
 
         // CODICE PER LISTA ESERCIZI
-        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
+
         // DB , PRENDERE DATI E METTERE IN LIST
 
 
@@ -112,7 +119,21 @@ public class FragmentEsercizi extends Fragment {
             }
         });
 
-
+        // SE ELIMINO O INSERISCO UN ESERCIZIO, MOSTRO O NASCONDO LA UI NESSUN ESERCIZIO
+        adapter = new EserciziAdapter(getContext(),list,db);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (list.isEmpty()){
+                    recyclerView.setVisibility(View.GONE);
+                    layout_no_esercizi.setVisibility(View.VISIBLE);
+                }else{
+                    layout_no_esercizi.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         return v;
     }
@@ -193,5 +214,12 @@ public class FragmentEsercizi extends Fragment {
         adapter = new EserciziAdapter(getContext(),list,db);
         recyclerView.setAdapter(adapter);
 
+        if (adapter.getItemCount() == 0){
+            recyclerView.setVisibility(View.GONE);
+            layout_no_esercizi.setVisibility(View.VISIBLE);
+        }else{
+            layout_no_esercizi.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

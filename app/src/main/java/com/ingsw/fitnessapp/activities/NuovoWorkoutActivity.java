@@ -1,9 +1,11 @@
 package com.ingsw.fitnessapp.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.ingsw.fitnessapp.R;
@@ -30,6 +33,7 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
     ImageView giorno_previous,giorno_next;
     TextView giorno;
     RecyclerView recyclerView;
+    EsInWorkoutAdapter adapter;
 
     Button salva;
     ArrayList<Integer> lista_index;
@@ -58,7 +62,7 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
         db = new ClasseDatabaseOpenHelper(this);
         lista_index = new ArrayList<>();
         lista_index.add(0);
-        EsInWorkoutAdapter adapter = new EsInWorkoutAdapter(this,db);
+        adapter = new EsInWorkoutAdapter(this,db);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -87,6 +91,12 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        adapter.caricaListaNomi(true);
     }
 
     private void impostaGiorno(String string) {

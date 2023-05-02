@@ -65,6 +65,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
         db.deleteWorkout(list.get(position).getId());
         list.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position,getItemCount());
         alert.show();
     }
 

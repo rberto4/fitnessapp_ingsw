@@ -6,9 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.FragmentWorkouts">
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
         <com.google.android.material.appbar.MaterialToolbar
@@ -22,14 +23,53 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/id_rv_workouts"
-
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/id_layout_nessunworkout"
+        android:visibility="visible"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_icona_workouts"
+                app:tint="@color/white"
+                android:background="@drawable/cerchio_rosso"
+                android:backgroundTint="@color/grey"
+                android:padding="16dp"
+                android:alpha="0.5" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nessun workout presente in memoria"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:alpha="0.5"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

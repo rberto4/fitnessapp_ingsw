@@ -200,6 +200,7 @@ public class EserciziAdapter extends RecyclerView.Adapter<EserciziViewHolder> {
                 db.deleteEsercizio(list.get(position).getId());
                 list.remove(position);
                 notifyItemRemoved(position);
+                notifyItemRangeChanged(position,getItemCount());
             }
         });
             AlertDialog alert = builder.create();
