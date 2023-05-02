@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
     TextView giorno;
     RecyclerView recyclerView;
 
+    Button salva;
     ArrayList<Integer> lista_index;
     GiorniSettimana giorniSettimana = GiorniSettimana.Lunedi;
     int index_giorno = 0;
@@ -48,9 +51,16 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
         giorno = findViewById(R.id.id_nuovoworkout_giorno);
         giorno_previous = findViewById(R.id.id_nuovoworkout_prevoius);
         giorno_next = findViewById(R.id.id_nuovoworkout_next);
+        salva = findViewById(R.id.id_nuovoworkout_salva);
         recyclerView = findViewById(R.id.id_nuovoworkout_rv_di_esercizi);
 
         db = new ClasseDatabaseOpenHelper(this);
+        lista_index = new ArrayList<>();
+        lista_index.add(0);
+        EsInWorkoutAdapter adapter = new EsInWorkoutAdapter(this,db);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
         giorno_previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +76,17 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
             }
         });
 
-        lista_index = new ArrayList<>();
-        lista_index.add(0);
-        EsInWorkoutAdapter adapter = new EsInWorkoutAdapter(lista_index,this,db);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        salva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Esercizio> list_esercizi_scelti = adapter.ottieniListaDiEserciziSelezionati();
+                for (Esercizio esercizio: list_esercizi_scelti){
+                    Log.d("forid",esercizio.getNome());
+                }
+            }
+        });
+
+
 
     }
 

@@ -35,7 +35,8 @@
         android:id="@+id/id_dialog_nomiesercizi_search"
         />
 
-    <ListView
+    <view
+        class="androidx.appcompat.app.AlertController$RecycleListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/id_dialog_nomiesercizi_list"

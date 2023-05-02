@@ -12,13 +12,14 @@ import com.ingsw.fitnessapp.R;
 public class EsInWorkoutViewHolder extends RecyclerView.ViewHolder {
 
     TextView index,esercizio;
-    ImageView delete;
+    ImageView delete,freccia;
 
     public EsInWorkoutViewHolder(@NonNull View itemView) {
         super(itemView);
         index = itemView.findViewById(R.id.id_workouteslist_index);
         esercizio = itemView.findViewById(R.id.id_workouteslist_esercizio);
         delete = itemView.findViewById(R.id.id_workouteslist_delete);
+        freccia = itemView.findViewById(R.id.id_workouteslist_freccia);
 
     }
 }

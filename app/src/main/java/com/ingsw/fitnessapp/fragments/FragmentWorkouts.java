@@ -46,8 +46,6 @@ public class FragmentWorkouts extends Fragment {
         list = new ArrayList<>();
 
 
-
-
         recyclerView = v.findViewById(R.id.id_rv_workouts);
         adapter = new WorkoutsAdapter(v.getContext(),list);
         recyclerView.setAdapter(adapter);
