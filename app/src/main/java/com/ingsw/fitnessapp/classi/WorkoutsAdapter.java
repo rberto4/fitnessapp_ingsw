@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ingsw.fitnessapp.R;
+import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Workout;
 
 import java.util.ArrayList;
@@ -23,9 +24,12 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
     Context context;
     ListaEserciziWorkoutAdapter adapter;
 
-    public WorkoutsAdapter(Context context, ArrayList<Workout> list) {
+    ClasseDatabaseOpenHelper db;
+
+    public WorkoutsAdapter(Context context, ArrayList<Workout> list, ClasseDatabaseOpenHelper db) {
         this.list = list;
         this.context = context;
+        this.db = db;
 
     }
 
@@ -43,20 +47,24 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
         holder.note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                apriDialogNota(list.get(position).getNote());
+                apriDialogNota(list.get(position).getNote(),position);
             }
         });
         adapter = new ListaEserciziWorkoutAdapter(list.get(position).getList_esercizi(),context);
         holder.recyclerView.setAdapter(adapter);
     }
 
-    private void apriDialogNota(String note) {
+    private void apriDialogNota(String note,int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(note);
         builder.setTitle("Note allenamento");
         builder.setCancelable(true);
         builder.setPositiveButton("Chiudi", (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
+
+        db.deleteWorkout(list.get(position).getId());
+        list.remove(position);
+        notifyItemRemoved(position);
         alert.show();
     }
 

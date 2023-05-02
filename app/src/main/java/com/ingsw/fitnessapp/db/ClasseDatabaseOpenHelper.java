@@ -202,7 +202,17 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         }else{
             Toast.makeText(context, "Aggiunto correttamente!", Toast.LENGTH_SHORT).show();
         }
+        String query = "SELECT " + COLUMN_ID_WORKOUT + " FROM " + TABLE_NAME_WORKOUT + ";";
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        cursor.moveToLast();
+        workout.setId(cursor.getInt(0));
+
         aggiungiEserciziInWorkout(workout);
+        Log.d("id_w",workout.getId()+"");
         db.close();
     }
 
@@ -225,7 +235,6 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     }
 
     public void aggiungiEserciziInWorkout(Workout workout){
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         ArrayList<Long> result = new ArrayList<>();
@@ -233,15 +242,16 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         for(int i = 0; i < workout.getList_esercizi().size(); i++){
             cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO,workout.getList_esercizi().get(i).getId());
             cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
-
             result.add(db.insert(TABLE_NAME_SUPPORTO, null, cv));
         }
+
 
         if(result.contains(-1)){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Aggiunti correttamente!", Toast.LENGTH_SHORT).show();
         }
+
         db.close();
     }
 
@@ -322,6 +332,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                 }
             }
         }
+        db.close();
 
         return list;
     }
@@ -385,6 +396,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                 }
             }
         }
+        db.close();
 
         return list;
     }

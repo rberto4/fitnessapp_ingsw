@@ -45,15 +45,16 @@
                 android:layout_gravity="center|top"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 android:background="@drawable/cerchio_rosso"
                 android:id="@+id/id_card_esercizi_in_workout_index" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textAlignment="center"

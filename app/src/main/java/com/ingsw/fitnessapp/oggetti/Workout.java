@@ -23,6 +23,14 @@ public class Workout {
         this.idSchedaCorrispondente = idSchedaCorrispondente;
         this.id = id;
     }
+    public Workout(ArrayList<Esercizio> list_esercizi, String nome, String note, GiorniSettimana giorniSettimana) {
+        this.list_esercizi = list_esercizi;
+        this.nome = nome;
+        this.note = note;
+        this.giorniSettimana = giorniSettimana;
+        this.idSchedaCorrispondente = idSchedaCorrispondente;
+        this.id = id;
+    }
 
     public ArrayList<Esercizio> getList_esercizi() {
         return list_esercizi;

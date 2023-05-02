@@ -3,12 +3,14 @@ package com.ingsw.fitnessapp.classi;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.ingsw.fitnessapp.R;
+import com.ingsw.fitnessapp.activities.NuovoEsercizioActivity;
 import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
@@ -103,6 +106,7 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
         dialog.setCancelable(true);
         dialog.show();
 
+        Button btn_new_esercizio = dialog.findViewById(R.id.id_dialog_nomiesercizi_btn_new);
         MaterialToolbar toolbar1 = dialog.findViewById(R.id.id_dialog_nomiesercizi_toolbar);
         toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +170,15 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
                     list_esercizi_selezionati.add(i,lista_esercizi.get(position));
                 }
                 dialog.dismiss();
+            }
+        });
+
+        btn_new_esercizio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, NuovoEsercizioActivity.class);
+                context.startActivity(i);
+                adapter.notifyDataSetChanged();
             }
         });
     }

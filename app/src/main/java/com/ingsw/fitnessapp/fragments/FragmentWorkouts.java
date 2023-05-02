@@ -43,12 +43,8 @@ public class FragmentWorkouts extends Fragment {
         db = new ClasseDatabaseOpenHelper(v.getContext());
 
        // list_esercizi = new ArrayList<>();
-        list = new ArrayList<>();
-
-
         recyclerView = v.findViewById(R.id.id_rv_workouts);
-        adapter = new WorkoutsAdapter(v.getContext(),list);
-        recyclerView.setAdapter(adapter);
+
 
 
         // NASCONDI FAB QUANDO SI FA UNO SCROLL IN BASSO
@@ -66,5 +62,13 @@ public class FragmentWorkouts extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        list = db.caricaListaWorkoutDaDb();
+        adapter = new WorkoutsAdapter(getContext(),list,db);
+        recyclerView.setAdapter(adapter);
     }
 }

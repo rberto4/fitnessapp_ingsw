@@ -19,6 +19,7 @@ import com.ingsw.fitnessapp.classi.EsInWorkoutAdapter;
 import com.ingsw.fitnessapp.classi.GiorniSettimana;
 import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
+import com.ingsw.fitnessapp.oggetti.Workout;
 
 import java.util.ArrayList;
 
@@ -80,13 +81,11 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<Esercizio> list_esercizi_scelti = adapter.ottieniListaDiEserciziSelezionati();
-                for (Esercizio esercizio: list_esercizi_scelti){
-                    Log.d("forid",esercizio.getNome());
-                }
+                Workout workout = new Workout(list_esercizi_scelti,nome.getText().toString(),nota.getText().toString(),giorniSettimana);
+                db.aggiungiWorkoutAlDb(workout);
+                onBackPressed();
             }
         });
-
-
 
     }
 
