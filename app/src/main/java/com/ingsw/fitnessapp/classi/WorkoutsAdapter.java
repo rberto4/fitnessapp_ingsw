@@ -52,7 +52,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
                 apriDialogNota(list.get(position).getNote(), position);
             }
         });
-        adapter = new ListaEserciziWorkoutAdapter(list.get(position).getList_esercizi(), context);
+        adapter = new ListaEserciziWorkoutAdapter(list.get(position).getList_esercizi(), context,db);
         holder.recyclerView.setAdapter(adapter);
 
         holder.popup.setOnClickListener(new View.OnClickListener() {

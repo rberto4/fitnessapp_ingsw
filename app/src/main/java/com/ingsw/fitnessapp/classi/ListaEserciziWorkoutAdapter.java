@@ -1,6 +1,7 @@
 package com.ingsw.fitnessapp.classi;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,15 +9,24 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.ingsw.fitnessapp.R;
 import com.ingsw.fitnessapp.activities.NuovoEsercizioActivity;
+import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
 import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
@@ -28,11 +38,13 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
 
     ArrayList<Esercizio> list;
     Context context;
+    ClasseDatabaseOpenHelper db;
 
 
-    public ListaEserciziWorkoutAdapter(ArrayList<Esercizio> list, Context context) {
+    public ListaEserciziWorkoutAdapter(ArrayList<Esercizio> list, Context context, ClasseDatabaseOpenHelper db) {
         this.list = list;
         this.context = context;
+        this.db = db;
     }
 
     @NonNull
@@ -80,6 +92,13 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
         if (getItemCount() == position+1){
             holder.modifica.setVisibility(View.VISIBLE);
         }
+
+        holder.modifica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //apriDialogEsercizi();
+            }
+        });
 
         holder.popup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +178,6 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 
     @Override
     public int getItemCount() {

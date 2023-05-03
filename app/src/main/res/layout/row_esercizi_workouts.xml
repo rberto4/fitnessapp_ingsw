@@ -259,7 +259,7 @@
                         android:src="@drawable/ic_icona_difficolta"
                         android:background="@drawable/cerchio_rosso"
                         android:padding="4dp"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:backgroundTint="@color/azzurro_500"
                         ></ImageView>
                     <TextView
@@ -289,15 +289,17 @@
         android:visibility="visible"
         />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="modifica"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
+        app:tint="@color/white"
+        app:fabSize="mini"
         android:layout_marginEnd="8dp"
         android:id="@+id/id_card_esercizi_in_workout_modifica"
         android:visibility="gone"
+        android:src="@drawable/ic_aggiungi"
 
         />
 </LinearLayout>

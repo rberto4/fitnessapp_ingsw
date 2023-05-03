@@ -62,6 +62,7 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
 
         holder.index.setText(position+1+"°");
 
+
         holder.esercizio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,12 +77,27 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,getItemCount());
                 list_esercizi_selezionati.remove(position);
-                Toast.makeText(context, position+"", Toast.LENGTH_SHORT).show();
             }
         });
         modificaVistaDeleteBtn(position,holder.delete,holder.freccia);
+        ricaricaVistaEserciziSelezionati(holder.esercizio,position);
     }
 
+    public void ricaricaVistaEserciziSelezionati(TextView t,int p){
+        if (!list_esercizi_selezionati.isEmpty()){
+            if (p == getItemCount()-1){
+                t.setText("Aggiuni esercizio");
+            }else{
+                if (getItemCount()>1){
+                    t.setText(list_esercizi_selezionati.get(p).getNome());
+                }else{
+                    t.setText("Aggiuni esercizio");
+                }
+            }
+        }else{
+            t.setText("Aggiuni esercizio");
+        }
+    }
 
 
     public void modificaVistaDeleteBtn(int position, ImageView btn_delete, ImageView freccia){
@@ -138,11 +154,11 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
                     notifyItemInserted(i+1);
                     modificaVistaDeleteBtn(i,delete,freccia);
                     list_esercizi_selezionati.add(i,lista_esercizi.get(position));
-                    esercizio_text.setText(lista_esercizi_nomi.get(position));
+                    esercizio_text.setText(list_esercizi_selezionati.get(i).getNome());
                 } else{
                     list_esercizi_selezionati.remove(i);
                     list_esercizi_selezionati.add(i,lista_esercizi.get(position));
-                    esercizio_text.setText(lista_esercizi_nomi.get(position));
+                    esercizio_text.setText(list_esercizi_selezionati.get(i).getNome());
                 }
                 dialog.dismiss();
             }
@@ -185,11 +201,14 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
         adapter = new ArrayAdapter<>(context, androidx.appcompat.R.layout.select_dialog_item_material,lista_esercizi_nomi);
         list.setAdapter(adapter);
 
+        /*
         if (appenaCreato){
             lista_esercizi = db.caricaListaEserciziDaDb();
-            list_esercizi_selezionati.add(lista_esercizi.get(lista_esercizi.size()-1));
-            dialog.dismiss();
+           // list_esercizi_selezionati.add(lista_esercizi.get(lista_esercizi.size()-1));
+            // dialog.dismiss();
         }
+
+         */
     }
 
     public ArrayList<Esercizio> ottieniListaDiEserciziSelezionati(){

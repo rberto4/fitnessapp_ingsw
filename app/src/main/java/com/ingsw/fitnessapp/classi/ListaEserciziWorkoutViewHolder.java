@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ingsw.fitnessapp.R;
 
 public class ListaEserciziWorkoutViewHolder extends RecyclerView.ViewHolder {
@@ -16,7 +17,7 @@ public class ListaEserciziWorkoutViewHolder extends RecyclerView.ViewHolder {
     TextView index_esercizio, nome_esercizio,popup;
     TextView ripetizioni,serie,peso,recupero,durata,difficolta;
     ImageView freccia;
-    Button modifica;
+    FloatingActionButton modifica;
     GridLayout grid_pesi,grid_cardio;
 
     public ListaEserciziWorkoutViewHolder(@NonNull View itemView) {
