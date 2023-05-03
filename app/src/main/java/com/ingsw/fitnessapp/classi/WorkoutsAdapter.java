@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ingsw.fitnessapp.R;
@@ -47,11 +49,61 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
         holder.note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                apriDialogNota(list.get(position).getNote(),position);
+                apriDialogNota(list.get(position).getNote(), position);
             }
         });
-        adapter = new ListaEserciziWorkoutAdapter(list.get(position).getList_esercizi(),context);
+        adapter = new ListaEserciziWorkoutAdapter(list.get(position).getList_esercizi(), context);
         holder.recyclerView.setAdapter(adapter);
+
+        holder.popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PopupMenu popup = new PopupMenu(context, holder.popup);
+                popup.inflate(R.menu.menu_popup);
+                popup.setForceShowIcon(true);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if(item.getItemId() == R.id.id_menu_popup_elimina){
+
+                            // elimina workout
+                            eliminaWorkout(position);
+
+                            return true;
+                        }else {
+                            return false;
+                        }
+                    }
+                });
+                popup.show();
+            }
+        });
+    }
+
+    private void eliminaWorkout(int p) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Vuoi davvero elimanare il workout "+list.get(p).getNome()+" dalla lista dei tuoi workouts?");
+            builder.setTitle("Elimina workout");
+            builder.setCancelable(false);
+
+            builder.setNegativeButton("No", (dialog, id) -> dialog.cancel());
+
+            builder.setPositiveButton("Si, eliminalo", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    db.deleteWorkout(list.get(p).getId());
+                    list.remove(p);
+                    notifyItemRemoved(p);
+                    notifyItemRangeChanged(p,getItemCount());
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
     }
 
     private void apriDialogNota(String note,int position) {
@@ -62,10 +114,6 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
         builder.setPositiveButton("Chiudi", (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
 
-        db.deleteWorkout(list.get(position).getId());
-        list.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position,getItemCount());
         alert.show();
     }
 

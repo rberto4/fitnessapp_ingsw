@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -74,10 +76,12 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position,getItemCount());
                 list_esercizi_selezionati.remove(position);
+                Toast.makeText(context, position+"", Toast.LENGTH_SHORT).show();
             }
         });
         modificaVistaDeleteBtn(position,holder.delete,holder.freccia);
     }
+
 
 
     public void modificaVistaDeleteBtn(int position, ImageView btn_delete, ImageView freccia){
@@ -94,15 +98,6 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
         }
     }
 
-    public void impostaNomeSelezionato(TextView t,int position){
-        if (getItemCount() == 1){
-            t.setText("Aggiungi esercizio");
-        }else if (position+1 == getItemCount()){
-            t.setText("Aggiungi esercizio");
-        }else{
-            t.setText(list_esercizi_selezionati.get(position).getNome());
-        }
-    }
 
     private void apriDialogEsercizi(int i, ImageView delete, ImageView freccia, TextView esercizio_text) {
         es_selezionato = false;
@@ -143,9 +138,11 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
                     notifyItemInserted(i+1);
                     modificaVistaDeleteBtn(i,delete,freccia);
                     list_esercizi_selezionati.add(i,lista_esercizi.get(position));
+                    esercizio_text.setText(lista_esercizi_nomi.get(position));
                 } else{
                     list_esercizi_selezionati.remove(i);
                     list_esercizi_selezionati.add(i,lista_esercizi.get(position));
+                    esercizio_text.setText(lista_esercizi_nomi.get(position));
                 }
                 dialog.dismiss();
             }

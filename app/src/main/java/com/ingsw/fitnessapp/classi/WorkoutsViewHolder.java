@@ -14,7 +14,7 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder {
 
 
     RecyclerView recyclerView;
-    TextView nome_workout,giorno_settimana;
+    TextView nome_workout,giorno_settimana,popup;
     ImageView note;
 
     public WorkoutsViewHolder(@NonNull View itemView) {
@@ -24,6 +24,7 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder {
         nome_workout = itemView.findViewById(R.id.id_cardworkout_nome);
         giorno_settimana = itemView.findViewById(R.id.id_cardworkout_giornosettimana);
         note = itemView.findViewById(R.id.id_cardworkout_note);
+        popup = itemView.findViewById(R.id.id_card_workout_popupmenu);
 
     }
 }

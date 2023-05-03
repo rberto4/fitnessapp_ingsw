@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="8dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:layout_toStartOf="@+id/id_cardworkout_note"
             android:gravity="center|start"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:text="Nome workout"
             android:maxLines="3"
             android:textStyle="bold"
@@ -51,9 +51,19 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@id/id_card_workout_popupmenu"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
+            />
+
+        <TextView
+            android:id="@+id/id_card_workout_popupmenu"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="&#8942;"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textAppearance="?android:textAppearanceLarge"
             />
     </RelativeLayout>
 
