@@ -6,17 +6,19 @@ public class Schede {
     ArrayList<Workout> list_workout;
     int id;
     String nome;
-    //calendar datainizio;
-    //calendar dataFine;
+    long dataInizio;
+    long dataFine;
     String obiettivo;
 
     public Schede() {
     }
 
-    public Schede(ArrayList<Workout> list_workout, int id, String nome, String obiettivo) {
+    public Schede(ArrayList<Workout> list_workout, int id, String nome, long dataInizio, long dataFine, String obiettivo) {
         this.list_workout = list_workout;
         this.id = id;
         this.nome = nome;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
         this.obiettivo = obiettivo;
     }
 
@@ -38,6 +40,22 @@ public class Schede {
 
     public String getNome() {
         return nome;
+    }
+
+    public long getDataInizio() {
+        return dataInizio;
+    }
+
+    public void setDataInizio(long datainizio) {
+        this.dataInizio = datainizio;
+    }
+
+    public long getDataFine() {
+        return dataFine;
+    }
+
+    public void setDataFine(long dataFine) {
+        this.dataFine = dataFine;
     }
 
     public void setNome(String nome) {
