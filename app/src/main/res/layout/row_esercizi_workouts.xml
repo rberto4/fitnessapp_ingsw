@@ -103,7 +103,8 @@
                         android:background="@drawable/cerchio_rosso"
                         android:padding="4dp"
                         android:backgroundTint="@color/azzurro_500"
-                        ></ImageView>
+                        android:alpha="0.8" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -112,8 +113,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
-                        android:id="@+id/id_card_esercizi_in_workout_recupero"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizi_in_workout_recupero" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,8 +131,9 @@
                         app:tint="@color/white"
                         android:background="@drawable/cerchio_rosso"
                         android:padding="4dp"
-                        android:backgroundTint="@color/azzurro_500"
-                        ></ImageView>
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -141,8 +142,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
-                        android:id="@+id/id_card_esercizi_in_workout_peso"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizi_in_workout_peso" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -160,8 +160,9 @@
                         app:tint="@color/white"
                         android:background="@drawable/cerchio_rosso"
                         android:padding="4dp"
-                        android:backgroundTint="@color/azzurro_500"
-                        ></ImageView>
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -170,8 +171,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
-                        android:id="@+id/id_card_esercizi_in_workout_ripetizioni"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizi_in_workout_ripetizioni" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,8 +189,9 @@
                         app:tint="@color/white"
                         android:background="@drawable/cerchio_rosso"
                         android:padding="4dp"
-                        android:backgroundTint="@color/azzurro_500"
-                        ></ImageView>
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -199,8 +200,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
-                        android:id="@+id/id_card_esercizi_in_workout_serie"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizi_in_workout_serie" />
                 </LinearLayout>
             </GridLayout>
 

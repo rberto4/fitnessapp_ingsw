@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }break;
                     case R.id.id_menu_bottomnavigationview_schede: {
-                        //startActivity(new Intent(MainActivity.this, NuovoEsercizioActivity.class));
+                        startActivity(new Intent(MainActivity.this, NuovaSchedaActivity.class));
                     }break;
                 }
             }

@@ -8,14 +8,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="La mia scheda"
             android:background="@color/azzurro_500"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white">
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:entries="@array/Esercizi_petto"
+                android:theme="@style/spinnerTheme"
+                android:id="@+id/id_scheda_spinner_nomi"
+                >
+            </Spinner>
+        </com.google.android.material.appbar.MaterialToolbar>
 
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:showWeekNumber="true"
+            android:id="@+id/id_scheda_calendar"
+            >
+        </CalendarView>
     </LinearLayout>
 </FrameLayout>

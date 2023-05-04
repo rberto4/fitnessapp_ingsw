@@ -83,7 +83,7 @@
                 android:orientation="horizontal"
                 android:columnCount="4"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:visibility="visible"
@@ -96,6 +96,19 @@
                     android:layout_columnWeight="0.3"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/icona_ripetizioni"
+                        app:tint="@color/white"
+                        android:background="@drawable/cerchio_rosso"
+                        android:padding="4dp"
+                        android:alpha="0.8"
+                        android:layout_marginBottom="4dp"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -104,8 +117,8 @@
                         android:textSize="14dp"
                         android:textColor="@color/azzurro_500"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        ></TextView>
+                        android:gravity="center" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,8 +127,7 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:id="@+id/id_card_esercizio_ripetizioni"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizio_ripetizioni" />
                 </LinearLayout>
 
 
@@ -124,6 +136,20 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="0.3"
                     android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/icona_esercizipesi"
+                        app:tint="@color/white"
+                        android:background="@drawable/cerchio_rosso"
+                        android:padding="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -132,8 +158,8 @@
                         android:textSize="14dp"
                         android:textColor="@color/azzurro_500"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        ></TextView>
+                        android:gravity="center" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,8 +168,7 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:id="@+id/id_card_esercizio_peso"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizio_peso" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -151,6 +176,20 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="0.3"
                     android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/ic_icona_recupero"
+                        app:tint="@color/white"
+                        android:background="@drawable/cerchio_rosso"
+                        android:padding="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -160,8 +199,8 @@
                         android:textSize="14dp"
                         android:textColor="@color/azzurro_500"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        ></TextView>
+                        android:gravity="center" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -170,8 +209,7 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:id="@+id/id_card_esercizio_recupero"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizio_recupero" />
                 </LinearLayout>
 
 
@@ -181,6 +219,19 @@
                     android:layout_columnWeight="0.3"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/ic_icona_serie"
+                        app:tint="@color/white"
+                        android:background="@drawable/cerchio_rosso"
+                        android:padding="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -189,18 +240,17 @@
                         android:textSize="14dp"
                         android:textColor="@color/azzurro_500"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        ></TextView>
+                        android:gravity="center" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="3"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:id="@+id/id_card_esercizio_serie"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizio_serie" />
                 </LinearLayout>
             </GridLayout>
 
@@ -211,7 +261,7 @@
                 android:orientation="horizontal"
                 android:columnCount="2"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:visibility="visible"
@@ -224,6 +274,19 @@
                     android:layout_columnWeight="0.3"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/ic_icona_recupero"
+                        app:tint="@color/white"
+                        android:background="@drawable/cerchio_rosso"
+                        android:padding="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -232,8 +295,8 @@
                         android:textSize="14dp"
                         android:textColor="@color/azzurro_500"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        ></TextView>
+                        android:gravity="center" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -242,8 +305,7 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:id="@+id/id_card_esercizio_durata"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizio_durata" />
                 </LinearLayout>
 
 
@@ -252,6 +314,19 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="0.3"
                     android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/ic_icona_difficolta"
+                        app:tint="@color/white"
+                        android:background="@drawable/cerchio_rosso"
+                        android:padding="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:alpha="0.8"
+                        android:backgroundTint="@color/azzurro_500" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -260,8 +335,8 @@
                         android:textSize="14dp"
                         android:textColor="@color/azzurro_500"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        ></TextView>
+                        android:gravity="center" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -270,8 +345,7 @@
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:id="@+id/id_card_esercizio_difficolta"
-                        ></TextView>
+                        android:id="@+id/id_card_esercizio_difficolta" />
                 </LinearLayout>
 
             </GridLayout>

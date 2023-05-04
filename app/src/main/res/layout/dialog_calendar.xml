@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/id_dialog_calendar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/azzurro_500"
+        android:elevation="8dp"
+        app:title="Data inizio scheda"
+        app:navigationIconTint="@color/white"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_icona_chiudi"
+        app:titleTextColor="@android:color/white" />
+
+    <CalendarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_dialog_calendar"
+        />
+</LinearLayout>

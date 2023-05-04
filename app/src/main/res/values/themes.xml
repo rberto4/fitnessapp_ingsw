@@ -14,6 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="spinnerTheme">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="itemTextColor">@android:color/tertiary_text_light</item>
+        <item name="android:textSize">18dp</item>
+    </style>
 
 
 </resources>
