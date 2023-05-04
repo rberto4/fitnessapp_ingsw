@@ -549,5 +549,39 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //Passando l'oggetto workout permette di modificare la riga corrispondente nel db
+    public void updateWorkout(Workout workout){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        String whereClause = COLUMN_ID_WORKOUT + " =?";
+        String[] whereArgs = new String[]{String.valueOf(workout.getId())};
+
+        cv.put(COLUMN_NOME_WORKOUT,workout.getNome());
+        cv.put(COLUMN_NOTE,workout.getNote());
+        cv.put(COLUMN_GIORNI,workout.getGiorniSettimana().name());
+        cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE,workout.getIdSchedaCorrispondente());
+
+        long result = db.update(TABLE_NAME_WORKOUT, cv, whereClause, whereArgs);
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Modificato correttamente!", Toast.LENGTH_SHORT).show();
+        }
+
+        db.close();
+    }
+
+    public void updateEserciziInWorkout(Workout workout){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = COLUMN_ID_WORKOUT_SUPPORTO + " =?";
+        String[] whereArgs = new String[]{String.valueOf(workout.getId())};
+
+        db.delete(TABLE_NAME_SUPPORTO, whereClause, whereArgs);
+
+        aggiungiEserciziInWorkout(workout);
+
+        db.close();
+    }
 
 }
