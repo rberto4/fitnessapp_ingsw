@@ -245,7 +245,6 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             result.add(db.insert(TABLE_NAME_SUPPORTO, null, cv));
         }
 
-
         if(result.contains(-1)){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
@@ -555,31 +554,22 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         String whereClause = COLUMN_ID_WORKOUT + " =?";
         String[] whereArgs = new String[]{String.valueOf(workout.getId())};
+        String whereClauseSupporto = COLUMN_ID_WORKOUT_SUPPORTO + " =?";
+        String[] whereArgsSupporto = new String[]{String.valueOf(workout.getId())};
 
         cv.put(COLUMN_NOME_WORKOUT,workout.getNome());
         cv.put(COLUMN_NOTE,workout.getNote());
         cv.put(COLUMN_GIORNI,workout.getGiorniSettimana().name());
-        cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE,workout.getIdSchedaCorrispondente());
 
         long result = db.update(TABLE_NAME_WORKOUT, cv, whereClause, whereArgs);
+        db.delete(TABLE_NAME_SUPPORTO, whereClauseSupporto, whereArgsSupporto);
+        aggiungiEserciziInWorkout(workout);
 
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Modificato correttamente!", Toast.LENGTH_SHORT).show();
         }
-
-        db.close();
-    }
-
-    public void updateEserciziInWorkout(Workout workout){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String whereClause = COLUMN_ID_WORKOUT_SUPPORTO + " =?";
-        String[] whereArgs = new String[]{String.valueOf(workout.getId())};
-
-        db.delete(TABLE_NAME_SUPPORTO, whereClause, whereArgs);
-
-        aggiungiEserciziInWorkout(workout);
 
         db.close();
     }
