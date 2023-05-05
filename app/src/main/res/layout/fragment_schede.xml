@@ -6,36 +6,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.FragmentSchede">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:id="@+id/id_scheda_scroolview"
+        android:nestedScrollingEnabled="true"
         >
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="8dp"
             android:background="@color/azzurro_500"
-            app:titleTextColor="@color/white"
-            android:id="@+id/id_scheda_appbar"
             >
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/azzurro_500"
+                app:titleTextColor="@color/white"
+                android:id="@+id/id_scheda_appbar"
+                >
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:theme="@style/spinnerTheme"
+                    android:id="@+id/id_scheda_spinner_nomi"
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="58dp"
-                android:entries="@array/Esercizi_petto"
-                android:theme="@style/spinnerTheme"
-                android:id="@+id/id_scheda_spinner_nomi"
+                    />
+                </com.google.android.material.appbar.MaterialToolbar>
 
-                />
-        </com.google.android.material.appbar.MaterialToolbar>
+                    <CalendarView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:showWeekNumber="true"
+                        android:layout_gravity="center"
+                        android:id="@+id/id_scheda_calendar"
+                        android:elevation="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/background_calendario"
+                        >
+                    </CalendarView>
 
-        <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:showWeekNumber="true"
-            android:id="@+id/id_scheda_calendar"
-            >
-        </CalendarView>
-    </LinearLayout>
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_icona_calendario"
+                    app:tint="@color/white"
+                    android:background="@drawable/cerchio_rosso"
+                    android:backgroundTint="@color/azzurro_500"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    ></ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_gravity="center"
+
+                    android:textStyle="bold"
+                    android:text="Workout del giorno "
+                    android:id="@+id/id_scheda_workoutgiorno"
+                    />
+
+            </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/id_scheda_rv"
+                        android:layout_marginBottom="64dp"
+                        />
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

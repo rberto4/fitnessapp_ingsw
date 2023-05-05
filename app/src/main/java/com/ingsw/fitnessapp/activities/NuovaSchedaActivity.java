@@ -189,6 +189,7 @@ public class NuovaSchedaActivity extends AppCompatActivity {
                         o);
 
                 db.aggiungiSchedeAlDb(scheda);
+                onBackPressed();
             }
         });
 

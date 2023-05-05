@@ -189,6 +189,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
         alert.show();
     }
 
+
     public void filtraPerGiornoSettimana(ArrayList<Workout> lista_filtrata){
         this.list = lista_filtrata;
         notifyDataSetChanged();
