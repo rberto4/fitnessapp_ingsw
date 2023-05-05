@@ -295,8 +295,6 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
 
-
-
         cursor.moveToLast();
         do {
             if(cursor.getPosition()!=-1){
@@ -414,9 +412,32 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    //todo
+
     public ArrayList<Workout> workoutNelleSchede(int id){
         ArrayList<Workout> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT *" +
+                        " FROM " + TABLE_NAME_WORKOUT +
+                        " WHERE " + COLUMN_ID_SCHEDA_CORRISPONDENTE + " = " + id + ";";
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        while (cursor.moveToNext()) {
+
+            Workout workout = new Workout(
+                    eserciziNelWorkout(cursor.getInt(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    convertiInGiornoSettimana(cursor.getString(3)),
+                    cursor.getInt(4),
+                    cursor.getInt(0)
+            );
+            list.add(workout);
+        }
+        db.close();
 
         return list;
     }
