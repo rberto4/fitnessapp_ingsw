@@ -3,10 +3,17 @@ package com.ingsw.fitnessapp.classi;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -14,25 +21,39 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ingsw.fitnessapp.R;
+import com.ingsw.fitnessapp.activities.NuovoEsercizioActivity;
+import com.ingsw.fitnessapp.activities.NuovoWorkoutActivity;
 import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
+import com.ingsw.fitnessapp.oggetti.Esercizio;
+import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
+import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 import com.ingsw.fitnessapp.oggetti.Workout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
 
     ArrayList<Workout> list;
+    ArrayList<Workout> list_selected;
+    ArrayList<Workout> list_total;
+
     Context context;
     ListaEserciziWorkoutAdapter adapter;
-
     ClasseDatabaseOpenHelper db;
 
-    public WorkoutsAdapter(Context context, ArrayList<Workout> list, ClasseDatabaseOpenHelper db) {
+    boolean showCheckbox;
+
+    public WorkoutsAdapter(Context context, ArrayList<Workout> list, ClasseDatabaseOpenHelper db, Boolean showCheckbox) {
         this.list = list;
         this.context = context;
         this.db = db;
-
+        this.showCheckbox = showCheckbox;
+        if(showCheckbox){
+            list_selected = new ArrayList<>();
+            list_total = db.caricaListaWorkoutDaDb();
+        }
     }
 
     @NonNull
@@ -44,6 +65,25 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        if(showCheckbox){
+            holder.checkBox.setVisibility(View.VISIBLE);
+            statoCheckbox(holder.checkBox,position);
+        }
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    if (!list_selected.contains(list.get(position))){
+                        list_selected.add(list.get(position));
+                    }
+                }else{
+                    if (list_selected.contains(list.get(position))){
+                        list_selected.remove(list.get(position));
+                    }
+                }
+            }
+        });
+
         holder.nome_workout.setText(list.get(position).getNome());
         holder.giorno_settimana.setText(list.get(position).getGiorniSettimana().name());
         holder.note.setOnClickListener(new View.OnClickListener() {
@@ -65,21 +105,35 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if(item.getItemId() == R.id.id_menu_popup_elimina){
-
-                            // elimina workout
-                            eliminaWorkout(position);
-
-                            return true;
-                        }else {
-                            return false;
+                        switch (item.getItemId()) {
+                            case R.id.id_menu_popup_modifica:
+                                modificaWorkout(position);
+                                return true;
+                            case R.id.id_menu_popup_elimina:
+                                eliminaWorkout(position);
+                            default:
+                                return false;
                         }
                     }
                 });
                 popup.show();
             }
         });
+
     }
+
+    private void statoCheckbox(CheckBox c,int p) {
+        if (list_selected.isEmpty()){
+            c.setChecked(false);
+        }else{
+            if (list_selected.contains(list.get(p))){
+                c.setChecked(true);
+            }else{
+                c.setChecked(false);
+            }
+        }
+    }
+
 
     private void eliminaWorkout(int p) {
 
@@ -106,6 +160,24 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
 
     }
 
+    public ArrayList<Workout> restituisciWorkoutSelezionati(){
+        return list_selected;
+    }
+    private void modificaWorkout(int p){
+        Intent i = new Intent(context, NuovoWorkoutActivity.class);
+        i.putExtra("id", list.get(p).getId());
+        i.putExtra("nome", list.get(p).getNome());
+        i.putExtra("note", list.get(p).getNote());
+        i.putExtra("giorno_settimana", list.get(p).getGiorniSettimana());
+        int[] array_id = new int[list.get(p).getList_esercizi().size()];
+        for(int j=0; j<list.get(p).getList_esercizi().size(); j++){
+            array_id[j] = list.get(p).getList_esercizi().get(j).getId();
+            Log.d("controllo0",array_id[j]+"");
+        }
+        i.putExtra("array_es",array_id);
+        context.startActivity(i);
+    }
+
     private void apriDialogNota(String note,int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(note);
@@ -117,6 +189,10 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> {
         alert.show();
     }
 
+    public void filtraPerGiornoSettimana(ArrayList<Workout> lista_filtrata){
+        this.list = lista_filtrata;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return list.size();

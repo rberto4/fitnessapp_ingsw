@@ -12,17 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="Allenamenti"
             android:background="@color/azzurro_500"
             app:titleTextColor="@color/white"
-            >
-
-        </com.google.android.material.appbar.MaterialToolbar>
-
-
+            android:layout_marginBottom="8dp"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

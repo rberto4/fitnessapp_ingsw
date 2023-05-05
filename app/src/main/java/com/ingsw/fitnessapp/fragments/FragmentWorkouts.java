@@ -73,7 +73,7 @@ public class FragmentWorkouts extends Fragment {
     public void onStart() {
         super.onStart();
         list = db.caricaListaWorkoutDaDb();
-        adapter = new WorkoutsAdapter(getContext(),list,db);
+        adapter = new WorkoutsAdapter(getContext(),list,db,false);
 
         recyclerView.setAdapter(adapter);
 

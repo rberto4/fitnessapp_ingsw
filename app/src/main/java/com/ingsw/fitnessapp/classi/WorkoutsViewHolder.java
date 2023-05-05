@@ -1,6 +1,7 @@
 package com.ingsw.fitnessapp.classi;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder {
     TextView nome_workout,giorno_settimana,popup;
     ImageView note;
 
+    CheckBox checkBox;
     public WorkoutsViewHolder(@NonNull View itemView) {
 
         super(itemView);
@@ -25,6 +27,7 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder {
         giorno_settimana = itemView.findViewById(R.id.id_cardworkout_giornosettimana);
         note = itemView.findViewById(R.id.id_cardworkout_note);
         popup = itemView.findViewById(R.id.id_card_workout_popupmenu);
+        checkBox = itemView.findViewById(R.id.id_cardworkout_checkbox);
 
     }
 }

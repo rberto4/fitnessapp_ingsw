@@ -88,9 +88,11 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
             }break;
 
         }
+
         // nascondo la freccia dell'ultimo esercizio in lista
         if (getItemCount() == position+1){
-            holder.modifica.setVisibility(View.VISIBLE);
+            holder.modifica.setVisibility(View.GONE);
+            holder.freccia.setVisibility((View.GONE));
         }
 
         holder.modifica.setOnClickListener(new View.OnClickListener() {
@@ -158,8 +160,8 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
     private void eliminaEsercizio(int position){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Vuoi davvero rimuovere l'esercizio "+list.get(position).getNome()+" dalla lista di esercizi dell'allenamento?");
-        builder.setTitle("Rimuovi esercizio da workout");
+        builder.setMessage("Vuoi davvero rimuovere l'esercizio "+list.get(position).getNome()+" dalla lista di esercizi ? NB: Verrà eliminato non solo dall'allenamento corrente ma anche in maniera definitiva ");
+        builder.setTitle("Elimina esercizio");
         builder.setCancelable(false);
 
         builder.setNegativeButton("No", (dialog, id) -> dialog.cancel());
@@ -168,11 +170,11 @@ public class ListaEserciziWorkoutAdapter extends RecyclerView.Adapter<ListaEserc
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-
                 // DB QUERY PER ELIMINARE
-
+                db.deleteEsercizio(list.get(position).getId());
                 list.remove(position);
-                notifyDataSetChanged();
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,getItemCount());
             }
         });
         AlertDialog alert = builder.create();

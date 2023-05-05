@@ -38,7 +38,9 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
     Button salva;
     ArrayList<Integer> lista_index;
     GiorniSettimana giorniSettimana = GiorniSettimana.Lunedi;
-    int index_giorno = 0;
+    int index_giorno = 0, id;
+    Bundle b;
+    ArrayList<Esercizio> list_esercizi_scelti;
 
     ClasseDatabaseOpenHelper db;
 
@@ -51,6 +53,7 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         nome = findViewById(R.id.id_nuovoworkout_nome);
         nota = findViewById(R.id.id_nuovoworkout_nota);
         giorno = findViewById(R.id.id_nuovoworkout_giorno);
@@ -59,10 +62,12 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
         salva = findViewById(R.id.id_nuovoworkout_salva);
         recyclerView = findViewById(R.id.id_nuovoworkout_rv_di_esercizi);
 
+        b = getIntent().getExtras();
         db = new ClasseDatabaseOpenHelper(this);
+        controlloModifica();
+
         lista_index = new ArrayList<>();
         lista_index.add(0);
-        adapter = new EsInWorkoutAdapter(this,db);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -84,19 +89,50 @@ public class NuovoWorkoutActivity extends AppCompatActivity {
         salva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Esercizio> list_esercizi_scelti = adapter.ottieniListaDiEserciziSelezionati();
                 Workout workout = new Workout(list_esercizi_scelti,nome.getText().toString(),nota.getText().toString(),giorniSettimana);
-                db.aggiungiWorkoutAlDb(workout);
+                if (b != null){
+                    workout.setList_esercizi(adapter.ottieniListaDiEserciziSelezionati());
+                    workout.setId(id);
+                    db.updateWorkout(workout);
+                }else {
+                    list_esercizi_scelti = adapter.ottieniListaDiEserciziSelezionati();
+                    workout.setList_esercizi(list_esercizi_scelti);
+                    db.aggiungiWorkoutAlDb(workout);
+                }
                 onBackPressed();
             }
         });
 
     }
 
+    private void controlloModifica() {
+        if (b != null){
+            Log.d("controllo_enter_controlloModificia","si");
+            list_esercizi_scelti = new ArrayList<>();
+            ArrayList<Esercizio> lista_totale_esercizi;
+            lista_totale_esercizi = db.caricaListaEserciziDaDb();
+            toolbar.setTitle("Modifica allenamento");
+            id = b.getInt("id");
+            nome.setText(b.getString("nome"));
+            nota.setText(b.getString("note"));
+            for (int i = 0; i<b.getIntArray("array_es").length; i++){
+                for (int j = 0; j<lista_totale_esercizi.size(); j++){
+                    if (lista_totale_esercizi.get(j).getId() == b.getIntArray("array_es")[i]){
+                        list_esercizi_scelti.add(lista_totale_esercizi.get(j));
+                    }
+                }
+            }
+            adapter = new EsInWorkoutAdapter(this,db, list_esercizi_scelti);
+        }else{
+            Log.d("controllo_enter_controlloModificia","no");
+            adapter = new EsInWorkoutAdapter(this,db);
+        }
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
-        adapter.caricaListaNomi(true);
+        adapter.caricaListaNomi();
     }
 
     private void impostaGiorno(String string) {

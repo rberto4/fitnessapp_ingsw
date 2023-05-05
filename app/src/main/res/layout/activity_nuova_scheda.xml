@@ -7,11 +7,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.NuovaSchedaActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="true"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginBottom="48dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,19 +34,6 @@
                 app:titleTextColor="@android:color/white">
 
             </com.google.android.material.appbar.MaterialToolbar>
-
-            <TextView
-                android:id="@+id/id_nuovascheda_giorno_selezionato"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="24dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="8dp"
-                />
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,8 +165,8 @@
             android:hint="Nome scheda..."
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:id="@+id/id_nuovoworkout_nome"
+            android:layout_marginTop="8dp"
+            android:id="@+id/id_nuovascheda_nome"
             />
 
             <LinearLayout
@@ -236,13 +227,13 @@
                     ></ImageView>
 
                 <EditText
-                    android:id="@+id/id_nuovoworkout_nota"
+                    android:id="@+id/id_nuovascheda_obiettivo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="12dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Aggiungi una nota..."
+                    android:hint="Aggiungi una nota e l'obiettivo della tua scheda..."
                     android:textSize="18sp"
                     />
 
@@ -252,8 +243,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/id_nuovascheda_rv"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginTop="8dp"></androidx.recyclerview.widget.RecyclerView>
+
 
         <TextView
             android:id="@+id/id_nuovascheda_aggiungi_workout"
@@ -265,19 +256,21 @@
             android:padding="12dp"
             android:textColor="@color/arancio_500"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="48dp"
             android:drawableStart="@drawable/ic_aggiungi"
             android:drawableTint="@color/arancio_500"
             android:layout_gravity="center"
             android:backgroundTint="@color/arancio_500"
             />
     </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/id_nuovascheda_salva"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Salva"
+        android:visibility="visible"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"

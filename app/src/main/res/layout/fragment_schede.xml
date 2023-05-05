@@ -16,15 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/azzurro_500"
-            app:titleTextColor="@color/white">
+            app:titleTextColor="@color/white"
+            android:id="@+id/id_scheda_appbar"
+            >
+
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="58dp"
                 android:entries="@array/Esercizi_petto"
                 android:theme="@style/spinnerTheme"
                 android:id="@+id/id_scheda_spinner_nomi"
-                >
-            </Spinner>
+
+                />
         </com.google.android.material.appbar.MaterialToolbar>
 
         <CalendarView

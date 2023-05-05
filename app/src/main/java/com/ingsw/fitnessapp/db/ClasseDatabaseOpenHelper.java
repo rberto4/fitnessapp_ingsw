@@ -243,12 +243,13 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        for(int i = 0; i < workout.getList_esercizi().size(); i++){
-            cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO,workout.getList_esercizi().get(i).getId());
-            cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
-            db.insert(TABLE_NAME_SUPPORTO, null, cv);
+        if (workout.getList_esercizi().size() != 0) {
+            for (int i = 0; i < workout.getList_esercizi().size(); i++) {
+                cv.put(COLUMN_ID_ESERCIZIO_SUPPORTO, workout.getList_esercizi().get(i).getId());
+                cv.put(COLUMN_ID_WORKOUT_SUPPORTO, workout.getId());
+                db.insert(TABLE_NAME_SUPPORTO, null, cv);
+            }
         }
-
         db.close();
     }
 
@@ -480,15 +481,17 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         cursor.moveToLast();
         do{
-            Schede schede = new Schede(
-                    workoutNelleSchede(cursor.getInt(0)),
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getLong(2),
-                    cursor.getLong(3),
-                    cursor.getString(4)
-            );
-            list.add(schede);
+            if(cursor.getPosition()!=-1) {
+                Schede schede = new Schede(
+                        workoutNelleSchede(cursor.getInt(0)),
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getLong(2),
+                        cursor.getLong(3),
+                        cursor.getString(4)
+                );
+                list.add(schede);
+            }
         }while(cursor.moveToPrevious());
 
         cursor.close();

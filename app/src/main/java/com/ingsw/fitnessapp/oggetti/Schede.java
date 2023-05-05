@@ -21,6 +21,13 @@ public class Schede {
         this.dataFine = dataFine;
         this.obiettivo = obiettivo;
     }
+    public Schede(ArrayList<Workout> list_workout, String nome, long dataInizio, long dataFine, String obiettivo) {
+        this.list_workout = list_workout;
+        this.nome = nome;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.obiettivo = obiettivo;
+    }
 
     public ArrayList<Workout> getList_workout() {
         return list_workout;

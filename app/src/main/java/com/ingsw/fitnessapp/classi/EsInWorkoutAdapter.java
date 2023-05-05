@@ -48,6 +48,18 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
         this.context = context;
         this.db = db;
         list_esercizi_selezionati = new ArrayList<>();
+    }
+    public EsInWorkoutAdapter( Context context, ClasseDatabaseOpenHelper db, ArrayList<Esercizio> list_modifica) {
+        this.context = context;
+        this.db = db;
+        this.list_esercizi_selezionati = list_modifica;
+
+        for (int i = 0; i<list_modifica.size(); i++){
+
+            Log.d("controllo_post_passaggio",list_modifica.get(i).getNome());
+        }
+
+        index = list_esercizi_selezionati.size()+1;
 
     }
     @NonNull
@@ -61,7 +73,6 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
     public void onBindViewHolder(@NonNull EsInWorkoutViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.index.setText(position+1+"°");
-
 
         holder.esercizio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +143,7 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
         });
         SearchView searchView = dialog.findViewById(R.id.id_dialog_nomiesercizi_search);
         list = dialog.findViewById(R.id.id_dialog_nomiesercizi_list);
-        caricaListaNomi(false);
+        caricaListaNomi();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -174,7 +185,7 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
 
     }
 
-    public void caricaListaNomi(boolean appenaCreato){
+    public void caricaListaNomi(){
         lista_esercizi_nomi = new ArrayList<>();
         lista_esercizi = db.caricaListaEserciziDaDb();
 
@@ -201,14 +212,6 @@ public class EsInWorkoutAdapter extends RecyclerView.Adapter<EsInWorkoutViewHold
         adapter = new ArrayAdapter<>(context, androidx.appcompat.R.layout.select_dialog_item_material,lista_esercizi_nomi);
         list.setAdapter(adapter);
 
-        /*
-        if (appenaCreato){
-            lista_esercizi = db.caricaListaEserciziDaDb();
-           // list_esercizi_selezionati.add(lista_esercizi.get(lista_esercizi.size()-1));
-            // dialog.dismiss();
-        }
-
-         */
     }
 
     public ArrayList<Esercizio> ottieniListaDiEserciziSelezionati(){

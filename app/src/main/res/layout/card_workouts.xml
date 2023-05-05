@@ -8,63 +8,81 @@
     android:layout_marginBottom="8dp"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:orientation="horizontal"
         >
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/id_cardworkout_checkbox"
+            android:visibility="gone"
+            />
         <TextView
             android:id="@+id/id_cardworkout_nome"
             android:layout_width="wrap_content"
-            android:layout_height="75dp"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/id_cardworkout_note"
+            android:layout_height="wrap_content"
             android:gravity="center|start"
+            android:layout_gravity="center"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Nome workout"
-            android:maxLines="3"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            android:maxWidth="160dp"
+            android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/id_cardworkout_note"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_icona_note"
-            app:tint="@color/arancio_500"
-            android:layout_toStartOf="@+id/id_cardworkout_giornosettimana"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="8dp"
-            />
-
-        <TextView
-            android:id="@+id/id_cardworkout_giornosettimana"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_chip_giornosettimana"
-            android:padding="8dp"
-            android:text="Lunedi"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_toStartOf="@id/id_card_workout_popupmenu"
-            android:layout_centerVertical="true"
-            />
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="end|center"
+            >
+            <ImageView
+                android:id="@+id/id_cardworkout_note"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_icona_note"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/cerchio_rosso"
+                android:padding="6dp"
+                android:layout_gravity="center"
+                />
 
-        <TextView
-            android:id="@+id/id_card_workout_popupmenu"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:text="&#8942;"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:layout_centerVertical="true"
-            android:textAppearance="?android:textAppearanceLarge"
-            />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/id_cardworkout_giornosettimana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_chip_giornosettimana"
+                android:padding="8dp"
+                android:text="Lunedi"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:textColor="@color/azzurro_500"
+                android:textSize="12sp"
+                android:elevation="2dp"
+                android:drawableStart="@drawable/ic_icona_calendario"
+                android:drawableTint="@color/azzurro_500"
+                android:drawablePadding="4dp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/id_card_workout_popupmenu"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="&#8942;"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
