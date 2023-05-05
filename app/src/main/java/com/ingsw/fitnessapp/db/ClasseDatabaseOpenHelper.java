@@ -594,7 +594,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE, "null");
+        cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE, 0);
         String whereClause = COLUMN_ID_WORKOUT + " =?";
         String[] whereArgs = new String[]{String.valueOf(workout.getId())};
 
