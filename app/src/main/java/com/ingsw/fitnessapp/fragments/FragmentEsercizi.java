@@ -84,8 +84,8 @@ public class FragmentEsercizi extends Fragment {
 
         // CODICE PER LISTA ESERCIZI
         LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
 
         // DB , PRENDERE DATI E METTERE IN LIST

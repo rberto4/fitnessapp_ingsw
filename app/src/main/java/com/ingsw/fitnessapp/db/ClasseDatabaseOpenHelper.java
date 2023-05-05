@@ -295,8 +295,11 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
 
+
+
         cursor.moveToLast();
         do {
+            if(cursor.getPosition()!=-1){
             switch (cursor.getString(3)){
                 case("esercizio_pesistica"):{
                     EsercizioPesistica es = new EsercizioPesistica(
@@ -338,6 +341,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
                     es.setId(cursor.getInt(0));
                     list.add(es);
                 }
+            }
             }
         }while (cursor.moveToPrevious());
 
@@ -430,15 +434,18 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         cursor.moveToLast();
         do {
-            Workout workout = new Workout(
-                    eserciziNelWorkout(cursor.getInt(0)),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    convertiInGiornoSettimana(cursor.getString(3)),
-                    cursor.getInt(4),
-                    cursor.getInt(0)
-            );
-            list.add(workout);
+            if(cursor.getPosition()!=-1) {
+
+                Workout workout = new Workout(
+                        eserciziNelWorkout(cursor.getInt(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        convertiInGiornoSettimana(cursor.getString(3)),
+                        cursor.getInt(4),
+                        cursor.getInt(0)
+                );
+                list.add(workout);
+            }
         }while (cursor.moveToPrevious());
 
         return list;

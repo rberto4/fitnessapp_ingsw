@@ -9,8 +9,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="48dp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +21,7 @@
             android:elevation="8dp"
             >
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/id_nuovoesercizio_appbar"
+                android:id="@+id/id_nuovascheda_appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/azzurro_500"
@@ -34,11 +36,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Mercoledi"
                 android:textSize="24dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginTop="8dp"
                 />
 
@@ -55,8 +56,6 @@
                 <TextView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/white"
                     android:text="L"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -71,11 +70,8 @@
                     />
 
                 <TextView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/arancio_500"
-                    android:textColor="@color/white"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:text="m"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -91,8 +87,6 @@
                 <TextView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/white"
                     android:text="m"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -108,8 +102,6 @@
                 <TextView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/white"
                     android:text="g"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -125,8 +117,6 @@
                 <TextView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/white"
                     android:text="v"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -142,8 +132,6 @@
                 <TextView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/white"
                     android:text="s"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -159,8 +147,6 @@
                 <TextView
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:background="@drawable/cerchio_rosso"
-                    android:backgroundTint="@color/white"
                     android:text="d"
                     android:textSize="18dp"
                     android:textAllCaps="true"
@@ -259,8 +245,34 @@
                     android:hint="Aggiungi una nota..."
                     android:textSize="18sp"
                     />
+
             </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_nuovascheda_rv"
+            android:layout_marginTop="8dp"
+            />
+
+        <TextView
+            android:id="@+id/id_nuovascheda_aggiungi_workout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="  Crea nuovo workout"
+            android:gravity="start|center"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:textColor="@color/arancio_500"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_aggiungi"
+            android:drawableTint="@color/arancio_500"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/arancio_500"
+            />
     </LinearLayout>
+
     <Button
         android:id="@+id/id_nuovascheda_salva"
         android:layout_width="match_parent"
