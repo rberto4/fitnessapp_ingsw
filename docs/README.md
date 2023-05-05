@@ -1,1 +1,1 @@
-Cartella contenente il project plan del progetto in formato pdf
+Cartella contenente il project plan, e tutti i file riguardanti la documentazione.
