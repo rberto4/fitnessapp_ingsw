@@ -10,8 +10,8 @@ android {
         applicationId "com.ingsw.fitnessapp"
         minSdk 26
         targetSdk 33
-        versionCode 1
-        versionName "0.1 Beta"
+        versionCode 3
+        versionName "v1 stable"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
