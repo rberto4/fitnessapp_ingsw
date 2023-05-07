@@ -24,7 +24,7 @@ L'applicazione si presenta in 3 macro-sezioni:
 La navigazione tra le schede avviene tramite la **BottomNavigationBar** presente in basso, inoltre è presente un pulsante **ExtendedFloatingActionButton** che, dinamicamente rispetto alla schermata, ci riporta alle varie Activities dedicate all'aggiunta dei dati, come quella del secondo screenshot, dedicata alla creazione di un nuovo esercizio
 
 ## Docs e UML
-Documentazione e file uml sono nella sezione [docs](https://github.com/rberto4/fitnessapp_ingsw/tree/main/docs)
+Documentazione e file uml sono nella sezione [docs](https://github.com/rberto4/fitnessapp_ingsw/tree/main/docs) e [UML](https://github.com/rberto4/fitnessapp_ingsw/tree/main/UML)
 ## Features future
 in futuro ci piacerebbe che l'app offrisse anche la possibilità di visualzzare uno storico delle progressioni sui carichi degli esercizi o in generale sui sonostri migliramenti
 Anche la possibilità di sfruttarla durante l'allenamento,  con un timer dedicato ai recuperi
