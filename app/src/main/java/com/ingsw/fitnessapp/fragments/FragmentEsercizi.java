@@ -112,6 +112,7 @@ public class FragmentEsercizi extends Fragment {
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
 
                 if (checkedIds.isEmpty()){
+                    list = db.caricaListaEserciziDaDb();
                     adapter.impostaListaFiltrata(list);
                 }else{
                    // adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds.size()));

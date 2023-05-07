@@ -19,15 +19,6 @@
         android:icon="@drawable/ic_icona_favorite"
         android:iconTint="@color/white"
         android:title="">
-
     </item>
 
-    <item
-        android:id="@+id/id_menu_esercizi_help"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_icona_help"
-        android:iconTint="@color/white"
-        android:title="">
-
-    </item>
 </menu>

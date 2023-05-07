@@ -38,7 +38,7 @@ public class FragmentSchede extends Fragment {
 
 
     CalendarView calendario;
-    Calendar oggi,c;
+    Calendar oggi,c,min,max;
     Spinner spinner_nomi;
     RecyclerView rv;
     TextView workout_giornocorrente;
@@ -65,11 +65,10 @@ public class FragmentSchede extends Fragment {
         c = Calendar.getInstance(Locale.ITALIAN);
         c.setTimeInMillis(calendario.getDate());
         oggi = Calendar.getInstance(Locale.ITALIAN);
+        min = Calendar.getInstance(Locale.ITALIAN);
+        max = Calendar.getInstance(Locale.ITALIAN);
 
         workout_giornocorrente.setText(impostaScrittaGiorno());
-
-        Log.d("CALENDARIO:",c.getTimeInMillis()+"");
-        Log.d("CALENDARIO_oggi:",oggi.getTimeInMillis()+"");
 
         impostaSpinner(v.getContext());
         spinner_nomi.setSelection(0);
@@ -79,7 +78,10 @@ public class FragmentSchede extends Fragment {
                 ((TextView) spinner_nomi.getChildAt(0)).setTextColor(v.getResources().getColor(R.color.white));
                 ((TextView) spinner_nomi.getChildAt(0)).setTypeface(Typeface.DEFAULT_BOLD);
                 ((TextView) spinner_nomi.getChildAt(0)).setTextSize(22);
+
                 cambiaScheda(position,v.getContext());
+                workout_giornocorrente.setText(impostaScrittaGiorno());
+
             }
 
             @Override
@@ -133,11 +135,11 @@ public class FragmentSchede extends Fragment {
         adapter = new WorkoutsAdapter(context,list_filtered,db,false);
         rv.setLayoutManager(new LinearLayoutManager(context));
         rv.setAdapter(adapter);
-
-
-        //calendar.setMinDate(list.get(position).getDataInizio());
-        //calendar.setMaxDate(list.get(position).getDataFine());
-
+        min.setTimeInMillis(list.get(position).getDataInizio());
+        Toast.makeText(context, min.get(Calendar.DAY_OF_YEAR)+"", Toast.LENGTH_SHORT).show();
+        max.setTimeInMillis(list.get(position).getDataFine());
+        calendario.setMinDate(min.getTimeInMillis());
+        calendario.setMaxDate(max.getTimeInMillis());
 
     }
 
@@ -179,6 +181,8 @@ public class FragmentSchede extends Fragment {
 
         if (c.get(Calendar.DAY_OF_MONTH) == oggi.get(Calendar.DAY_OF_MONTH) && c.get(Calendar.MONTH) == oggi.get(Calendar.MONTH) ){
             s = "Workout di oggi";
+        }else if (riconosciGiornoSettimanaDaCalendario().equals(GiorniSettimana.Domenica)){
+            s = "Workout della "+riconosciGiornoSettimanaDaCalendario().name();
         }else{
             s = "Workout del "+riconosciGiornoSettimanaDaCalendario().name();
         }

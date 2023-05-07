@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.ingsw.fitnessapp.R;
@@ -28,6 +29,7 @@ import com.ingsw.fitnessapp.oggetti.Workout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class NuovaSchedaActivity extends AppCompatActivity {
 
@@ -58,9 +60,6 @@ public class NuovaSchedaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        min = Calendar.getInstance();
-        max = Calendar.getInstance();
-
         db = new ClasseDatabaseOpenHelper(this);
         adapter = new WorkoutsAdapter(this,list,db,true);
 
@@ -89,6 +88,9 @@ public class NuovaSchedaActivity extends AppCompatActivity {
         modificaVistaTasto(sabato,false);
         modificaVistaTasto(venerdi,false);
         modificaVistaTasto(domenica,false);
+
+        min = Calendar.getInstance(Locale.ITALIAN);
+        max = Calendar.getInstance(Locale.ITALIAN);
 
 
         lunedi.setOnClickListener(new View.OnClickListener() {
@@ -308,9 +310,9 @@ public class NuovaSchedaActivity extends AppCompatActivity {
         switch (s){
             case ("Inizio scheda"):{
                 calendario.setMinDate(calendario.getDate());
-                min.setTimeInMillis(calendario.getDate());
             }break;
             case ("Fine scheda"):{
+                Toast.makeText(this, "min: "+min.get(Calendar.DAY_OF_MONTH), Toast.LENGTH_SHORT).show();
                 calendario.setMinDate(min.getTimeInMillis());
             }break;
         }
@@ -318,17 +320,15 @@ public class NuovaSchedaActivity extends AppCompatActivity {
         calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Calendar c = Calendar.getInstance();
-                c.set(year,month,dayOfMonth);
                 switch (s){
                     case ("Inizio scheda"):{
-                        min.setTimeInMillis(c.getTimeInMillis());
-                        inizio.setText(min.getTime().getDate()+"");
+                        min.set(year,month,dayOfMonth);
+                        inizio.setText("Inizierà dal "+dayOfMonth+"/"+(month+1)+"/"+year);
                         dialog.dismiss();
                     }break;
                     case ("Fine scheda"):{
-                        max.setTimeInMillis(c.getTimeInMillis());
-                        fine.setText(max.getTime().getDate()+"");
+                        max.set(year,month,dayOfMonth);
+                        fine.setText("Fino al "+dayOfMonth+"/"+(month+1)+"/"+year);
                         dialog.dismiss();
                     }break;
                 }
