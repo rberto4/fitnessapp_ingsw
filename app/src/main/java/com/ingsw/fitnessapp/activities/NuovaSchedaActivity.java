@@ -312,7 +312,6 @@ public class NuovaSchedaActivity extends AppCompatActivity {
                 calendario.setMinDate(calendario.getDate());
             }break;
             case ("Fine scheda"):{
-                Toast.makeText(this, "min: "+min.get(Calendar.DAY_OF_MONTH), Toast.LENGTH_SHORT).show();
                 calendario.setMinDate(min.getTimeInMillis());
             }break;
         }
@@ -337,6 +336,7 @@ public class NuovaSchedaActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -348,8 +348,10 @@ public class NuovaSchedaActivity extends AppCompatActivity {
     private void applicaFiltro() {
         ArrayList<Workout> list_filtered = new ArrayList<>();
         for (Workout workout: list){
-            if (workout.getGiorniSettimana().equals(gs)){
-                list_filtered.add(workout);
+            if (workout.getIdSchedaCorrispondente() == 0){
+                if (workout.getGiorniSettimana().equals(gs)){
+                    list_filtered.add(workout);
+                }
             }
         }
         adapter.filtraPerGiornoSettimana(list_filtered);

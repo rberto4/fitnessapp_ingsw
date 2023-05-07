@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/id_menu_scheda_nota"
+        app:showAsAction="never"
+        android:title="Mostra note scheda"
+        android:iconTint="@color/white"
+        ></item>
+    <item
+        android:id="@+id/id_menu_scheda_delete"
+        app:showAsAction="never"
+        android:title="Elimina scheda definitivamente"
+        android:iconTint="@color/white"
+        ></item>
+
+
+
+
+
+</menu>

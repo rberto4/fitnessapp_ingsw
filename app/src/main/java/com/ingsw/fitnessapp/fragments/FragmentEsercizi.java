@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -20,17 +22,14 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.ingsw.fitnessapp.R;
-import com.ingsw.fitnessapp.activities.MainActivity;
 import com.ingsw.fitnessapp.classi.EserciziAdapter;
 import com.ingsw.fitnessapp.classi.GruppiMuscolari;
 import com.ingsw.fitnessapp.classi.TipoEsercizio;
 import com.ingsw.fitnessapp.db.ClasseDatabaseOpenHelper;
 import com.ingsw.fitnessapp.oggetti.Esercizio;
-import com.ingsw.fitnessapp.oggetti.EsercizioCardio;
 import com.ingsw.fitnessapp.oggetti.EsercizioPesistica;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -61,12 +60,13 @@ public class FragmentEsercizi extends Fragment {
 
 
         db = new ClasseDatabaseOpenHelper(v.getContext());
+        list = db.caricaListaEserciziDaDb();
         toolbar = v.findViewById(R.id.id_esercizi_toolbar);
         gruppo_chips = v.findViewById(R.id.id_esercizi_chipgroup);
         recyclerView = v.findViewById(R.id.id_rv_esercizi);
         searchView = v.findViewById(R.id.id_searchview_esercizi);
         layout_no_esercizi = v.findViewById(R.id.id_layout_nessunesercizio);
-        searchView.clearFocus();
+        //searchView.clearFocus();
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -115,7 +115,7 @@ public class FragmentEsercizi extends Fragment {
                     list = db.caricaListaEserciziDaDb();
                     adapter.impostaListaFiltrata(list);
                 }else{
-                   // adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds.size()));
+                   adapter.impostaListaFiltrata(filtraListaPerTipo(checkedIds));
                 }
             }
         });
@@ -136,7 +136,37 @@ public class FragmentEsercizi extends Fragment {
             }
         });
 
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.id_menu_rimuovifiltri_esercizi:
+                        rimuoviFiltri();
+                        return true;
+                    case R.id.id_menu_filtra_favorite:
+                        filtraPerPreferiti();
+                    default:
+                        return false;
+                }
+            }
+        });
         return v;
+    }
+
+    private void rimuoviFiltri() {
+        adapter.impostaListaFiltrata(list);
+        gruppo_chips.clearCheck();
+    }
+
+    private void filtraPerPreferiti() {
+        ArrayList<Esercizio> lista_filtrata = new ArrayList<>();
+        for (Esercizio esercizio: list){
+            if (esercizio.isFavorite()){
+                lista_filtrata.add(esercizio);
+            }
+        }
+        adapter.impostaListaFiltrata(lista_filtrata);
     }
 
     // filtro per ricerca testuale
@@ -153,58 +183,53 @@ public class FragmentEsercizi extends Fragment {
         }
     }
 
-    private ArrayList<Esercizio> filtraListaPerTipo(int i) {
+    private ArrayList<Esercizio> filtraListaPerTipo(List<Integer> checkedIds) {
         ArrayList<Esercizio> lista_filtrata = new ArrayList<>();
-         switch (((Chip) gruppo_chips.getChildAt(i)).getText().toString()) {
-                case ("Petto"):{
-                    for ( Esercizio esercizio : list){
-                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Petto.name())){
-                            lista_filtrata.add(esercizio);
-                        }
+        ArrayList<GruppiMuscolari> lista_gruppi_selezionati = new ArrayList<>();
+
+        for (int i = 0;i<checkedIds.size(); i++){
+            for (int j = 0; j<gruppo_chips.getChildCount(); j++){
+                Chip chip = (Chip) gruppo_chips.getChildAt(j);
+                if(chip.getId() == checkedIds.get(i)){
+                    Log.d("logchip",chip.getText().toString());
+                    switch(chip.getText().toString()){
+                        case("Petto"):{
+                            lista_gruppi_selezionati.add(GruppiMuscolari.Petto);
+                        }break;
+                        case("Braccia"):{
+                            lista_gruppi_selezionati.add(GruppiMuscolari.Braccia);
+                        }break;
+                        case("Schiena"):{
+                            lista_gruppi_selezionati.add(GruppiMuscolari.Schiena);
+                        }break;
+                        case("Spalle"):{
+                            lista_gruppi_selezionati.add(GruppiMuscolari.Spalle);
+                        }break;
+                        case("Gambe"):{
+                            lista_gruppi_selezionati.add(GruppiMuscolari.Gambe);
+                        }break;
+                        case("Addome"):{
+                            lista_gruppi_selezionati.add(GruppiMuscolari.Addome);
+                        }break;
+                        default:{
+                            for (Esercizio esercizio: list){
+                                if (esercizio.getTipo().equals(TipoEsercizio.esercizio_cardio)){
+                                    lista_filtrata.add(esercizio);
+                                }
+                            }
+                        }break;
                     }
                 }
-                break;
-                case ("Braccia"): {
-                    for ( Esercizio esercizio : list){
-                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Braccia.name())){
-                            lista_filtrata.add(esercizio);
-                        }
-                    }
-                }
-                break;
-                case ("Schiena"): {
-                    for ( Esercizio esercizio : list){
-                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Schiena.name())){
-                            lista_filtrata.add(esercizio);
-                        }
-                    }
-                }
-                break;
-                case ("Spalle"): {
-                    for ( Esercizio esercizio : list){
-                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Spalle.name())){
-                            lista_filtrata.add(esercizio);
-                        }
-                    }
-                }
-                break;
-                case ("Gambe"): {
-                    for ( Esercizio esercizio : list){
-                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_pesistica.name()) && ((EsercizioPesistica) esercizio).getGruppiMuscolari().name().equals(GruppiMuscolari.Gambe.name())){
-                            lista_filtrata.add(esercizio);
-                        }
-                    }
-                }
-                break;
-                case ("Cardio"): {
-                    for ( Esercizio esercizio : list){
-                        if (esercizio.getTipo().name().equals(TipoEsercizio.esercizio_cardio.name())){
-                            lista_filtrata.add(esercizio);
-                        }
-                    }
-                }
-                break;
             }
+        }
+
+        for (Esercizio esercizio: list){
+            if (esercizio.getTipo().equals(TipoEsercizio.esercizio_pesistica)){
+                if (lista_gruppi_selezionati.contains(((EsercizioPesistica) esercizio).getGruppiMuscolari())){
+                    lista_filtrata.add(esercizio);
+                }
+            }
+        }
         return lista_filtrata;
     }
 

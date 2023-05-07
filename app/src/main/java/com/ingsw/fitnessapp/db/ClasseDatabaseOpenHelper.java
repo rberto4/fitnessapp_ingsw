@@ -24,8 +24,8 @@ import java.util.ArrayList;
 
 public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
     private final Context context;
-    private static final String DATABASE_NAME = "Test.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "Database.db";
+    private static final int DATABASE_VERSION = 2;
 
     //lista degli attributi della tabella esercizi
     private static final String TABLE_NAME_ESERCIZI = "esercizi";
@@ -584,18 +584,18 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
         String whereClause = COLUMN_ID_SCHEDE + " =?";
         String[] whereArgs = new String[]{String.valueOf(schede.getId())};
 
-        for(int i =0; i < schede.getList_workout().size(); i++){
-            rimuoviWorkoutDaScheda(schede.getList_workout().get(i));
+        if (!schede.getList_workout().isEmpty()) {
+            for (int i = 0; i < schede.getList_workout().size(); i++) {
+                rimuoviWorkoutDaScheda(schede.getList_workout().get(i), db);
+            }
         }
-
         db.delete(TABLE_NAME_SCHEDE, whereClause, whereArgs );
 
         db.close();
     }
 
-    public void rimuoviWorkoutDaScheda(Workout workout){
+    public void rimuoviWorkoutDaScheda(Workout workout,SQLiteDatabase db){
 
-        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ID_SCHEDA_CORRISPONDENTE, 0);
         String whereClause = COLUMN_ID_WORKOUT + " =?";
@@ -603,7 +603,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         db.update(TABLE_NAME_WORKOUT, cv, whereClause, whereArgs);
 
-        db.close();
+        //db.close();
     }
 
     // Passo l'oggetto esercizio e modifico la riga corrispondente nel db
@@ -649,7 +649,7 @@ public class ClasseDatabaseOpenHelper extends SQLiteOpenHelper {
 
         for(int i =0; i < list.size(); i++){
             if(list.get(i).getIdSchedaCorrispondente() == schede.getId()){
-                rimuoviWorkoutDaScheda(list.get(i));
+                rimuoviWorkoutDaScheda(list.get(i),db);
             }
         }
 

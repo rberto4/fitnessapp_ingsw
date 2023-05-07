@@ -117,6 +117,16 @@
                     app:iconStartPadding="8dp" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/id_esercizi_chip_addome"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Addome"
+                    app:chipIcon="@drawable/muscle"
+                    app:chipIconVisible="true"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
                     android:id="@+id/id_esercizi_chip_cardio"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
