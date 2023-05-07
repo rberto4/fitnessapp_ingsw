@@ -6,7 +6,7 @@
 * Stefano Cosseddu
 + Mirko Carrara
 * Francesco Peracchi
-# Alcuni screenshots
+## Alcuni screenshots
 <img src="https://github.com/rberto4/fitnessapp_ingsw/blob/cc254b45e06b242bb554dde10ac2816deb3b76e9/Screenshots/Screenshot_20230507_112616.png" width=20% height=20%></img>
 <img src="https://github.com/rberto4/fitnessapp_ingsw/blob/cc254b45e06b242bb554dde10ac2816deb3b76e9/Screenshots/Screenshot_20230507_112436.png" width=20% height=20%></img>
 <img src="https://github.com/rberto4/fitnessapp_ingsw/blob/cc254b45e06b242bb554dde10ac2816deb3b76e9/Screenshots/Screenshot_20230507_113058.png" width=20% height=20%></img>
