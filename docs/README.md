@@ -1,6 +1,8 @@
 <img src="https://media.salonedellostudente.it/app/uploads/2020/05/07180748/bergamo-logo-700x473-1.png" width=20% height=20%></img>
 # Progetto Ing. del Software - FitnessApp
 
+![GitHub release (by tag)](https://img.shields.io/github/downloads/rberto4/fitnessapp_ingsw/stable/total)
+
 ## progetto svolto da:
 - Roberto Bertocchi 
 * Stefano Cosseddu
