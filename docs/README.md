@@ -65,7 +65,7 @@ Vengono visualizzati in prima funzione, il giorno della settimana assegnato, un 
 La schermata di creazione dedicata all'allenamento, permette la scelta del **giorno della settimana** tramite l'apposito selettore, il nome e le note opzionali e naturalemente, si potranno **selezionare gli esercizi** da noi creati in precedenza o **crearne al momento**, di nuovi, per poi selezionarli in ordine di esecuzione.
 
 ### Schermata Schede
-il fragment dedicato alla **shcermata delle schede**, probabilmente la schermata core dell'applicazione, consente all'utente di avere una **vista **giornaliera dei propri allenamenti visualizzando sul **calendario dedicato**, l'allenamento (uno o **molteplici** in caso di doppie sedute giornaliere) della **giornata odierna** (mostrata di default all'avvio dell'app) e di tutte quelle che rientrano nel range della scheda corrente.
+il fragment dedicato alla **shcermata delle schede**, probabilmente la schermata core dell'applicazione, consente all'utente di avere una **vista giornaliera** dei propri allenamenti visualizzando sul **calendario dedicato**, l'allenamento (uno o **molteplici** in caso di doppie sedute giornaliere) della **giornata odierna** (mostrata di default all'avvio dell'app) e di tutte quelle che rientrano nel range della scheda corrente.
 Sull'appBar si possono **switchare le schede create in precedenza** (mostrate in un menù dropdown a scomparsa), oppure mostrare il menù relativo alle **note della scheda** e il tasto per **eliminarla definitivamente**.
 
 ### Schermata Nuova Scheda
