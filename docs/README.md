@@ -12,7 +12,13 @@
 <img src="https://github.com/rberto4/fitnessapp_ingsw/blob/cc254b45e06b242bb554dde10ac2816deb3b76e9/Screenshots/Screenshot_20230507_113058.png" width=20% height=20%></img>
 <img src="https://github.com/rberto4/fitnessapp_ingsw/blob/cc254b45e06b242bb554dde10ac2816deb3b76e9/Screenshots/Screenshot_20230507_114321.png" width=20% height=20%></img>
 
-## Docs e UML
+## Codice, Docs e UML
+il codice è presente nella directory principale della repository, su Android Studio, verrà riconosciuto in automatico il progetto selezionando la cartella clonata. link utili: 
++ [packages di classi java](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/main/java/com/ingsw/fitnessapp)
+- [classi per i test Junit](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/test/java/com/ingsw/fitnessapp)
+* [classe per test Espresso](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/androidTest/java/com/ingsw/fitnessapp)
++ [file xml per UI](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/main/res)
+
 Documentazione e file uml sono nella sezione [docs](https://github.com/rberto4/fitnessapp_ingsw/tree/main/docs) e [UML](https://github.com/rberto4/fitnessapp_ingsw/tree/main/UML)
 
 ## FitnessApp in breve
