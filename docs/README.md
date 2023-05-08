@@ -15,6 +15,7 @@
 ## Codice, Docs e UML
 il codice è presente nella directory principale della repository, su Android Studio, verrà riconosciuto in automatico il progetto selezionando la cartella clonata. link utili: 
 + [packages di classi java](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/main/java/com/ingsw/fitnessapp)
+* [classe dedicata al Db con tabelle e query SQL](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/main/java/com/ingsw/fitnessapp/db)
 - [classi per i test Junit](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/test/java/com/ingsw/fitnessapp)
 * [classe per test Espresso](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/androidTest/java/com/ingsw/fitnessapp)
 + [file xml per UI](https://github.com/rberto4/fitnessapp_ingsw/tree/main/app/src/main/res)
